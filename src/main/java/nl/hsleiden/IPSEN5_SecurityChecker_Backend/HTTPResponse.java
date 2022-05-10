@@ -2,19 +2,9 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class HTTPResponse<T> {
-    /**
-     * the code to send back on success
-     */
+
     private static final String SUCCESS_RESPONSE_CODE = "SUCCESS";
-
-    /**
-     * the response code, mostly "FAILURE" or "SUCCESS"
-     */
     private String response;
-
-    /**
-     * the error message
-     */
     private String error;
     private T data;
 
@@ -36,9 +26,6 @@ public class HTTPResponse<T> {
         return data;
     }
 
-    /** checks if this HTTPResponse is a success, is ignored by json
-     * @return whether this HTTPResponse contains a success
-     */
     @JsonIgnore
     public boolean isSuccess() {
         return response.equals(SUCCESS_RESPONSE_CODE);

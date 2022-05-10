@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.HTTPResponse;
-
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +33,4 @@ public class UserController {
         user.getRole().forEach(role -> roles.add(role.getRoleName()));
         return new UserResponse(user.getEmail(), roles);
     }
-
-    @GetMapping({"/test"})
-    public HTTPResponse getOrder(@RequestParam(name = "name", defaultValue = "jarry") String name){
-        return HTTPResponse.returnSuccess("works");
-    }
-
 }
