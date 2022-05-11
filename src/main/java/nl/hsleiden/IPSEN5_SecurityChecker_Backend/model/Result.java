@@ -17,24 +17,19 @@ public class Result {
     @Column(name = "is_Finished")
     private boolean isFinished;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private User user;
-
-    public Result(long resultId, String date, String url, int scansDone, boolean isFinished, User user) {
+    public Result(long resultId, String date, String url, int scansDone, boolean isFinished) {
         this.resultId = resultId;
         this.date = date;
         this.url = url;
         this.scansDone = scansDone;
         this.isFinished = isFinished;
-        this.user = user;
     }
 
-    public Result(String date, String url, int scansDone, boolean isFinished, User user) {
+    public Result(String date, String url, int scansDone, boolean isFinished) {
         this.date = date;
         this.url = url;
         this.scansDone = scansDone;
         this.isFinished = isFinished;
-        this.user = user;
     }
 
     public Result() {
@@ -81,11 +76,4 @@ public class Result {
         isFinished = finished;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-}
+   }

@@ -1,42 +1,41 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao;
 
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.repository.ResultRepository;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Result;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.User;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.repository.ScanRepository;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ResultDAO implements Dao<Result, String> {
+public class ScanDao implements Dao<Scan, String> {
 
     @Autowired
-    private ResultRepository repository;
+    private ScanRepository repository;
 
     @Override
-    public List<Result> getAll() {
+    public List<Scan> getAll() {
         return this.repository.findAll();
     }
 
     @Override
-    public Result get(String id) {
+    public Scan get(String id) {
         return this.repository.getById(id);
     }
 
     @Override
-    public Result create(Result result) {
+    public Scan create(Scan result) {
         return this.repository.save(result);
     }
 
     @Override
-    public void update(Result result) {
+    public void update(Scan result) {
         this.repository.save(result);
     }
 
     @Override
-    public void delete(Result result) {
+    public void delete(Scan result) {
         this.repository.delete(result);
     }
 

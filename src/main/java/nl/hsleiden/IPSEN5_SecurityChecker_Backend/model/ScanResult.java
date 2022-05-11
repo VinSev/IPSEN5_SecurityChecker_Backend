@@ -3,7 +3,6 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.Dictionary;
 
 public class ScanResult {
@@ -13,21 +12,21 @@ public class ScanResult {
     @ManyToOne(targetEntity = Result.class , fetch = FetchType.EAGER)
     private String result;
     private int grade;
-    private Dictionary<String,String> entry;
+    private Dictionary<String,String> component;
 
 //    Constructor
 
-    public ScanResult(String scan, String result, int grade, Dictionary<String, String> entry) {
+    public ScanResult(String scan, String result, int grade, Dictionary<String, String> component) {
         this.scan = scan;
         this.result = result;
         this.grade = grade;
-        this.entry = entry;
+        this.component = ScanResult.this.component;
     }
 
-    public ScanResult(String result, int grade, Dictionary<String, String> entry) {
+    public ScanResult(String result, int grade, Dictionary<String, String> component) {
         this.result = result;
         this.grade = grade;
-        this.entry = entry;
+        this.component = ScanResult.this.component;
     }
 
     public ScanResult() {
@@ -58,11 +57,11 @@ public class ScanResult {
         this.grade = grade;
     }
 
-    public Dictionary<String, String> getEntry() {
-        return entry;
+    public Dictionary<String, String> setComponent() {
+        return component;
     }
 
-    public void setEntry(Dictionary<String, String> entry) {
-        this.entry = entry;
+    public void setComponent(Dictionary<String, String> component) {
+        this.component = ScanResult.this.component;
     }
 }

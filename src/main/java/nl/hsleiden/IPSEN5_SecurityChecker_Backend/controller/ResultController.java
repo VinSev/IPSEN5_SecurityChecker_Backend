@@ -1,9 +1,8 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ResultDAO;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ResultDao;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Result;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.User;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,20 +15,20 @@ import java.util.List;
 public class ResultController {
 
     @Autowired
-    public final ResultDAO resultDAO;
+    public final ResultDao resultDAO;
 
     @Autowired
     public final ResultService resultService;
 
-    public ResultController( ResultDAO resultDAO, ResultService resultService) {
+    public ResultController(ResultDao resultDAO, ResultService resultService) {
         this.resultService = resultService;
         this.resultDAO = resultDAO;
     }
 
     @PostMapping({"/start"})
     @ResponseBody
-    public Result startScan(@RequestBody User user, String url) {
-        return resultService.createNew(user, url);
+    public Result startScan(@RequestBody String url) {
+        return resultService.createNew(url);
     }
 
     @GetMapping(value = "/all")

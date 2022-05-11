@@ -8,17 +8,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ScanService {
+
     private Scan[] scans;
 
     @Autowired
     private ResultService resultService;
+
 
     public ScanService(ResultService resultService) {
         this.resultService = resultService;
     }
 
     private Result startScan(User user, String url) {
-         Result newResult = this.resultService.createNew(user, url);
+         Result newResult = this.resultService.createNew(url);
          Result finishedResult = ScanProcess(newResult);
          return  finishedResult;
     }
