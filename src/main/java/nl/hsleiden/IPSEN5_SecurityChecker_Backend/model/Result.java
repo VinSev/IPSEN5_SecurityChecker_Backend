@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "result")
@@ -13,22 +14,23 @@ public class Result {
     private String date;
     private String url;
     @Column(name = "scans_results")
-    private int scansDone;
+    @OneToMany(targetEntity = ScanResult.class , fetch = FetchType.EAGER)
+    private List<ScanResult> scanResults;
     @Column(name = "is_Finished")
     private boolean isFinished;
 
-    public Result(long resultId, String date, String url, int scansDone, boolean isFinished) {
+    public Result(long resultId, String date, String url, List<ScanResult> scanResults, boolean isFinished) {
         this.resultId = resultId;
         this.date = date;
         this.url = url;
-        this.scansDone = scansDone;
+        this.scanResults = scanResults;
         this.isFinished = isFinished;
     }
 
-    public Result(String date, String url, int scansDone, boolean isFinished) {
+    public Result(String date, String url, List<ScanResult> scanResults, boolean isFinished) {
         this.date = date;
         this.url = url;
-        this.scansDone = scansDone;
+        this.scanResults = scanResults;
         this.isFinished = isFinished;
     }
 
@@ -60,12 +62,12 @@ public class Result {
         this.url = url;
     }
 
-    public int getScansDone() {
-        return scansDone;
+    public List<ScanResult> getScanResults() {
+        return scanResults;
     }
 
-    public void setScansDone(int scansDone) {
-        this.scansDone = scansDone;
+    public void setScanResults(List<ScanResult> scansDone) {
+        this.scanResults = scansDone;
     }
 
     public boolean isFinished() {

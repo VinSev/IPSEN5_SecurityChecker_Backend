@@ -10,8 +10,8 @@ public class Scan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scan_id")
     private long scanId;
-    private String link;
     private String name;
+    private String link;
     @Column(name = "update_date")
     private String updateDate;
 
