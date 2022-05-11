@@ -26,7 +26,13 @@ public class User {
             }
     )
     private Set<Role> role;
-
+    @NotBlank
+    private String name;
+    private String telephone;
+    @NotBlank
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Set<Result> scans;
     public User() {
 
     }
@@ -58,5 +64,29 @@ public class User {
 
     public void setRole(Set<Role> role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Set<Result> getScans() {
+        return scans;
+    }
+
+    public void setScans(Set<Result> scans) {
+        this.scans = scans;
     }
 }
