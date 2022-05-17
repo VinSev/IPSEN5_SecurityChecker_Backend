@@ -2,42 +2,41 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao;
 
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.repository.ResultRepository;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Result;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.User;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ResultDao implements Dao<Result, String> {
+public class ResultDao implements Dao<ScanResult, String> {
 
     @Autowired
     private ResultRepository repository;
 
     @Override
-    public List<Result> getAll() {
+    public List<ScanResult> getAll() {
         return this.repository.findAll();
     }
 
     @Override
-    public Result get(String id) {
+    public ScanResult get(String id) {
         return this.repository.getById(id);
     }
 
     @Override
-    public Result create(Result result) {
-        return this.repository.save(result);
+    public ScanResult create(ScanResult scanResult) {
+        return this.repository.save(scanResult);
     }
 
     @Override
-    public void update(Result result) {
-        this.repository.save(result);
+    public void update(ScanResult scanResult) {
+        this.repository.save(scanResult);
     }
 
     @Override
-    public void delete(Result result) {
-        this.repository.delete(result);
+    public void delete(ScanResult scanResult) {
+        this.repository.delete(scanResult);
     }
 
 }

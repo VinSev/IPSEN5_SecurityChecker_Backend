@@ -32,7 +32,7 @@ public class User {
     @NotBlank
     @OneToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    private Set<Result> scans;
+    private Set<ScanResult> scans;
     public User() {
 
     }
@@ -82,11 +82,11 @@ public class User {
         this.telephone = telephone;
     }
 
-    public Set<Result> getScans() {
+    public Set<ScanResult> getScans() {
         return scans;
     }
 
-    public void setScans(Set<Result> scans) {
+    public void setScans(Set<ScanResult> scans) {
         this.scans = scans;
     }
 }

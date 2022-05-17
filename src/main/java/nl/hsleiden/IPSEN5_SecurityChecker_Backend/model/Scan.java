@@ -10,29 +10,71 @@ public class Scan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scan_id")
     private long scanId;
-    private String name;
+    private String phoneNumber;
+    private boolean declarationOwnership;
+    @Column(name = "url")
     private String link;
+    @OneToOne
+    @JoinColumn
+    private ScanResult scanResult;
     @Column(name = "update_date")
     private String updateDate;
+//
+////    Constructors
 
-//    Constructors
-    public Scan(long scanId, String link, String name, String updateDate) {
+    public Scan(long scanId, String phoneNumber, boolean declarationOwnership, String link, ScanResult scanResult, String updateDate) {
         this.scanId = scanId;
+        this.phoneNumber = phoneNumber;
+        this.declarationOwnership = declarationOwnership;
         this.link = link;
-        this.name = name;
+        this.scanResult = scanResult;
         this.updateDate = updateDate;
     }
 
-    public Scan(String link, String name, String updateDate) {
+    public Scan(String phoneNumber, boolean declarationOwnership, String link, ScanResult scanResult, String updateDate) {
+        this.phoneNumber = phoneNumber;
+        this.declarationOwnership = declarationOwnership;
         this.link = link;
-        this.name = name;
+        this.scanResult = scanResult;
         this.updateDate = updateDate;
     }
 
     public Scan() {
     }
 
+//    public Scan(String link, String name, String updateDate) {
+//        this.link = link;
+//        this.name = name;
+//        this.updateDate = updateDate;
+
+//    }
+
     //    Getters Setters
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isDeclarationOwnership() {
+        return declarationOwnership;
+    }
+
+    public void setDeclarationOwnership(boolean declarationOwnership) {
+        this.declarationOwnership = declarationOwnership;
+    }
+
+    public ScanResult getScanResult() {
+        return scanResult;
+    }
+
+    public void setScanResult(ScanResult scanResult) {
+        this.scanResult = scanResult;
+    }
 
     public long getScanId() {
         return scanId;
@@ -48,14 +90,6 @@ public class Scan {
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUpdateDate() {

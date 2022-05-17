@@ -1,9 +1,9 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ScanDao;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Result;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult_TEST;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,26 +29,26 @@ public class ScanService {
         this.resultService = resultService;
     }
 
-    private Result startScan(User user, String url) {
-         Result newResult = this.resultService.createNew(url);
-         Result finishedResult = ScanProcess(newResult);
-         return  finishedResult;
+    private ScanResult startScan(User user, String url) {
+         ScanResult newScanResult = this.resultService.createNew(url);
+         ScanResult finishedScanResult = ScanProcess(newScanResult);
+         return finishedScanResult;
     }
 
-    private Result ScanProcess(Result result){
+    private ScanResult ScanProcess(ScanResult scanResult){
         for(Scan scan: scans){
-            addScanToResult(result,scan);
+            addScanToResult(scanResult,scan);
         }
-        return result;
+        return scanResult;
     }
 
-    private Result addScanToResult(Result currentResult, Scan scan) {
-        HashMap<String,String> scanComponents = getScanResult(scan.getLink(), currentResult.getUrl());
+    private ScanResult addScanToResult(ScanResult currentScanResult, Scan scan) {
+        HashMap<String,String> scanComponents = getScanResult(scan.getLink(), String.valueOf(currentScanResult.getCertificates()));
         int grade = calculateGrade(scanComponents);
-        ScanResult scanResults = new ScanResult(scan, currentResult,grade, scanComponents);
-        currentResult.setScanResults(currentResult.getScanResults());
+        ScanResult_TEST scanResults = new ScanResult_TEST(scan, currentScanResult,grade, scanComponents);
+//        currentScanResult.setScanResults(currentScanResult.getScanResults());
 //                .add(scanResults));  Geeft boolean terug ??
-        return currentResult;
+        return currentScanResult;
     }
 
     private int calculateGrade(HashMap<String, String> scanComponents) {

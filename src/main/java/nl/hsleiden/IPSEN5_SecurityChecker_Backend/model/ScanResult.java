@@ -1,67 +1,128 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.util.HashMap;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "result")
 public class ScanResult {
+
     @Id
-    @ManyToOne(targetEntity = Result.class , fetch = FetchType.EAGER)
-    private Result result;
-    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
+    @OneToOne(optional = false)
+    @JoinColumn(name = "scan_id", nullable = false)
     private Scan scan;
-    private int grade;
-    private HashMap<String,String> scanComponent;
+    private int headers;
+    private int XSSAndInjection;
+    private int certificates;
+    private int wordPressVulnerability;
+    @Column(name = "version_url")
+    private int version;
+    @Column(name = "login_url")
+    private int login;
+    private int dataSecurity;
+    private int SEO;
 
-//    Constructor
 
-    public ScanResult(Scan scan, Result result, int grade, HashMap<String, String> scanComponent) {
-        this.scan = scan;
-        this.result = result;
-        this.grade = grade;
-        this.scanComponent = scanComponent;
+//    @Column(name = "scans_results")
+//    @OneToMany(targetEntity = ScanResult.class , fetch = FetchType.EAGER)
+//    private List<ScanResult> scanResults;
+
+    public Scan getScan() {
+        return scan;
     }
 
-    public ScanResult(Result result, int grade, HashMap<String, String> scanComponent) {
-        this.result = result;
-        this.grade = grade;
-        this.scanComponent = scanComponent;
+//    public Result(long resultId, String date, String url, List<ScanResult> scanResults, boolean isFinished) {
+//        this.resultId = resultId;
+//        this.date = date;
+//        this.url = url;
+//        this.scanResults = scanResults;
+//        this.isFinished = isFinished;
+//    }
+
+
+    public ScanResult(Scan scan, int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO) {
+        this.scan = scan;
+        this.headers = headers;
+        this.XSSAndInjection = XSSAndInjection;
+        this.certificates = certificates;
+        this.wordPressVulnerability = wordPressVulnerability;
+        this.version = version;
+        this.login = login;
+        this.dataSecurity = dataSecurity;
+        this.SEO = SEO;
     }
 
     public ScanResult() {
     }
 
-    //    Getters Setters
-    public Scan getScan() {
-        return scan;
-    }
+
+    //    Setters And Getters
+
 
     public void setScan(Scan scan) {
         this.scan = scan;
     }
 
-    public Result getResult() {
-        return result;
+    public int getHeaders() {
+        return headers;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
+    public void setHeaders(int headers) {
+        this.headers = headers;
     }
 
-    public int getGrade() {
-        return grade;
+    public int getXSSAndInjection() {
+        return XSSAndInjection;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setXSSAndInjection(int XSSAndInjection) {
+        this.XSSAndInjection = XSSAndInjection;
     }
 
-    public HashMap<String, String> setComponent() {
-        return scanComponent;
+    public int getCertificates() {
+        return certificates;
     }
 
-    public void setScanComponent(HashMap<String, String> scanComponent) {
-        this.scanComponent = scanComponent;
+    public void setCertificates(int certificates) {
+        this.certificates = certificates;
+    }
+
+    public int getWordPressVulnerability() {
+        return wordPressVulnerability;
+    }
+
+    public void setWordPressVulnerability(int wordPressVulnerability) {
+        this.wordPressVulnerability = wordPressVulnerability;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public int getLogin() {
+        return login;
+    }
+
+    public void setLogin(int login) {
+        this.login = login;
+    }
+
+    public int getDataSecurity() {
+        return dataSecurity;
+    }
+
+    public void setDataSecurity(int dataSecurity) {
+        this.dataSecurity = dataSecurity;
+    }
+
+    public int getSEO() {
+        return SEO;
+    }
+
+    public void setSEO(int SEO) {
+        this.SEO = SEO;
     }
 }
