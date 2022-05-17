@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_gbm")
 public class User {
     @Id
     @Email
