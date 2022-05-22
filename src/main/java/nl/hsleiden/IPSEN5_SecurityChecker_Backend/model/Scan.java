@@ -14,8 +14,8 @@ public class Scan {
     private boolean declarationOwnership;
     @Column(name = "url")
     private String link;
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private ScanResult scanResult;
     @Column(name = "update_date")
     private String updateDate;
