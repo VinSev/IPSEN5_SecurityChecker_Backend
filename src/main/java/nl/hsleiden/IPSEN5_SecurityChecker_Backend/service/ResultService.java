@@ -25,7 +25,7 @@ public class ResultService {
 //        Result newResult = new Result( LocalDateTime.now().toString(),url, new ArrayList<>(), false);
         ScanResult newScanResult = new ScanResult();
         currentScan.setScanResult(newScanResult);
-        scanDAO.create(currentScan);
+        this.scanDAO.create(currentScan);
         return resultDAO.create(newScanResult);
     }
 }

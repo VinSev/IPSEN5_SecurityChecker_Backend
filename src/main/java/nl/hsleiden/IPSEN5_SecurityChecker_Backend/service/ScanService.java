@@ -3,7 +3,6 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ScanDao;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult_TEST;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +30,7 @@ public class ScanService {
 
     private ScanResult startScan(User user, String url) {
          ScanResult newScanResult = this.resultService.createNew(url);
-         ScanResult finishedScanResult = ScanProcess(newScanResult);
-         return finishedScanResult;
+        return ScanProcess(newScanResult);
     }
 
     private ScanResult ScanProcess(ScanResult scanResult){
@@ -43,9 +41,7 @@ public class ScanService {
     }
 
     private ScanResult addScanToResult(ScanResult currentScanResult, Scan scan) {
-        HashMap<String,String> scanComponents = getScanResult(scan.getLink(), String.valueOf(currentScanResult.getCertificates()));
-        int grade = calculateGrade(scanComponents);
-        ScanResult_TEST scanResults = new ScanResult_TEST(scan, currentScanResult,grade, scanComponents);
+//        ScanResult_TEST scanResults = new ScanResult_TEST( scan,0, scan.getLink(), "ScanName");
 //        currentScanResult.setScanResults(currentScanResult.getScanResults());
 //                .add(scanResults));  Geeft boolean terug ??
         return currentScanResult;

@@ -1,52 +1,52 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.util.HashMap;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "scan_result")
 public class ScanResult_TEST {
     @Id
-    @ManyToOne(targetEntity = ScanResult.class , fetch = FetchType.EAGER)
-    private ScanResult scanResult;
+    private String id;
+
+    @MapsId
     @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
     private Scan scan;
     private int grade;
-    private HashMap<String,String> scanComponent;
+    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
+    private SubScan subScan;
 
-//    Constructor
+//    Constructor   ////////////////////////////////////////////////////////////////////////
 
-    public ScanResult_TEST(Scan scan, ScanResult scanResult, int grade, HashMap<String, String> scanComponent) {
+
+    public ScanResult_TEST(Scan scan, int grade, String url, String name) {
         this.scan = scan;
-        this.scanResult = scanResult;
         this.grade = grade;
-        this.scanComponent = scanComponent;
     }
 
-    public ScanResult_TEST(ScanResult scanResult, int grade, HashMap<String, String> scanComponent) {
-        this.scanResult = scanResult;
+    public ScanResult_TEST(int grade, String url, String name) {
         this.grade = grade;
-        this.scanComponent = scanComponent;
     }
 
     public ScanResult_TEST() {
     }
 
-    //    Getters Setters
+    //    Getters Setters   ////////////////////////////////////////////////////////////////////////
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Scan getScan() {
         return scan;
     }
 
     public void setScan(Scan scan) {
         this.scan = scan;
-    }
-
-    public ScanResult getResult() {
-        return scanResult;
-    }
-
-    public void setResult(ScanResult scanResult) {
-        this.scanResult = scanResult;
     }
 
     public int getGrade() {
@@ -57,11 +57,11 @@ public class ScanResult_TEST {
         this.grade = grade;
     }
 
-    public HashMap<String, String> setComponent() {
-        return scanComponent;
+    public SubScan getSubScan() {
+        return subScan;
     }
 
-    public void setScanComponent(HashMap<String, String> scanComponent) {
-        this.scanComponent = scanComponent;
+    public void setSubScan(SubScan sub_scan) {
+        this.subScan = sub_scan;
     }
 }
