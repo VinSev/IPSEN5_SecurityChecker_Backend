@@ -2,6 +2,8 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.HTTPResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeUnit;
+
 @RestController
 @RequestMapping(value = "/test")
 @CrossOrigin
@@ -20,10 +22,11 @@ public class testController {
 //    Of course you do NOT handle anything inside of the controller, but in a Dao or service
 
     @GetMapping({"/test"})
-    public HTTPResponse getTest(@RequestParam(name = "name", defaultValue = "jarry") String name){
+    public HTTPResponse getTest(@RequestParam(name = "name", defaultValue = "jarry") String name) {
         System.out.println(name);
         if(true) {
             //HTTPResponse.returnSucces
+            timeout();
             return HTTPResponse.returnSuccess("get: " + name);
         }
         //HTTPResponse.returnFailure
@@ -31,18 +34,27 @@ public class testController {
     }
     @PostMapping({"/test"})
     public HTTPResponse postTest(@RequestParam(name = "name", defaultValue = "jarry") String name){
-
+        timeout();
         return HTTPResponse.returnSuccess("Post: " + name);
+//        return HTTPResponse.returnFailure("could not find results for a test");
     }
     @PutMapping({"/test"})
     public HTTPResponse putTest(@RequestParam(name = "name", defaultValue = "jarry") String name){
-
+        timeout();
         return HTTPResponse.returnSuccess("Put: " + name);
     }
     @DeleteMapping({"/test"})
     public HTTPResponse deleteTest(@RequestParam(name = "name", defaultValue = "jarry") String name){
-
+        timeout();
         return HTTPResponse.returnSuccess("Delete: " + (name));
+    }
+
+    public void timeout(){
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
