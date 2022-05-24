@@ -29,7 +29,8 @@ public class ScanService {
     }
 
     private ScanResult startScan(User user, String url) {
-         ScanResult newScanResult = this.resultService.createNewResult(url);
+        Scan lilScan = new Scan(user.getEmail(),true, url, null, "today");
+         ScanResult newScanResult = this.resultService.createNewResult(lilScan);
         return ScanProcess(newScanResult);
     }
 

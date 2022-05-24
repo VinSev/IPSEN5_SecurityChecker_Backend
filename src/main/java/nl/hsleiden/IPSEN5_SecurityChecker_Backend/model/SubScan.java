@@ -8,7 +8,7 @@ public class SubScan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private long id;
 
     private String name;
     private String url;
@@ -16,7 +16,7 @@ public class SubScan {
 
 //   Constructors     ////////////////////////////////////////////////////////////////////////
 
-    public SubScan(String id, String name, String url) {
+    public SubScan(long id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -32,11 +32,11 @@ public class SubScan {
 
 //    Getters and Setters  ////////////////////////////////////////////////////////////////////////
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

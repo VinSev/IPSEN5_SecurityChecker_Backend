@@ -25,8 +25,8 @@ public class ScanDao implements Dao<Scan, String> {
     }
 
     @Override
-    public Scan create(Scan result) {
-        return this.repository.save(result);
+    public Scan create(Scan scan) {
+        return this.repository.save(scan);
     }
 
     @Override

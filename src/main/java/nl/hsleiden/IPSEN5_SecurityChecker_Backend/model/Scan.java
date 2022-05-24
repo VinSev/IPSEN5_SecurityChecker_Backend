@@ -13,7 +13,7 @@ public class Scan {
     private String phoneNumber;
     private boolean declarationOwnership;
     @Column(name = "url")
-    private String link;
+    private String url;
     @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private ScanResult scanResult;
@@ -22,19 +22,11 @@ public class Scan {
 //
 ////    Constructors
 
-    public Scan(long scanId, String phoneNumber, boolean declarationOwnership, String link, ScanResult scanResult, String updateDate) {
-        this.scanId = scanId;
-        this.phoneNumber = phoneNumber;
-        this.declarationOwnership = declarationOwnership;
-        this.link = link;
-        this.scanResult = scanResult;
-        this.updateDate = updateDate;
-    }
 
-    public Scan(String phoneNumber, boolean declarationOwnership, String link, ScanResult scanResult, String updateDate) {
+    public Scan(String phoneNumber, boolean declarationOwnership, String url, ScanResult scanResult, String updateDate) {
         this.phoneNumber = phoneNumber;
         this.declarationOwnership = declarationOwnership;
-        this.link = link;
+        this.url = url;
         this.scanResult = scanResult;
         this.updateDate = updateDate;
     }
@@ -84,12 +76,12 @@ public class Scan {
         this.scanId = scanId;
     }
 
-    public String getLink() {
-        return link;
+    public String getUrl() {
+        return url;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setUrl(String link) {
+        this.url = link;
     }
 
     public String getUpdateDate() {

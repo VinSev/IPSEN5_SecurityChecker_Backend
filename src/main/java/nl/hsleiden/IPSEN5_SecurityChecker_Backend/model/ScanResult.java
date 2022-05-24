@@ -7,10 +7,9 @@ import javax.persistence.*;
 public class ScanResult {
 
     @Id
-    private String id;
+    private long id;
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id")
     private Scan scan;
     private int headers;
     private int XSSAndInjection;
