@@ -1,16 +1,16 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
 public class ScanCategory {
-    public String title;
-    public String path;
-    public Boolean loading;
-    public int grade;
-    public String result;
+    private String title;
+    private String path;
+    private boolean loading;
+    private int grade;
+    private Object result;
 
     public ScanCategory() {
     }
 
-    public ScanCategory(String title, String path, Boolean loading, int grade, String result) {
+    public ScanCategory(String title, String path, boolean loading, int grade, Object result) {
         this.title = title;
         this.path = path;
         this.loading = loading;
@@ -34,11 +34,11 @@ public class ScanCategory {
         this.path = path;
     }
 
-    public Boolean getLoading() {
+    public boolean isLoading() {
         return loading;
     }
 
-    public void setLoading(Boolean loading) {
+    public void setLoading(boolean loading) {
         this.loading = loading;
     }
 
@@ -50,11 +50,11 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public String getResult() {
+    public Object getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(Object result) {
         this.result = result;
     }
 }
