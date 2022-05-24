@@ -18,12 +18,12 @@ public class PdfController {
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
-    public void getPdfInfo(@RequestBody ArrayList<ScanCategory> scans,
-                           @RequestBody String name,
-                           @RequestBody String website){
+    public void getPdfInfo(@RequestBody ScanCategory scans,
+                           String name,
+                           String website){
         System.out.println(name + website);
-//        scans.forEach(scan ->{
-//            System.out.println(scan);
-//        });
+        System.out.println(scans);
+        System.out.println(scans.getTitle());
+        System.out.println(scans.getGrade());
     }
 }
