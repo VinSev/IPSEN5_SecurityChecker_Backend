@@ -14,7 +14,7 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping()
+    @PostMapping()
     public void mail(@RequestBody Scan scan) throws MessagingException {
         this.emailService.sendEmailWithPDFAttachment(scan);
     }
