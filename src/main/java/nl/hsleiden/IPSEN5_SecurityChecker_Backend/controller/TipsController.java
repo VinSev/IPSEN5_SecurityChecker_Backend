@@ -1,5 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.annotation.IsAdmin;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Tip;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.TipsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class TipsController {
         return this.tipsService.getAll();
     }
 
+    @IsAdmin
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -29,6 +31,7 @@ public class TipsController {
         return this.tipsService.get(id);
     }
 
+    @IsAdmin
     @PostMapping()
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
@@ -36,6 +39,7 @@ public class TipsController {
         return this.tipsService.create(tip);
     }
 
+    @IsAdmin
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -43,6 +47,7 @@ public class TipsController {
         this.tipsService.update(tip);
     }
 
+    @IsAdmin
     @DeleteMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
