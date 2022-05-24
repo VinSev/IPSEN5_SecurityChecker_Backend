@@ -1,16 +1,18 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
+import java.util.ArrayList;
+
 public class Scan {
     private String name;
     private String email;
     private String website;
     private boolean owners;
-    private ScanCategory[] scanCategories;
+    private ArrayList<ScanCategory> scanCategories;
 
     public Scan() {
     }
 
-    public Scan(String name, String email, String website, boolean owners, ScanCategory[] scanCategories) {
+    public Scan(String name, String email, String website, boolean owners, ArrayList<ScanCategory> scanCategories) {
         this.name = name;
         this.email = email;
         this.website = website;
@@ -50,11 +52,11 @@ public class Scan {
         this.owners = owners;
     }
 
-    public ScanCategory[] getScanCategories() {
+    public ArrayList<ScanCategory> getScanCategories() {
         return scanCategories;
     }
 
-    public void setScanCategories(ScanCategory[] scanCategories) {
+    public void setScanCategories(ArrayList<ScanCategory> scanCategories) {
         this.scanCategories = scanCategories;
     }
 }

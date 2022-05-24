@@ -60,14 +60,14 @@ public class TableMaker {
             Color score = Color.RED;
 
             String gehaald = "Nee";
-            if (scan.grade >5){
+            if (scan.getGrade() >5){
                 gehaald = "Ja";
                 score = Color.GREEN;
             }
             tableBuilder.addRow(
                     Row.builder()
                             .add(TextCell.builder()
-                                    .text(scan.title)
+                                    .text(scan.getTitle())
                                     .borderWidth(1F)
                                     .build())
                             .add(TextCell.builder()
@@ -76,7 +76,7 @@ public class TableMaker {
                                     .textColor(score)
                                     .build())
                             .add(TextCell.builder()
-                                    .text(scan.result)
+                                    .text(scan.getResult().toString())
                                     .borderWidth(1F)
                                     .build())
                             .build());
