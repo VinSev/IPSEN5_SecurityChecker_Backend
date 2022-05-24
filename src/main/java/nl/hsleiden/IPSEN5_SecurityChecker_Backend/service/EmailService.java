@@ -2,23 +2,30 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
+@Service
 public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
+    @Value("${spring.mail.username}")
+    private String adminMail;
 
     public void sendEmailWithPDFAttachment(Scan scan) throws MessagingException {
         Date date = new Date();
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
+        messageHelper.setFrom(adminMail);
         messageHelper.setTo(scan.getEmail());
 
         messageHelper.setSubject("Get Big Marketing Security Scan Resultaten");
