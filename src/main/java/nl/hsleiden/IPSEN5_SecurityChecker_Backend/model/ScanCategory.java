@@ -3,8 +3,8 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "scan_result")
-public class ScanResult_TEST {
+@Table(name = "scan_category")
+public class ScanCategory {
     @Id
     private String id;
 
@@ -12,22 +12,20 @@ public class ScanResult_TEST {
     @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
     private Scan scan;
     private int grade;
-    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
+    @MapsId
+    @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
     private SubScan subScan;
 
 //    Constructor   ////////////////////////////////////////////////////////////////////////
 
 
-    public ScanResult_TEST(Scan scan, int grade, String url, String name) {
+    public ScanCategory(Scan scan, int grade, SubScan subScan) {
         this.scan = scan;
         this.grade = grade;
+        this.subScan = subScan;
     }
 
-    public ScanResult_TEST(int grade, String url, String name) {
-        this.grade = grade;
-    }
-
-    public ScanResult_TEST() {
+    public ScanCategory() {
     }
 
     //    Getters Setters   ////////////////////////////////////////////////////////////////////////

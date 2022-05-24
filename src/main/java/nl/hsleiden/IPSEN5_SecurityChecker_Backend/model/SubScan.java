@@ -1,9 +1,9 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "sub_scan")
 public class SubScan {
 
     @Id

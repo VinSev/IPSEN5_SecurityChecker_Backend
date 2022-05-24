@@ -28,7 +28,7 @@ public class ResultController {
     @PostMapping({"/start"})
     @ResponseBody
     public ScanResult startScan(@RequestBody String url) {
-        return resultService.createNew(url);
+        return resultService.createNewResult(url);
     }
 
     @GetMapping(value = "/all")

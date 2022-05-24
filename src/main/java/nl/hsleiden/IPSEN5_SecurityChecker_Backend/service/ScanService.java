@@ -29,7 +29,7 @@ public class ScanService {
     }
 
     private ScanResult startScan(User user, String url) {
-         ScanResult newScanResult = this.resultService.createNew(url);
+         ScanResult newScanResult = this.resultService.createNewResult(url);
         return ScanProcess(newScanResult);
     }
 
