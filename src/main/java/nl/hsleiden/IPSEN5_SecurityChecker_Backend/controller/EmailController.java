@@ -17,14 +17,15 @@ import java.util.ArrayList;
 public class EmailController {
     @Autowired
     private EmailService emailService;
-    private PdfService pdfService = new PdfService();
+    @Autowired
+    private PdfService pdfService;
 
 
 
 
     @PostMapping()
     public void mail(@RequestBody Scan scan) throws MessagingException, IOException {
-        this.pdfService.makePdf(scan);
+//        this.pdfService.makePdf(scan);
         this.emailService.sendEmailWithPDFAttachment(scan);
     }
 

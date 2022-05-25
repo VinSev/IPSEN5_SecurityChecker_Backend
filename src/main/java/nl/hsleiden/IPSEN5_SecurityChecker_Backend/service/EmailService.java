@@ -36,7 +36,7 @@ public class EmailService {
                 "Bedankt voor het scannen bij Bet Big Marketing. \n\n" +
                 "Met vriendelijke groet, \n\n" +
                 "Het Get Big Marketing Team", scan.getName(), date));
-        messageHelper.addAttachment(String.format("Get Big Marketing Security Scan Resultaten.%s", new Date()), new ClassPathResource("resultaten.pdf"));
+//        messageHelper.addAttachment(String.format("Get Big Marketing Security Scan Resultaten.%s", new Date()), new ClassPathResource("resultaten.pdf"));
 
         javaMailSender.send(message);
     }
