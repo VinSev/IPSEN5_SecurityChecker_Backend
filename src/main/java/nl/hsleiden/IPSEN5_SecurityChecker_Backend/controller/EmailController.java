@@ -24,14 +24,8 @@ public class EmailController {
 
     @PostMapping()
     public void mail(@RequestBody Scan scan) throws MessagingException, IOException {
-
-        ArrayList<ScanCategory> scans = scan.getScanCategories();
-        scans.forEach(tester ->{
-            System.out.println(tester.getGrade());
-        });
-        this.pdfService.makePdf(scans);
-
-//        this.emailService.sendEmailWithPDFAttachment(scan);
+        this.pdfService.makePdf(scan);
+        this.emailService.sendEmailWithPDFAttachment(scan);
     }
 
 }
