@@ -3,10 +3,12 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.EmailService;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
@@ -15,18 +17,19 @@ import java.util.ArrayList;
 public class EmailController {
     @Autowired
     private EmailService emailService;
+    private PdfService pdfService = new PdfService();
 
 
 
 
     @PostMapping()
-    public void mail(@RequestBody Scan scan) throws MessagingException {
+    public void mail(@RequestBody Scan scan) throws MessagingException, IOException {
 
         ArrayList<ScanCategory> scans = scan.getScanCategories();
         scans.forEach(tester ->{
             System.out.println(tester.getGrade());
         });
-
+        this.pdfService.makePdf(scans);
 
 //        this.emailService.sendEmailWithPDFAttachment(scan);
     }
