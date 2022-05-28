@@ -12,7 +12,7 @@ public class ScanCategory {
     @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
     private Scan scan;
     private boolean loading;
-    private Object result;
+    private String result;
     private int grade;
     @MapsId
     @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
@@ -65,11 +65,11 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public Object getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(String result) {
         this.result = result;
     }
 

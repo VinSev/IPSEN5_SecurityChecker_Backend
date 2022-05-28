@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "result")
@@ -22,11 +23,9 @@ public class ScanResult {
     private int login;
     private int dataSecurity;
     private int SEO;
-
-
-//    @Column(name = "scans_results")
-//    @OneToMany(targetEntity = ScanResult.class , fetch = FetchType.EAGER)
-//    private List<ScanResult> scanResults;
+    @Column(name = "categories")
+    @OneToMany(targetEntity = ScanCategory.class , fetch = FetchType.EAGER)
+    private List<ScanCategory> scanResults;
 
     public Scan getScan() {
         return scan;
@@ -126,5 +125,21 @@ public class ScanResult {
 
     public void setSEO(int SEO) {
         this.SEO = SEO;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<ScanCategory> getScanResults() {
+        return scanResults;
+    }
+
+    public void setScanResults(List<ScanCategory> scanResults) {
+        this.scanResults = scanResults;
     }
 }

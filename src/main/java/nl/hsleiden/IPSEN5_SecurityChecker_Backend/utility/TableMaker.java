@@ -67,7 +67,7 @@ public class TableMaker {
             tableBuilder.addRow(
                     Row.builder()
                             .add(TextCell.builder()
-                                    .text(scan.getTitle())
+                                    .text(scan.getSubScan().getName())
                                     .borderWidth(1F)
                                     .build())
                             .add(TextCell.builder()

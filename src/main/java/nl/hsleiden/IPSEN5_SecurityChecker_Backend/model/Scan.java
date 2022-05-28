@@ -10,8 +10,8 @@ public class Scan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scan_id")
     private long scanId;
-    private String phoneNumber;
-    private boolean declarationOwnership;
+    @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private User user;
     @Column(name = "url")
     private String url;
     @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
@@ -23,9 +23,8 @@ public class Scan {
 ////    Constructors
 
 
-    public Scan(String phoneNumber, boolean declarationOwnership, String url, ScanResult scanResult, String updateDate) {
-        this.phoneNumber = phoneNumber;
-        this.declarationOwnership = declarationOwnership;
+    public Scan(User user, String url, ScanResult scanResult, String updateDate) {
+        this.user = user;
         this.url = url;
         this.scanResult = scanResult;
         this.updateDate = updateDate;
@@ -36,23 +35,6 @@ public class Scan {
 
 
     //    Getters Setters
-
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public boolean isDeclarationOwnership() {
-        return declarationOwnership;
-    }
-
-    public void setDeclarationOwnership(boolean declarationOwnership) {
-        this.declarationOwnership = declarationOwnership;
-    }
 
     public ScanResult getScanResult() {
         return scanResult;
@@ -85,4 +67,13 @@ public class Scan {
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
