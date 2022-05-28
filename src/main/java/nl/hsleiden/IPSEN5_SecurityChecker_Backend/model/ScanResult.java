@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class ScanResult {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
     @MapsId
