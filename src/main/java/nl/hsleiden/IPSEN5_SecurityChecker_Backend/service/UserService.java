@@ -32,7 +32,7 @@ public class UserService {
         this.roleDao.create(userRole);
 
         User adminUser = new User();
-        adminUser.setEmail("admin");
+        adminUser.setEmail("admin@admin.com");
         adminUser.setPassword(getEncodedPassword("admin"));
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);

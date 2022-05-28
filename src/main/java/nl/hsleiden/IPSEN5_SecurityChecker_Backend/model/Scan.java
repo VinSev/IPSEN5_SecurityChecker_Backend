@@ -34,12 +34,6 @@ public class Scan {
     public Scan() {
     }
 
-//    public Scan(String link, String name, String updateDate) {
-//        this.link = link;
-//        this.name = name;
-//        this.updateDate = updateDate;
-
-//    }
 
     //    Getters Setters
 

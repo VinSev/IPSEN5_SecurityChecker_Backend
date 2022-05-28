@@ -1,5 +1,8 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.HTTPResponse;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.UserRequest;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,9 +15,9 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public void authenticate(String email, String password) throws Exception {
+    public void authenticate(UserRequest userRequest) throws Exception{
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword()));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {

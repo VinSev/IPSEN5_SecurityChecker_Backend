@@ -11,6 +11,8 @@ public class ScanCategory {
     @MapsId
     @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
     private Scan scan;
+    private boolean loading;
+    private Object result;
     private int grade;
     @MapsId
     @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
@@ -47,12 +49,28 @@ public class ScanCategory {
         this.scan = scan;
     }
 
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading = loading;
+    }
+
     public int getGrade() {
         return grade;
     }
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public Object getResult() {
+        return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
     }
 
     public SubScan getSubScan() {
