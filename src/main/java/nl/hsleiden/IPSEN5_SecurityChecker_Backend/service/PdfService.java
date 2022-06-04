@@ -15,6 +15,7 @@ import org.vandeseer.easytable.structure.Table;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PdfService {
@@ -22,7 +23,8 @@ public class PdfService {
 
 
 
-    public void makePdf(ArrayList<ScanCategory> scans) throws IOException {
+    public void makePdf(Scan scan) throws IOException {
+        ArrayList<ScanCategory> scanCategories = scan.getScanCategories();
         PDDocument doc = new PDDocument();
         PDPage mypage = new PDPage();
         doc.addPage(mypage);
@@ -69,7 +71,7 @@ public class PdfService {
         TableMaker tabbie = new TableMaker();
 
 
-        Table mytabbie = tabbie.createTable(scans,"Bruno","www.google.com");
+        Table mytabbie = tabbie.createTable(scanCategories,"Bruno","www.google.com");
 
 
 

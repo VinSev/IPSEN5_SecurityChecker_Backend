@@ -20,8 +20,8 @@ public class AuthController {
     @PostMapping({"/login"})
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
-    public JwtResponse login(@RequestBody UserRequest userRequest) throws Exception {
-        authService.authenticate(userRequest.getEmail(), userRequest.getPassword());
+    public JwtResponse login(@RequestBody UserRequest userRequest) throws Exception{
+        authService.authenticate(userRequest);
         return jwtService.createJwtToken(userRequest);
     }
 }
