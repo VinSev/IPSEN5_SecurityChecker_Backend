@@ -76,7 +76,7 @@ public class TableMaker {
                                     .textColor(score)
                                     .build())
                             .add(TextCell.builder()
-                                    .text(scan.getResult().toString())
+                                    .text("result")
                                     .borderWidth(1F)
                                     .build())
                             .build());

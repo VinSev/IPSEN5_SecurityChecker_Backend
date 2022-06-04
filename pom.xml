@@ -92,6 +92,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.zaproxy</groupId>
+			<artifactId>zap</artifactId>
+			<version>2.11.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
