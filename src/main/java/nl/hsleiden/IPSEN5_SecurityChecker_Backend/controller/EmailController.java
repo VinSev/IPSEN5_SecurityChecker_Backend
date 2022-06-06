@@ -4,6 +4,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.EmailService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.PdfService;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.ActiveScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,9 @@ public class EmailController {
     @Autowired
     private PdfService pdfService;
 
+    @Autowired
+    private ActiveScan activeScan;
+
 
 
 
@@ -27,6 +31,8 @@ public class EmailController {
     public void mail(@RequestBody Scan scan) throws MessagingException, IOException {
         this.pdfService.makePdf(scan);
 //        this.emailService.sendEmailWithPDFAttachment(scan);
+        ActiveScan.spiderSearch();
+
     }
 
 }
