@@ -1,13 +1,20 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.stereotype.Service;
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ApiResponseElement;
 import org.zaproxy.clientapi.core.ApiResponseList;
 import org.zaproxy.clientapi.core.ClientApi;
 
+import javax.swing.text.html.HTMLDocument;
+import java.io.File;
+import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -55,7 +62,7 @@ public class ActiveScan {
     }
 
     public static void spiderSearch () {
-        // Create the ZAP Client
+
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
         try {
@@ -100,10 +107,18 @@ public class ActiveScan {
             }
 
             System.out.println("Active Scan complete");
-            // Print vulnerabilities found by the scanning
+
             System.out.println("Alerts:");
             System.out.println(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
+            byte[] reporto = api.core.jsonreport();
+            System.out.println("YELLLING AT THE SUNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+            System.out.println(reporto);
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String,Object> map = mapper.readValue(reporto, Map.class);
 
+            map.forEach((k, v) -> System.out.println((k + ":" + v)) );
+            FileWriter xmlFile = new FileWriter("report.txt");
+            xmlFile.write(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
 
         } catch (Exception e) {
             System.out.println("Exception : " + e.getMessage());
