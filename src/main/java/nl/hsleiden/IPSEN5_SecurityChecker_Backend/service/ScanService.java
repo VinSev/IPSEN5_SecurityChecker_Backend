@@ -3,6 +3,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ScanDao;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanUser;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class ScanService {
         this.resultService = resultService;
     }
 
-    private ScanResult startScan(User user, String url) {
+    private ScanResult startScan(ScanUser user, String url) {
         Scan lilScan = new Scan(user, url, null, "today");
          ScanResult newScanResult = this.resultService.createNewResult(lilScan);
         return ScanProcess(newScanResult);

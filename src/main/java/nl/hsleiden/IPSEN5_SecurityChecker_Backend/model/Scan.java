@@ -10,8 +10,8 @@ public class Scan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scan_id")
     private long scanId;
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private User user;
+    @ManyToOne(targetEntity = ScanUser.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private ScanUser user;
     @Column(name = "url")
     private String url;
     @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
@@ -23,7 +23,7 @@ public class Scan {
 ////    Constructors
 
 
-    public Scan(User user, String url, ScanResult scanResult, String updateDate) {
+    public Scan(ScanUser user, String url, ScanResult scanResult, String updateDate) {
         this.user = user;
         this.url = url;
         this.scanResult = scanResult;
@@ -68,11 +68,11 @@ public class Scan {
         this.updateDate = updateDate;
     }
 
-    public User getUser() {
+    public ScanUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(ScanUser user) {
         this.user = user;
     }
 
