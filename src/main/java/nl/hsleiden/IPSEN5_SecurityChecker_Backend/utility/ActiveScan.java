@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.zaproxy.clientapi.core.*;
 import javax.swing.text.html.HTMLDocument;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -114,9 +116,35 @@ public class ActiveScan {
             System.out.println(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
             byte[] reporto = api.core.jsonreport();
             System.out.println("YELLLING AT THE SUNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
-            System.out.println(reporto.getClass());
+
             ObjectMapper mapper = new ObjectMapper();
             Map<String,Object> map = mapper.readValue(reporto, Map.class);
+
+            JSONObject jsonnn = new JSONObject(new String(reporto));
+
+
+            System.out.println(jsonnn);
+            System.out.println(jsonnn.getJSONArray("site"));
+
+            JSONArray sites = new JSONArray(jsonnn.getJSONArray("site"));
+
+
+            System.out.println(sites);
+
+
+
+            int size = sites.length();
+
+            for (int i = 0; i < size; i++) {
+                JSONObject another_json_object = sites.getJSONObject(i);
+                System.out.println(another_json_object);
+                System.out.println(another_json_object.get("alerts"));
+
+                PrintWriter out = new PrintWriter(new FileWriter("G:\\uniwerk\\programmeren\\java.txt"));
+                out.write(another_json_object.toString());
+            }
+
+
 
 
             FileWriter xmlFile = new FileWriter("report.txt");
