@@ -26,10 +26,9 @@ public class ResultController {
         this.resultDAO = resultDAO;
     }
 
-    @PostMapping({"/start"})
+    @PostMapping({"/makeResult"})
     @ResponseBody
     public ScanResult startScan(@RequestBody Scan scan) {
-
         return resultService.createNewResult(scan);
     }
 

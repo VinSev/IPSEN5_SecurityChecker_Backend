@@ -3,7 +3,6 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ScanDao;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.ScanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +16,8 @@ public class ScanController {
     @Autowired
     public final ScanDao scanDao;
 
-    @Autowired
-    public final ScanService scanService;
 
-    public ScanController(ScanDao scanDao, ScanService scanService) {
-        this.scanService = scanService;
+    public ScanController(ScanDao scanDao) {
         this.scanDao = scanDao;
     }
 
