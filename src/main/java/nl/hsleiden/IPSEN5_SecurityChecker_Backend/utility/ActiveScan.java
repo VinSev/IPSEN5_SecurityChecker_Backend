@@ -123,6 +123,7 @@ public class ActiveScan {
 
             ApiResponse resp2 = api.alert.alerts(TARGET, String.valueOf(start), String.valueOf(count), null);
 
+            ArrayList<ApiResponse> risks = new ArrayList<>();
             while (((ApiResponseList) resp2).getItems().size() != 0) {
                 System.out.println("Reading " + count + " alerts from " + start);
                 alertCount += ((ApiResponseList) resp2).getItems().size();
@@ -134,6 +135,7 @@ public class ActiveScan {
                         // TODO: Trigger any relevant postprocessing
                     } else if ("High".equals(element.get("risk").toString())) {
                         // TODO: Trigger any relevant postprocessing
+                        risks.add(element.get("risk"));
                     } else if ("Informational".equals(element.get("risk").toString())) {
                         // TODO: Ignore all info alerts - some of them may have been downgraded by security annotations
                     }
@@ -142,11 +144,7 @@ public class ActiveScan {
                 resp2 = api.alert.alerts(TARGET, String.valueOf(start), String.valueOf(count), null);
             }
             System.out.println("Total number of Alerts: " + alertCount);
-            List<ApiResponse> x = ((ApiResponseList) resp2).getItems();
-
-            x.forEach(items ->{
-                System.out.println(items);
-            });
+            System.out.println(risks.size());
 
 
 
