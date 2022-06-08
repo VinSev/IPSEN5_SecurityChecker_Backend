@@ -85,6 +85,7 @@ public class ActiveScan {
 
             // TODO: Start scanning(passive/active scan) the application to find vulnerabilities
             System.out.println("Active Scanning target : " + TARGET);
+            ApiResponse resp2 = api.ascan.scan(TARGET, "True", "False", null, null, null);
             int start = 0;
             int count = 5000;
             int alertCount = 0;
@@ -121,30 +122,9 @@ public class ActiveScan {
             FileWriter xmlFile = new FileWriter("report.txt");
             xmlFile.write(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
 
-            ApiResponse resp2 = api.alert.alerts(TARGET, String.valueOf(start), String.valueOf(count), null);
 
-            ArrayList<ApiResponse> risks = new ArrayList<>();
-            while (((ApiResponseList) resp2).getItems().size() != 0) {
-                System.out.println("Reading " + count + " alerts from " + start);
-                alertCount += ((ApiResponseList) resp2).getItems().size();
 
-                for (ApiResponse l : (((ApiResponseList) resp2).getItems())) {
 
-                    Map<String, ApiResponse> element = ((ApiResponseSet) l).getValuesMap();
-                    if (blackListPlugins.contains(element.get("pluginId").toString())) {
-                        // TODO: Trigger any relevant postprocessing
-                    } else if ("High".equals(element.get("risk").toString())) {
-                        // TODO: Trigger any relevant postprocessing
-                        risks.add(element.get("risk"));
-                    } else if ("Informational".equals(element.get("risk").toString())) {
-                        // TODO: Ignore all info alerts - some of them may have been downgraded by security annotations
-                    }
-                }
-                start += count;
-                resp2 = api.alert.alerts(TARGET, String.valueOf(start), String.valueOf(count), null);
-            }
-            System.out.println("Total number of Alerts: " + alertCount);
-            System.out.println(risks.size());
 
 
 
