@@ -1,16 +1,18 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
+import org.json.JSONObject;
+
 public class ScanCategory {
     private String title;
     private String path;
     private boolean loading;
     private int grade;
-    private Object result;
+    private JSONObject result;
 
     public ScanCategory() {
     }
 
-    public ScanCategory(String title, String path, boolean loading, int grade, Object result) {
+    public ScanCategory(String title, String path, boolean loading, int grade, JSONObject result) {
         this.title = title;
         this.path = path;
         this.loading = loading;
@@ -50,11 +52,11 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public Object getResult() {
+    public JSONObject getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(JSONObject result) {
         this.result = result;
     }
 }
