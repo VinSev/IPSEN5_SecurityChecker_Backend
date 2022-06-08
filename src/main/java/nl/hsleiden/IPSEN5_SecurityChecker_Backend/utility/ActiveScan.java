@@ -4,17 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
-import org.zaproxy.clientapi.core.ApiResponse;
-import org.zaproxy.clientapi.core.ApiResponseElement;
-import org.zaproxy.clientapi.core.ApiResponseList;
-import org.zaproxy.clientapi.core.ClientApi;
+import org.zaproxy.clientapi.core.*;
 
 import javax.swing.text.html.HTMLDocument;
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -66,6 +62,7 @@ public class ActiveScan {
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
         try {
+
             // Start spidering the target
             System.out.println("Ajax Spider target : " + TARGET);
             ApiResponse resp = api.ajaxSpider.scan(TARGET, null, null, null);
@@ -88,9 +85,13 @@ public class ActiveScan {
 
             // TODO: Start scanning(passive/active scan) the application to find vulnerabilities
             System.out.println("Active Scanning target : " + TARGET);
-
+            int start = 0;
+            int count = 5000;
+            int alertCount = 0;
             String scanid;
             int progress;
+            List<String> blackListPlugins = Arrays.asList("1000", "1025");
+
 
             // The scan now returns a scan id to support concurrent scanning
             scanid = ((ApiResponseElement) resp).getValue();
@@ -112,13 +113,42 @@ public class ActiveScan {
             System.out.println(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
             byte[] reporto = api.core.jsonreport();
             System.out.println("YELLLING AT THE SUNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
-            System.out.println(reporto);
+            System.out.println(reporto.getClass());
             ObjectMapper mapper = new ObjectMapper();
             Map<String,Object> map = mapper.readValue(reporto, Map.class);
 
-            map.forEach((k, v) -> System.out.println((k + ":" + v)) );
+
             FileWriter xmlFile = new FileWriter("report.txt");
             xmlFile.write(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
+
+            ApiResponse resp2 = api.alert.alerts(TARGET, String.valueOf(start), String.valueOf(count), null);
+
+            while (((ApiResponseList) resp2).getItems().size() != 0) {
+                System.out.println("Reading " + count + " alerts from " + start);
+                alertCount += ((ApiResponseList) resp2).getItems().size();
+
+                for (ApiResponse l : (((ApiResponseList) resp2).getItems())) {
+
+                    Map<String, ApiResponse> element = ((ApiResponseSet) l).getValuesMap();
+                    if (blackListPlugins.contains(element.get("pluginId").toString())) {
+                        // TODO: Trigger any relevant postprocessing
+                    } else if ("High".equals(element.get("risk").toString())) {
+                        // TODO: Trigger any relevant postprocessing
+                    } else if ("Informational".equals(element.get("risk").toString())) {
+                        // TODO: Ignore all info alerts - some of them may have been downgraded by security annotations
+                    }
+                }
+                start += count;
+                resp2 = api.alert.alerts(TARGET, String.valueOf(start), String.valueOf(count), null);
+            }
+            System.out.println("Total number of Alerts: " + alertCount);
+            List<ApiResponse> x = ((ApiResponseList) resp2).getItems();
+
+            x.forEach(items ->{
+                System.out.println(items);
+            });
+
+
 
         } catch (Exception e) {
             System.out.println("Exception : " + e.getMessage());
