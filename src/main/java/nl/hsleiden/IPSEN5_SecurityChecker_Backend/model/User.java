@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_gbm")
 public class User {
     @Id
     @Email
@@ -26,7 +26,8 @@ public class User {
             }
     )
     private Set<Role> role;
-
+    @NotBlank
+    private String name;
     public User() {
 
     }
@@ -59,4 +60,13 @@ public class User {
     public void setRole(Set<Role> role) {
         this.role = role;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

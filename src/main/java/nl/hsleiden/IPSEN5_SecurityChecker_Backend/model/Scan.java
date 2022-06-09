@@ -1,62 +1,79 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "scan")
 public class Scan {
-    private String name;
-    private String email;
-    private String website;
-    private boolean owners;
-    private ArrayList<ScanCategory> scanCategories;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "scan_id")
+    private long scanId;
+    @ManyToOne(targetEntity = ScanUser.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private ScanUser user;
+    @Column(name = "url")
+    private String url;
+    @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ScanResult scanResult;
+    @Column(name = "update_date")
+    private String updateDate;
+//
+////    Constructors
+
+
+    public Scan(ScanUser user, String url, ScanResult scanResult, String updateDate) {
+        this.user = user;
+        this.url = url;
+        this.scanResult = scanResult;
+        this.updateDate = updateDate;
+    }
 
     public Scan() {
     }
 
-    public Scan(String name, String email, String website, boolean owners, ArrayList<ScanCategory> scanCategories) {
-        this.name = name;
-        this.email = email;
-        this.website = website;
-        this.owners = owners;
-        this.scanCategories = scanCategories;
+
+    //    Getters Setters
+
+    public ScanResult getScanResult() {
+        return scanResult;
     }
 
-    public String getName() {
-        return name;
+    public void setScanResult(ScanResult scanResult) {
+        this.scanResult = scanResult;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public long getScanId() {
+        return scanId;
     }
 
-    public String getEmail() {
-        return email;
+    public void setScanId(long scanId) {
+        this.scanId = scanId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUrl() {
+        return url;
     }
 
-    public String getWebsite() {
-        return website;
+    public void setUrl(String link) {
+        this.url = link;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
+    public String getUpdateDate() {
+        return updateDate;
     }
 
-    public boolean isOwners() {
-        return owners;
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public void setOwners(boolean owners) {
-        this.owners = owners;
+    public ScanUser getUser() {
+        return user;
     }
 
-    public ArrayList<ScanCategory> getScanCategories() {
-        return scanCategories;
+    public void setUser(ScanUser user) {
+        this.user = user;
     }
 
-    public void setScanCategories(ArrayList<ScanCategory> scanCategories) {
-        this.scanCategories = scanCategories;
-    }
 }

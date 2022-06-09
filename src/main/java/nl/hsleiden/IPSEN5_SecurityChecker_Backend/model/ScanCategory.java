@@ -1,37 +1,52 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "scan_category")
 public class ScanCategory {
-    private String title;
-    private String path;
+    @Id
+    private long id;
+
+    @MapsId
+    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
+    private Scan scan;
     private boolean loading;
+    private String result;
     private int grade;
-    private Object result;
+    @MapsId
+    @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
+    private SubScan subScan;
+
+//    Constructor   ////////////////////////////////////////////////////////////////////////
+
+
+    public ScanCategory(Scan scan, int grade, SubScan subScan) {
+        this.scan = scan;
+        this.grade = grade;
+        this.subScan = subScan;
+    }
 
     public ScanCategory() {
     }
 
-    public ScanCategory(String title, String path, boolean loading, int grade, Object result) {
-        this.title = title;
-        this.path = path;
-        this.loading = loading;
-        this.grade = grade;
-        this.result = result;
+    //    Getters Setters   ////////////////////////////////////////////////////////////////////////
+
+
+    public long getId() {
+        return id;
     }
 
-    public String getTitle() {
-        return title;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Scan getScan() {
+        return scan;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+    public void setScan(Scan scan) {
+        this.scan = scan;
     }
 
     public boolean isLoading() {
@@ -50,11 +65,19 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public Object getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(String result) {
         this.result = result;
+    }
+
+    public SubScan getSubScan() {
+        return subScan;
+    }
+
+    public void setSubScan(SubScan sub_scan) {
+        this.subScan = sub_scan;
     }
 }
