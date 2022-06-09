@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
 import javax.persistence.*;
+import org.json.JSONObject;
 
 @Entity
 @Table(name = "scan_category")
@@ -12,22 +13,19 @@ public class ScanCategory {
     @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
     private Scan scan;
     private boolean loading;
-    private String result;
     private int grade;
+    private JSONObject result;
     @MapsId
     @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
     private SubScan subScan;
 
-//    Constructor   ////////////////////////////////////////////////////////////////////////
-
+    public ScanCategory() {
+    }
 
     public ScanCategory(Scan scan, int grade, SubScan subScan) {
         this.scan = scan;
         this.grade = grade;
         this.subScan = subScan;
-    }
-
-    public ScanCategory() {
     }
 
     //    Getters Setters   ////////////////////////////////////////////////////////////////////////
@@ -65,11 +63,11 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public String getResult() {
+    public JSONObject getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(JSONObject result) {
         this.result = result;
     }
 
