@@ -132,7 +132,6 @@ public class ActiveScan {
             System.out.println(sites);
 
 
-
             int size = sites.length();
 
             for (int i = 0; i < size; i++) {
@@ -140,7 +139,7 @@ public class ActiveScan {
                 System.out.println(another_json_object);
                 System.out.println(another_json_object.get("alerts"));
 
-                PrintWriter out = new PrintWriter(new FileWriter("G:\\uniwerk\\programmeren\\java.txt"));
+                PrintWriter out = new PrintWriter(new FileWriter("G:\\uniwerk\\programmeren\\java.json"));
                 out.write(another_json_object.toString());
             }
 
