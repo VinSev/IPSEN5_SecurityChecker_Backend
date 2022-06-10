@@ -1,7 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
 import javax.persistence.*;
-import org.json.JSONObject;
+import java.lang.String;
 
 @Entity
 @Table(name = "scan_category")
@@ -14,7 +14,7 @@ public class ScanCategory {
     private Scan scan;
     private boolean loading;
     private int grade;
-    private JSONObject result;
+    private String result;
     @MapsId
     @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
     private SubScan subScan;
@@ -63,11 +63,11 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public JSONObject getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(JSONObject result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
