@@ -31,15 +31,6 @@ public class ScanResult {
         return scan;
     }
 
-//    public Result(long resultId, String date, String url, List<ScanResult> scanResults, boolean isFinished) {
-//        this.resultId = resultId;
-//        this.date = date;
-//        this.url = url;
-//        this.scanResults = scanResults;
-//        this.isFinished = isFinished;
-//    }
-
-
     public ScanResult(Scan scan, int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO) {
         this.scan = scan;
         this.headers = headers;

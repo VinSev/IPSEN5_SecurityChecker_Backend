@@ -8,6 +8,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,8 +18,6 @@ public class ResultService {
     private ScanCategoryService scanCategoryService;
     @Autowired
     private ResultDao resultDao;
-    @Autowired
-    private ScanDao scanDao;
 
     public ScanResult create(ScanResult scanResult) {
         return resultDao.create(scanResult);
@@ -36,8 +35,8 @@ public class ResultService {
         ScanResult newScanResult = new ScanResult();
         List<ScanCategory> completedScans = this.scanCategoryService.fillAllScanCategories(currentScan);
         newScanResult.setScan(currentScan);
-//        newScanResult.setScanCategories(completedScans);
-//        newScanResult.setUpdatedDate(LocalDateTime.now().toString());
+        newScanResult.setScanResults(completedScans);
+//       scan.setUpdatedDate(LocalDateTime.now().toString());
         return newScanResult;
 
     }
