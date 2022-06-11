@@ -30,7 +30,7 @@ public class SubScan {
     public SubScan() {
     }
 
-//    Getters and Setters  ////////////////////////////////////////////////////////////////////////
+    //    Getters Setters
 
     public long getId() {
         return id;

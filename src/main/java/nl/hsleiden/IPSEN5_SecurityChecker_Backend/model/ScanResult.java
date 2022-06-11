@@ -27,6 +27,8 @@ public class ScanResult {
     @OneToMany(targetEntity = ScanCategory.class , fetch = FetchType.EAGER)
     private List<ScanCategory> scanResults;
 
+//   Constructors     ////////////////////////////////////////////////////////////////////////
+
     public Scan getScan() {
         return scan;
     }
@@ -46,8 +48,7 @@ public class ScanResult {
     public ScanResult() {
     }
 
-
-    //    Setters And Getters
+    //    Getters Setters
 
 
     public void setScan(Scan scan) {

@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,30 +20,15 @@ public class SubScanService {
     private SubScanDao subScanDao;
 
     @Autowired
-    private HeaderApiScan headerScan;
-
-    @Autowired
-    private CertificateApiScan certificateScan;
-
-    @Autowired
-    private ExecuteScanService excecuteScanService
+    private ExecuteScanService executeScanService;
 
     public List<SubScan> giveAllPossibleSubScans() {
         return this.subScanDao.getAll();
     }
 
-    public ScanCategory getResultOfSubScan(SubScan subScan, Scan scan) {
-        ScanCategory scanCategory = new ScanCategory(scan, 0, subScan);
-        try {
-            this.excecuteScanService.ExecuteAllApiScans(scan);
-            return scanCategory;
-//            TODO return a HAshmap with andswer and Scan CAtegirty
-            System.out.println("hi");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        return scanCategory;
+    public List<ScanCategory> getResultOfSubScan(List<SubScan> subScans, Scan scan) {
+        Map<String, ApiScan> scanToApiMap = this.executeScanService.combineSubScanToApiScan(subScans);
+        List<ScanCategory> exceutedScans = this.executeScanService.executeScans(scanToApiMap, scan, subScans);
+        return exceutedScans;
     }
 }

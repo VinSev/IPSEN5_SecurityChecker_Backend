@@ -19,8 +19,8 @@ public class Scan {
     private ScanResult scanResult;
     @Column(name = "update_date")
     private String updateDate;
-//
-////    Constructors
+
+//   Constructors     ////////////////////////////////////////////////////////////////////////
 
 
     public Scan(ScanUser user, String url, ScanResult scanResult, String updateDate) {

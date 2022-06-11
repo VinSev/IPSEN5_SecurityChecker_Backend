@@ -22,9 +22,7 @@ public class HeaderApiScan extends ApiScan {
     @Override
     public void execute(ScanCategory scanCategory, String website) throws IOException, InterruptedException {
         super.execute(scanCategory, website);
-
         startScan();
-
         do {
             scanId = getScanId();
             TimeUnit.SECONDS.sleep(1);

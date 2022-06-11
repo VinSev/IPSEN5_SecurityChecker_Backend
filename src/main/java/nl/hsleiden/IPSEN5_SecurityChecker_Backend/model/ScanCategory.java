@@ -19,6 +19,8 @@ public class ScanCategory {
     @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
     private SubScan subScan;
 
+//   Constructors     ////////////////////////////////////////////////////////////////////////
+
     public ScanCategory() {
     }
 
@@ -28,7 +30,7 @@ public class ScanCategory {
         this.subScan = subScan;
     }
 
-    //    Getters Setters   ////////////////////////////////////////////////////////////////////////
+    //    Getters Setters
 
 
     public long getId() {
