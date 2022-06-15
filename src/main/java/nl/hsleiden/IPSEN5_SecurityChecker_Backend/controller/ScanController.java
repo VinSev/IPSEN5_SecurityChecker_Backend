@@ -39,7 +39,6 @@ public class ScanController {
 
     @PutMapping(value = "/new")
     public Scan addScan(@RequestBody Scan newScan) {
-        System.out.println("Scan Added");
         return scanDao.create(newScan);
     }
 
