@@ -86,13 +86,14 @@ public class ActiveScan {
 
 
             System.out.println("Active Scanning target : " + TARGET);
+            ApiResponse resp2 = api.ascan.scan(TARGET, "True", "False", null, null, null);
             String scanid;
             int progress;
 
 
 
 
-            scanid = ((ApiResponseElement) resp).getValue();
+            scanid = ((ApiResponseElement) resp2).getValue();
 
             while (true) {
                 Thread.sleep(5000);
