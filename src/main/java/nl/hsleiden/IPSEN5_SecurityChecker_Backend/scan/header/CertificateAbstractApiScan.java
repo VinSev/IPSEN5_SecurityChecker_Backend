@@ -2,7 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class HeaderScan extends Scan {
-    private final String baseURL = "https://http-observatory.security.mozilla.org/api/v1";
+@Service
+public class CertificateAbstractApiScan extends AbstractApiScan {
+    private final String baseURL = "https://tls-observatory.services.mozilla.com/api/v1";
     private int scanId;
 
     @Override
@@ -24,7 +25,6 @@ public class HeaderScan extends Scan {
         super.execute(scanCategory, website);
 
         startScan();
-
         do {
             scanId = getScanId();
             TimeUnit.SECONDS.sleep(1);
@@ -90,4 +90,5 @@ public class HeaderScan extends Scan {
     private boolean isFinished() throws IOException, InterruptedException {
         return super.getResult().get("state").equals("FINISHED");
     }
+
 }

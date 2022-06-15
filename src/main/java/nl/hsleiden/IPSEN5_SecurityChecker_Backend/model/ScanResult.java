@@ -27,18 +27,11 @@ public class ScanResult {
     @OneToMany(targetEntity = ScanCategory.class , fetch = FetchType.EAGER)
     private List<ScanCategory> scanResults;
 
+//   Constructors     ////////////////////////////////////////////////////////////////////////
+
     public Scan getScan() {
         return scan;
     }
-
-//    public Result(long resultId, String date, String url, List<ScanResult> scanResults, boolean isFinished) {
-//        this.resultId = resultId;
-//        this.date = date;
-//        this.url = url;
-//        this.scanResults = scanResults;
-//        this.isFinished = isFinished;
-//    }
-
 
     public ScanResult(Scan scan, int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO) {
         this.scan = scan;
@@ -55,8 +48,7 @@ public class ScanResult {
     public ScanResult() {
     }
 
-
-    //    Setters And Getters
+    //    Getters Setters
 
 
     public void setScan(Scan scan) {

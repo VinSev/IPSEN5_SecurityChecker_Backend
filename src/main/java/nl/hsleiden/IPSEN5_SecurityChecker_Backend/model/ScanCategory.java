@@ -14,21 +14,24 @@ public class ScanCategory {
     private Scan scan;
     private boolean loading;
     private int grade;
+    @Transient
     private String result;
     @MapsId
-    @ManyToOne(targetEntity = SubScan.class , fetch = FetchType.EAGER)
-    private SubScan subScan;
+    @ManyToOne(targetEntity = ApiScan.class , fetch = FetchType.EAGER)
+    private ApiScan apiScan;
+
+//   Constructors     ////////////////////////////////////////////////////////////////////////
 
     public ScanCategory() {
     }
 
-    public ScanCategory(Scan scan, int grade, SubScan subScan) {
+    public ScanCategory(Scan scan, int grade, ApiScan apiScan) {
         this.scan = scan;
         this.grade = grade;
-        this.subScan = subScan;
+        this.apiScan = apiScan;
     }
 
-    //    Getters Setters   ////////////////////////////////////////////////////////////////////////
+    //    Getters Setters
 
 
     public long getId() {
@@ -71,11 +74,11 @@ public class ScanCategory {
         this.result = result;
     }
 
-    public SubScan getSubScan() {
-        return subScan;
+    public ApiScan getSubScan() {
+        return apiScan;
     }
 
-    public void setSubScan(SubScan sub_scan) {
-        this.subScan = sub_scan;
+    public void setSubScan(ApiScan sub_scan) {
+        this.apiScan = sub_scan;
     }
 }

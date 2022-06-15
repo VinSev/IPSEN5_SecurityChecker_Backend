@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "scan_user")
 public class ScanUser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Email
     private String email;

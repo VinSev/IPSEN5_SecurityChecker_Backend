@@ -1,25 +1,31 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.SubScanDao;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SubScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ApiScanDao;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SubScanService {
     @Autowired
-    private SubScanDao subScanDao;
+    private ApiScanDao apiScanDao;
 
-    public List<SubScan> giveAllPossibleSubScans(){
-       return this.subScanDao.getAll();
+    @Autowired
+    private ExecuteScanService executeScanService;
+
+    public List<ApiScan> giveAllPossibleSubScans() {
+        return this.apiScanDao.getAll();
     }
 
-    public int getResultOfSubScan(SubScan subScan){
-            String url = subScan.getUrl();
-            int grade = 0;
-
-            return grade;
+    public List<ScanCategory> getResultOfSubScan(List<ApiScan> apiScans, Scan scan) {
+        Map<String, AbstractApiScan> scanToApiMap = this.executeScanService.combineSubScanToApiScan(apiScans);
+        List<ScanCategory> executedScans = this.executeScanService.executeScans(scanToApiMap, scan, apiScans);
+        return executedScans;
     }
 }
