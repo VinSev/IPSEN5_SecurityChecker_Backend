@@ -2,7 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SeoScan extends Scan {
+public class SeoScan extends AbstractApiScan {
     private final String baseURL = "https://chromeuxreport.googleapis.com/v1/records:queryRecord";
     private final List<String> keys = new ArrayList<>();
 
