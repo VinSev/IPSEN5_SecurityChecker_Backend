@@ -2,7 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 @Service
-public class HeaderApiScan extends ApiScan {
+public class HeaderAbstractApiScan extends AbstractApiScan {
     private final String baseURL = "https://http-observatory.security.mozilla.org/api/v1";
     private int scanId;
 

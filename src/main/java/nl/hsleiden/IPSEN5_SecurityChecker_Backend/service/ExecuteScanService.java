@@ -2,8 +2,8 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SubScan;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -16,38 +16,38 @@ import java.util.Map;
 @Service
 public class ExecuteScanService {
 
-    private List<ApiScan> listOFApiScan;
+    private List<AbstractApiScan> listOFAbstractApiScan;
 
-    public void addApiScan(ApiScan newObject) {
-        this.listOFApiScan.add(newObject);
+    public void addApiScan(AbstractApiScan newObject) {
+        this.listOFAbstractApiScan.add(newObject);
     }
 
-    public void removeApiScan(ApiScan newObject) {
-        this.listOFApiScan.remove(newObject);
+    public void removeApiScan(AbstractApiScan newObject) {
+        this.listOFAbstractApiScan.remove(newObject);
     }
 
 
-    public Map<String, ApiScan> combineSubScanToApiScan(List<SubScan> scans) {
-        Map<String, ApiScan> MapSubScan = new HashMap<>();
+    public Map<String, AbstractApiScan> combineSubScanToApiScan(List<ApiScan> scans) {
+        Map<String, AbstractApiScan> MapSubScan = new HashMap<>();
         int scanNumber = 0;
-        for (SubScan subScan : scans) {
-            MapSubScan.put(subScan.getName(), this.listOFApiScan.get(scanNumber));
+        for (ApiScan apiScan : scans) {
+            MapSubScan.put(apiScan.getName(), this.listOFAbstractApiScan.get(scanNumber));
             scanNumber++;
         }
         return MapSubScan;
     }
 
-    public List<ScanCategory> executeScans(Map<String, ApiScan> scanToApi, Scan scan, List<SubScan> subScans) {
+    public List<ScanCategory> executeScans(Map<String, AbstractApiScan> scanToApi, Scan scan, List<ApiScan> apiScans) {
         List<ScanCategory> executedCategoryScans = new ArrayList<>();
         try {
 //            Go trough all scans
-            for (SubScan subScan : subScans) {
+            for (ApiScan apiScan : apiScans) {
 //                Go trou all ApiClass scans
                 for (String key : scanToApi.keySet()) {
 //                    Check if the scan name is equal to the key of the ApiScan
-                    if (subScan.getName().equals(key)) {
+                    if (apiScan.getName().equals(key)) {
 //                        Make it into a Category
-                        ScanCategory scanCategory = new ScanCategory(scan, 0, subScan);
+                        ScanCategory scanCategory = new ScanCategory(scan, 0, apiScan);
 //                       Execute it  for a grade
                         scanToApi.get(key).execute(scanCategory, scan.getUrl());
                     }
@@ -60,7 +60,7 @@ public class ExecuteScanService {
         return executedCategoryScans;
     }
 
-    public List<ScanCategory> getResultsFromScans(List<ScanCategory> executedScans, Map<String, ApiScan> scanToApi) {
+    public List<ScanCategory> getResultsFromScans(List<ScanCategory> executedScans, Map<String, AbstractApiScan> scanToApi) {
         try {
             for (String key : scanToApi.keySet()) {
                 JSONObject result = scanToApi.get(key).getResult();

@@ -2,7 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class CertificateApiScan extends ApiScan {
-    private final String baseURL = "https://tls-observatory.services.mozilla.com/api/v1/results";
+public class CertificateAbstractApiScan extends AbstractApiScan {
+    private final String baseURL = "https://tls-observatory.services.mozilla.com/api/v1";
     private int scanId;
 
     @Override

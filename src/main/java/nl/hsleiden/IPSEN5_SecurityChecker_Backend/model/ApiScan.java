@@ -3,31 +3,31 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "sub_scan")
-public class SubScan {
+@Table(name = "api_scan")
+public class ApiScan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String name;
-    private String url;
+    private String name;// header
+    private String url; // header
 
 
 //   Constructors     ////////////////////////////////////////////////////////////////////////
 
-    public SubScan(long id, String name, String url) {
+    public ApiScan(long id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
     }
 
-    public SubScan(String name, String url) {
+    public ApiScan(String name, String url) {
         this.name = name;
         this.url = url;
     }
 
-    public SubScan() {
+    public ApiScan() {
     }
 
     //    Getters Setters

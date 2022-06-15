@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public abstract class ApiScan {
+public abstract class AbstractApiScan {
 
     private ScanCategory scanCategory;
     private String website;
