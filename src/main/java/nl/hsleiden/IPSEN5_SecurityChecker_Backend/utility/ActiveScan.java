@@ -119,18 +119,16 @@ public class ActiveScan {
             System.out.println(jsonnn);
             JSONArray jsonarray = jsonnn.getJSONArray("site");
             Object jsonobj = jsonarray.get(0);
-            System.out.println(jsonarray);
+            System.out.println(jsonarray.get(0));
 
-            ObjectMapper oMapper = new ObjectMapper();
+            JSONObject json2 = new JSONObject(jsonarray.get(0).toString());
+            System.out.println(json2);
+            JSONArray jsonar2 = json2.getJSONArray("alerts");
+            System.out.println(jsonar2);
 
-//            for (int j = 0; j < jsonarray.length(); j++) {
-//                System.out.println("test");
-//                for (int k = 0; k < jsonarray.getJSONArray(j).length(); k++) {
-//                    String country = jsonarray.getJSONArray(j).getJSONObject(k).getString("riskdesc");
-//                    Integer count = jsonarray.getJSONArray(j).getJSONObject(k).getInt("name");
-//                    System.out.println(count);
-//                    cargo.put(country, count);
-//                }
+
+//            for (int i = 0; i < jsonobj; i++) {
+//
 //            }
 
 
