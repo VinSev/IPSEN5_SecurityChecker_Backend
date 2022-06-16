@@ -24,7 +24,7 @@ public class PdfService {
 
 
     public void makePdf(Scan scan) throws IOException {
-        ArrayList<ScanCategory> scanCategories = scan.getScanCategories();
+        ArrayList<ScanCategory> scanCategories = (ArrayList<ScanCategory>) scan.getScanResult().getScanResults();
         PDDocument doc = new PDDocument();
         PDPage mypage = new PDPage();
         doc.addPage(mypage);

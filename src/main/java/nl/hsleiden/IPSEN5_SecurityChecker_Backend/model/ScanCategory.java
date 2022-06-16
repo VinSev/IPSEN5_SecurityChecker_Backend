@@ -1,37 +1,53 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
+import javax.persistence.*;
+import java.lang.String;
+
+@Entity
+@Table(name = "scan_category")
 public class ScanCategory {
-    private String title;
-    private String path;
+    @Id
+    private long id;
+
+    @MapsId
+    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
+    private Scan scan;
     private boolean loading;
     private int grade;
-    private Object result;
+    @Transient
+    private String result;
+    @MapsId
+    @ManyToOne(targetEntity = ApiScan.class , fetch = FetchType.EAGER)
+    private ApiScan apiScan;
+
+//   Constructors     ////////////////////////////////////////////////////////////////////////
 
     public ScanCategory() {
     }
 
-    public ScanCategory(String title, String path, boolean loading, int grade, Object result) {
-        this.title = title;
-        this.path = path;
-        this.loading = loading;
+    public ScanCategory(Scan scan, int grade, ApiScan apiScan) {
+        this.scan = scan;
         this.grade = grade;
-        this.result = result;
+        this.apiScan = apiScan;
     }
 
-    public String getTitle() {
-        return title;
+    //    Getters Setters
+
+
+    public long getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getPath() {
-        return path;
+    public Scan getScan() {
+        return scan;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setScan(Scan scan) {
+        this.scan = scan;
     }
 
     public boolean isLoading() {
@@ -50,11 +66,19 @@ public class ScanCategory {
         this.grade = grade;
     }
 
-    public Object getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(String result) {
         this.result = result;
+    }
+
+    public ApiScan getSubScan() {
+        return apiScan;
+    }
+
+    public void setSubScan(ApiScan sub_scan) {
+        this.apiScan = sub_scan;
     }
 }

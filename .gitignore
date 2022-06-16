@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### ignore specific files ###
+src/main/java/nl/hsleiden/IPSEN5_SecurityChecker_Backend/service/ScanService.java
