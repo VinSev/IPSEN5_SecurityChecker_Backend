@@ -1,7 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.TableMaker;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -15,7 +15,7 @@ import org.vandeseer.easytable.structure.Table;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 @Service
 public class PdfService {
@@ -23,8 +23,8 @@ public class PdfService {
 
 
 
-    public void makePdf(Scan scan) throws IOException {
-        ArrayList<ScanCategory> scanCategories = (ArrayList<ScanCategory>) scan.getScanResult().getScanResults();
+    public void makePdf(ArrayList<SecurityAlert> securityAlerts) throws IOException {
+
         PDDocument doc = new PDDocument();
         PDPage mypage = new PDPage();
         doc.addPage(mypage);
@@ -71,7 +71,7 @@ public class PdfService {
         TableMaker tabbie = new TableMaker();
 
 
-        Table mytabbie = tabbie.createTable(scanCategories,"Bruno","www.google.com");
+        Table mytabbie = tabbie.createTable(securityAlerts,"Bruno","www.google.com");
 
 
 

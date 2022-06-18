@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
 import org.vandeseer.easytable.structure.cell.TextCell;
@@ -22,7 +23,7 @@ public class TableMaker {
 
     }
 
-    public Table createTable(ArrayList<ScanCategory> scans, String name, String website) {
+    public Table createTable(ArrayList<SecurityAlert> scans, String name, String website) {
         final Table.TableBuilder tableBuilder = Table.builder()
                 .addColumnOfWidth(150)
                 .addColumnOfWidth(150)
@@ -60,14 +61,14 @@ public class TableMaker {
             Color score = Color.RED;
 
             String gehaald = "Nee";
-            if (scan.getGrade() >5){
+            if (scan.getScore() >5){
                 gehaald = "Ja";
                 score = Color.GREEN;
             }
             tableBuilder.addRow(
                     Row.builder()
                             .add(TextCell.builder()
-                                    .text(scan.getSubScan().getName())
+                                    .text(scan.getTitel())
                                     .borderWidth(1F)
                                     .build())
                             .add(TextCell.builder()

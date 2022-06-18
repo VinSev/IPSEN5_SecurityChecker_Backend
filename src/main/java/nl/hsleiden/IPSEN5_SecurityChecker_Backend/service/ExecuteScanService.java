@@ -67,6 +67,7 @@ public class ExecuteScanService {
 //            Go trough all scans
                 for (ScanCategory scanCategory : executedScans) {
                     int grade = Integer.parseInt(result.get("grade").toString());
+
                 scanCategory.setGrade(grade);
                 }
             }
