@@ -16,7 +16,6 @@ public class TipsController {
     @Autowired
     private TipsService tipsService;
 
-    @IsAdmin
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

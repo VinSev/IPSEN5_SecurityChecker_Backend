@@ -15,7 +15,6 @@ public class Scan {
     @Column(name = "url")
     private String url;
     @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
     private ScanResult scanResult;
     @Column(name = "update_date")
     private String updateDate;
