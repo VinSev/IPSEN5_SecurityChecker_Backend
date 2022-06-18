@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
@@ -127,19 +128,33 @@ public class ActiveScan {
             System.out.println(jsonar2);
 
 
-//            for (int i = 0; i < jsonobj; i++) {
-//
-//            }
+            ArrayList<SecurityAlert> scanAlerts = new ArrayList<>();
+            for (int i = 0; i < jsonar2.length(); i++) {
+                JSONObject json3 = new JSONObject(jsonar2.get(i).toString());
+                HashMap<String, Integer> warnings = new HashMap<String, Integer>();
+                warnings.put("Informational",1);
+                warnings.put("Low",3);
+                warnings.put("Medium",5);
+                warnings.put("High",10);
 
 
 
 
+                String scanScore = json3.get("riskdesc").toString().split(" ")[0];
+                String titel  = json3.get("name").toString();
+                Boolean geslaagd = true;
 
+                if (warnings.get(scanScore) < 5){
+                    geslaagd = false;
+                }
 
-//
-//            FileWriter xmlFile = new FileWriter("report.txt");
-//            xmlFile.write(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
-//
+                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd);
+                scanAlerts.add(currentAlert);
+            }
+
+            scanAlerts.forEach(scan -> {
+                System.out.println(scan.getTitel());
+            });
 
 
         } catch (Exception e) {
