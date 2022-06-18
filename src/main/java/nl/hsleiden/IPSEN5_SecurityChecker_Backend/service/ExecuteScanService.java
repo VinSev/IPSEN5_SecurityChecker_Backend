@@ -3,6 +3,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Service
 public class ExecuteScanService {
+    private static final int PASSED_NUMBER = (int) 5.5;
 
     private List<AbstractApiScan> listOFAbstractApiScan;
 
@@ -37,6 +39,7 @@ public class ExecuteScanService {
         return MapSubScan;
     }
 
+//  Tod0  ArrayList<ScanAlert> List<ScanCategory>
     public List<ScanCategory> executeScans(Map<String, AbstractApiScan> scanToApi, Scan scan, List<ApiScan> apiScans) {
         List<ScanCategory> executedCategoryScans = new ArrayList<>();
         try {
@@ -76,5 +79,13 @@ public class ExecuteScanService {
         return executedScans;
     }
 
+    private ArrayList<SecurityAlert> setScanCategoriesToScanAlerts(List<ScanCategory> executedScans) {
+        ArrayList<SecurityAlert> securedAlerts = new ArrayList<>();
+        for (ScanCategory scanCategory: executedScans){
+            boolean isPassed = scanCategory.getGrade() < PASSED_NUMBER;
+            securedAlerts.add(new SecurityAlert(scanCategory.getGrade(),scanCategory.getSubScan().getName(),isPassed));
+        }
+        return securedAlerts;
+    }
 
 }
