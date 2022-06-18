@@ -29,7 +29,7 @@ public class EmailController {
 
     @PostMapping()
     public void mail(@RequestBody Scan scan) throws MessagingException, IOException {
-        this.pdfService.makePdf(scan);
+//        this.pdfService.makePdf(scan);
 //        this.emailService.sendEmailWithPDFAttachment(scan);
         ActiveScan.spiderSearch();
 
