@@ -66,7 +66,8 @@ public class ExecuteScanService {
                 JSONObject result = scanToApi.get(key).getResult();
 //            Go trough all scans
                 for (ScanCategory scanCategory : executedScans) {
-                   scanCategory.setGrade(Integer.parseInt(result.get("grade").toString()));
+                    int grade = Integer.parseInt(result.get("grade").toString());
+                scanCategory.setGrade(grade);
                 }
             }
         } catch (IOException | InterruptedException e) {
