@@ -17,8 +17,7 @@ public class ScanUser {
     private String name;
     private String telephone;
     @NotBlank
-    @OneToMany(fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ScanResult> scans;
 
     public ScanUser(int id, String email, String name, String telephone, Set<ScanResult> scans) {
@@ -62,14 +61,6 @@ public class ScanUser {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
     }
 
     public Set<ScanResult> getScans() {
