@@ -82,7 +82,7 @@ public class ActiveScan {
 
             JSONObject json2 = new JSONObject(jsonarray.get(0).toString());
             JSONArray jsonar2 = json2.getJSONArray("alerts");
-
+            System.out.println(jsonar2);
 
 
             ArrayList<SecurityAlert> scanAlerts = new ArrayList<>();
@@ -101,11 +101,12 @@ public class ActiveScan {
                 String titel  = json3.get("name").toString();
                 Boolean geslaagd = true;
 
+
                 if (warnings.get(scanScore) < 5){
                     geslaagd = false;
                 }
 
-                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd);
+                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd,"hellokitty");
                 scanAlerts.add(currentAlert);
             }
 

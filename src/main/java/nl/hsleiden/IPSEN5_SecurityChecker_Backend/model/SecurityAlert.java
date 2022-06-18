@@ -4,11 +4,13 @@ public class SecurityAlert {
     private int score;
     private String titel;
     private boolean geslaagd;
+    private String uitleg;
 
-    public SecurityAlert(int score, String titel, boolean geslaagd) {
+    public SecurityAlert(int score, String titel, boolean geslaagd, String uitleg) {
         this.score = score;
         this.titel = titel;
         this.geslaagd = geslaagd;
+        this.uitleg = uitleg;
     }
 
     public int getScore() {
