@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ResultDao implements Dao<ScanResult, String> {
+public class ResultDao implements Dao<ScanResult, Long> {
 
     @Autowired
     private ResultRepository repository;
@@ -20,7 +20,7 @@ public class ResultDao implements Dao<ScanResult, String> {
     }
 
     @Override
-    public ScanResult get(String id) {
+    public ScanResult get(Long id) {
         return this.repository.getById(id);
     }
 

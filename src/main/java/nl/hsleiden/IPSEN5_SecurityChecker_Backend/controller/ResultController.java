@@ -38,7 +38,7 @@ public class ResultController {
     }
 
     @GetMapping(value = "/{id}")
-    public ScanResult getResult(@PathVariable final String id) {
+    public ScanResult getResult(@PathVariable final Long id) {
         return resultDAO.get(id);
     }
 
