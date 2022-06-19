@@ -84,7 +84,7 @@ public class ExecuteScanService {
         ArrayList<SecurityAlert> securedAlerts = new ArrayList<>();
         for (ScanCategory scanCategory: executedScans){
             boolean isPassed = scanCategory.getGrade() < PASSED_NUMBER;
-            securedAlerts.add(new SecurityAlert(scanCategory.getGrade(),scanCategory.getSubScan().getName(),isPassed));
+            securedAlerts.add(new SecurityAlert(scanCategory.getGrade(),scanCategory.getSubScan().getName(),isPassed ,scanCategory.getResult()));
         }
         return securedAlerts;
     }
