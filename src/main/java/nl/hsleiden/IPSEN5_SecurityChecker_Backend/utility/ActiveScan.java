@@ -100,13 +100,14 @@ public class ActiveScan {
                 String scanScore = json3.get("riskdesc").toString().split(" ")[0];
                 String titel  = json3.get("name").toString();
                 Boolean geslaagd = true;
+                String uitleg = json3.get("desc").toString();
 
 
                 if (warnings.get(scanScore) < 5){
                     geslaagd = false;
                 }
 
-                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd,"hellokitty");
+                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd,uitleg);
                 scanAlerts.add(currentAlert);
             }
 

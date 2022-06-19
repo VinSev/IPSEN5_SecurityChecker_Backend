@@ -25,6 +25,10 @@ public class SecurityAlert {
         return titel;
     }
 
+    public String getUitleg(){
+        return this.uitleg;
+    }
+
     public void setTitel(String titel) {
         this.titel = titel;
     }
