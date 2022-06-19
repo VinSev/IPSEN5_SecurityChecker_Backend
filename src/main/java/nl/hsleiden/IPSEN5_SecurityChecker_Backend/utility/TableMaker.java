@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
 import org.vandeseer.easytable.structure.cell.TextCell;
@@ -22,7 +23,7 @@ public class TableMaker {
 
     }
 
-    public Table createTable(ArrayList<ScanCategory> scans, String name, String website) {
+    public Table createTable(ArrayList<SecurityAlert> scans, String name, String website) {
         final Table.TableBuilder tableBuilder = Table.builder()
                 .addColumnOfWidth(150)
                 .addColumnOfWidth(150)
@@ -30,20 +31,23 @@ public class TableMaker {
 
         TextCell h1 = TextCell.builder()
                 .text("Naam")
-                .backgroundColor(Color.BLACK)
+                .backgroundColor(Color.PINK)
                 .textColor(Color.WHITE)
+                .borderColor(Color.PINK)
                 .borderWidth(1F)
                 .build();
 
         TextCell h2 = TextCell.builder()
                 .text("Geslaagd")
-                .backgroundColor(Color.BLACK)
+                .backgroundColor(Color.PINK)
+                .borderColor(Color.PINK)
                 .textColor(Color.WHITE)
                 .borderWidth(1F)
                 .build();
         TextCell h3 = TextCell.builder()
                 .text("Uitleg")
-                .backgroundColor(Color.BLACK)
+                .backgroundColor(Color.PINK)
+                .borderColor(Color.PINK)
                 .textColor(Color.WHITE)
                 .borderWidth(1F)
                 .build();
@@ -57,27 +61,38 @@ public class TableMaker {
 
         scans.forEach(scan ->{
 
-            Color score = Color.RED;
+            Color score = new Color((255),(79),(79));
 
             String gehaald = "Nee";
-            if (scan.getGrade() >5){
+            if (scan.getScore() >=5){
                 gehaald = "Ja";
-                score = Color.GREEN;
+                score = new Color((159),(221),(135));
             }
+            String uitleg = scan.getUitleg();
+            if (scan.getUitleg().split(".?-?,")[0].length() > 0){
+                uitleg = uitleg.split(".?-?,")[0].replace("</p>", "");
+            }
+
+            System.out.println(uitleg);
+            Color color = new Color((159),(221),(135));
+
             tableBuilder.addRow(
                     Row.builder()
                             .add(TextCell.builder()
-                                    .text(scan.getSubScan().getName())
+                                    .text(scan.getTitel())
                                     .borderWidth(1F)
+                                    .borderColor(Color.PINK)
                                     .build())
                             .add(TextCell.builder()
                                     .text(gehaald)
                                     .borderWidth(1F)
+                                    .borderColor(Color.PINK)
                                     .textColor(score)
                                     .build())
                             .add(TextCell.builder()
-                                    .text("result")
+                                    .text(uitleg.split("<p>")[1])
                                     .borderWidth(1F)
+                                    .borderColor(Color.PINK)
                                     .build())
                             .build());
         });

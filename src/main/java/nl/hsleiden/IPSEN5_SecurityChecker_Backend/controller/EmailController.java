@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 @RestController
@@ -28,10 +29,11 @@ public class EmailController {
 
 
     @PostMapping()
-    public void mail(@RequestBody Scan scan) throws MessagingException, IOException {
+    public void mail(@RequestBody Scan scan) throws MessagingException, IOException, URISyntaxException {
 //        this.pdfService.makePdf(scan);
 //        this.emailService.sendEmailWithPDFAttachment(scan);
-        ActiveScan.spiderSearch();
+
+        this.pdfService.makePdf(ActiveScan.spiderSearch());
 
     }
 

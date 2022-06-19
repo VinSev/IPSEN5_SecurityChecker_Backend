@@ -1,21 +1,14 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.stereotype.Service;
 import org.zaproxy.clientapi.core.*;
-
-import javax.swing.text.html.HTMLDocument;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ActiveScan {
@@ -25,43 +18,9 @@ public class ActiveScan {
     private static final String ZAP_ADDRESS = "localhost";
     private static final String TARGET = "https://webshop-vacations.herokuapp.com/";
 
-    public static void attackScan() {
 
-        ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
-        try {
-
-            System.out.println("Active Scanning target : " + TARGET);
-            ApiResponse resp = api.ascan.scan(TARGET, "True", "False", null, null, null);
-            String scanid;
-            int progress;
-
-            // The scan now returns a scan id to support concurrent scanning
-            scanid = ((ApiResponseElement) resp).getValue();
-            // Poll the status until it completes
-            while (true) {
-                Thread.sleep(5000);
-                progress =
-                        Integer.parseInt(
-                                ((ApiResponseElement) api.ascan.status(scanid)).getValue());
-                System.out.println("Active Scan progress : " + progress + "%");
-                if (progress >= 100) {
-                    break;
-                }
-            }
-
-            System.out.println("Active Scan complete");
-            // Print vulnerabilities found by the scanning
-            System.out.println("Alerts:");
-            System.out.println(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
-
-        } catch (Exception e) {
-            System.out.println("Exception : " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public static void spiderSearch() {
+    public static ArrayList<SecurityAlert> spiderSearch() {
 
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
@@ -117,13 +76,11 @@ public class ActiveScan {
             JSONObject jsonnn = new JSONObject(new String(reporto));
 
 
-            System.out.println(jsonnn);
+
             JSONArray jsonarray = jsonnn.getJSONArray("site");
-            Object jsonobj = jsonarray.get(0);
-            System.out.println(jsonarray.get(0));
+
 
             JSONObject json2 = new JSONObject(jsonarray.get(0).toString());
-            System.out.println(json2);
             JSONArray jsonar2 = json2.getJSONArray("alerts");
             System.out.println(jsonar2);
 
@@ -143,12 +100,14 @@ public class ActiveScan {
                 String scanScore = json3.get("riskdesc").toString().split(" ")[0];
                 String titel  = json3.get("name").toString();
                 Boolean geslaagd = true;
+                String uitleg = json3.get("desc").toString();
+
 
                 if (warnings.get(scanScore) < 5){
                     geslaagd = false;
                 }
 
-                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd);
+                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd,uitleg);
                 scanAlerts.add(currentAlert);
             }
 
@@ -157,9 +116,13 @@ public class ActiveScan {
             });
 
 
+           return scanAlerts;
+
         } catch (Exception e) {
             System.out.println("Exception : " + e.getMessage());
             e.printStackTrace();
         }
+      ArrayList<SecurityAlert> failedScans = new ArrayList<>();
+        return failedScans;
     }
 }
