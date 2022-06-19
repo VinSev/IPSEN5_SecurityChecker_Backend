@@ -55,4 +55,11 @@ public class Scan {
         this.user = user;
     }
 
+    public long getScanId() {
+        return scanId;
+    }
+
+    public void setScanId(long scanId) {
+        this.scanId = scanId;
+    }
 }
