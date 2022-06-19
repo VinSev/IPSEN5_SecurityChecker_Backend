@@ -39,10 +39,10 @@ public class PdfService {
         PDFont pdfFont= PDType1Font.HELVETICA_BOLD;
         int fontSize = 14;
 
-        PDImageXObject pdImage;
-        InputStream is = PdfService.class.getResourceAsStream("piggie2.png");
-        byte [] ba = IOUtils.toByteArray(is);
-        pdImage = PDImageXObject.createFromByteArray(doc,ba,"src/main/resources/piggie2.png");
+//        PDImageXObject pdImage;
+//        InputStream is = PdfService.class.getResourceAsStream("piggie2.png");
+//        byte [] ba = IOUtils.toByteArray(is);
+        PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/piggie2.png", doc);
 
 
         PDDocumentInformation docInfo =  doc.getDocumentInformation();
