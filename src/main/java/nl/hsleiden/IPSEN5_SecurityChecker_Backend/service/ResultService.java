@@ -25,7 +25,6 @@ public class ResultService {
 
     public ScanResult createNewResult(Scan currentScan) {
         ScanResult newScanResult = fillNewScanResult(currentScan);
-        newScanResult.setScan(currentScan);
         currentScan.setScanResult(newScanResult);
 //        this.scanDao.create(currentScan);
         return this.resultDao.create(newScanResult);
@@ -34,7 +33,6 @@ public class ResultService {
     private ScanResult fillNewScanResult(Scan currentScan) {
         ScanResult newScanResult = new ScanResult();
         List<ScanCategory> completedScans = this.scanCategoryService.fillAllScanCategories(currentScan);
-        newScanResult.setScan(currentScan);
         newScanResult.setScanResults(completedScans);
 //       scan.setUpdatedDate(LocalDateTime.now().toString());
         return newScanResult;
