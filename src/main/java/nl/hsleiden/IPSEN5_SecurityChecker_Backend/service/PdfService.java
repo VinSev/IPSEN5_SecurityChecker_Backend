@@ -112,6 +112,6 @@ public class PdfService {
         contentStream.close();
 
 
-        doc.save("G:\\uniwerk\\pdf\\myTest.pdf");
+        doc.save("src/main/resources/pdf/test.pdf");
     }
 }

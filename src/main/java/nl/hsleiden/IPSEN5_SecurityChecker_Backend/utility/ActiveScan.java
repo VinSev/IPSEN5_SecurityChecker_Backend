@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class ActiveScan {
 
     private static final int ZAP_PORT = 8081;
-    private static final String ZAP_API_KEY = "kie7nrse6gi4uvgoof8mm68289";
+    private static final String ZAP_API_KEY = "5t8h7sd77ivq3q835gmsndo5t0";
     private static final String ZAP_ADDRESS = "localhost";
     private static final String TARGET = "https://webshop-vacations.herokuapp.com/";
 

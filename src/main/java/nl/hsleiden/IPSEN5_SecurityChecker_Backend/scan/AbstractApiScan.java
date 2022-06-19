@@ -16,7 +16,7 @@ public abstract class AbstractApiScan {
     }
 
     public JSONObject getResult() throws IOException, InterruptedException {
-        return (JSONObject) JSONObject.stringToValue(scanCategory.getResult());
+        return new JSONObject(scanCategory.getResult());
     }
 
     public void setResult(JSONObject result) {
