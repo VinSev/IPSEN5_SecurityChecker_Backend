@@ -12,8 +12,7 @@ public class Scan {
     private long scanId;
     @Column(name = "url")
     private String url;
-    @OneToOne(mappedBy = "scan", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(targetEntity = ScanResult.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private ScanResult scanResult;
     @Column(name = "update_date")
     private String updateDate;

@@ -10,9 +10,7 @@ public class ScanResult {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToOne
-    @MapsId
-    private Scan scan;
+    private int scan_scan_id;
     private int headers;
     private int XSSAndInjection;
     private int certificates;
@@ -29,12 +27,12 @@ public class ScanResult {
 
 //   Constructors     ////////////////////////////////////////////////////////////////////////
 
-    public Scan getScan() {
-        return scan;
+    public int getScan() {
+        return scan_scan_id;
     }
 
-    public ScanResult(Scan scan, int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO) {
-        this.scan = scan;
+    public ScanResult(int scan_scan_id, int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO) {
+        this.scan_scan_id = scan_scan_id;
         this.headers = headers;
         this.XSSAndInjection = XSSAndInjection;
         this.certificates = certificates;
@@ -51,8 +49,8 @@ public class ScanResult {
     //    Getters Setters
 
 
-    public void setScan(Scan scan) {
-        this.scan = scan;
+    public void setScan(int scan_scan_id) {
+        this.scan_scan_id = scan_scan_id;
     }
 
     public int getHeaders() {
