@@ -28,6 +28,14 @@ public class ExecuteScanService {
         this.listOFAbstractApiScan.remove(newObject);
     }
 
+    public ArrayList<SecurityAlert> setScanCategoriesToScanAlerts(List<ScanCategory> executedScans) {
+        ArrayList<SecurityAlert> securedAlerts = new ArrayList<>();
+        for (ScanCategory scanCategory: executedScans){
+            boolean isPassed = scanCategory.getGrade() < PASSED_NUMBER;
+            securedAlerts.add(new SecurityAlert(scanCategory.getGrade(),scanCategory.getSubScan().getName(),isPassed, scanCategory.getResult()));
+        }
+        return securedAlerts;
+    }
 
     public Map<String, AbstractApiScan> combineSubScanToApiScan(List<ApiScan> scans) {
         Map<String, AbstractApiScan> MapSubScan = new HashMap<>();
@@ -70,7 +78,6 @@ public class ExecuteScanService {
 //            Go trough all scans
                 for (ScanCategory scanCategory : executedScans) {
                     int grade = Integer.parseInt(result.get("grade").toString());
-
                 scanCategory.setGrade(grade);
                 }
             }
@@ -78,15 +85,6 @@ public class ExecuteScanService {
             e.printStackTrace();
         }
         return executedScans;
-    }
-
-    private ArrayList<SecurityAlert> setScanCategoriesToScanAlerts(List<ScanCategory> executedScans) {
-        ArrayList<SecurityAlert> securedAlerts = new ArrayList<>();
-        for (ScanCategory scanCategory: executedScans){
-            boolean isPassed = scanCategory.getGrade() < PASSED_NUMBER;
-            securedAlerts.add(new SecurityAlert(scanCategory.getGrade(),scanCategory.getSubScan().getName(),isPassed ,scanCategory.getResult()));
-        }
-        return securedAlerts;
     }
 
 }

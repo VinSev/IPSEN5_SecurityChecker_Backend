@@ -18,6 +18,8 @@ public class ResultService {
     private ScanCategoryService scanCategoryService;
     @Autowired
     private ResultDao resultDao;
+    @Autowired
+    private ScanDao scanDao;
 
     public ScanResult create(ScanResult scanResult) {
         return resultDao.create(scanResult);
@@ -27,7 +29,7 @@ public class ResultService {
         ScanResult newScanResult = fillNewScanResult(currentScan);
         newScanResult.setScan((int) currentScan.getScanId());
         currentScan.setScanResult(newScanResult);
-//        this.scanDao.create(currentScan);
+        this.scanDao.create(currentScan);
         return this.resultDao.create(newScanResult);
     }
 
