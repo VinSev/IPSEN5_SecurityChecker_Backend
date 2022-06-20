@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ScanReportDao;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +40,16 @@ public class ScanReportService {
 
 
     public ScanReport giveGradingToScanReport(ScanReport scanReport) {
-        for (Object result : scanReport.getResult().keySet()) {
+        for (String key : scanReport.getResult().keySet()) {
+            Object result = scanReport.getResult().get(key);
             ArrayList<String> optionsForResult = new ArrayList<>();
             optionsForResult.add("grade");
             optionsForResult.add("result");
             optionsForResult.add("score");
+            System.out.println(result);
             JsonObject resultJson = new Gson().toJsonTree(result).getAsJsonObject();
             for (String gradeOption : optionsForResult) {
+                performScan(result, scanReport);
                 String grade = resultJson.get(gradeOption).toString();
                 if (grade != null){
                     scanReport.setGrade(Integer.parseInt(grade));
@@ -53,6 +58,17 @@ public class ScanReportService {
             }
         }
         return scanReport;
+    }
+
+    public void performScan(Object result,ScanReport scanReport ) {
+        AbstractScan scan = (AbstractScan) result;
+        try {
+            scan.execute(scanReport,"www.google.com");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
