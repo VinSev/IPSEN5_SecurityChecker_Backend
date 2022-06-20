@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +17,8 @@ public class Report {
     @NotBlank
     @OneToOne(targetEntity = ScanUser.class, fetch = FetchType.EAGER)
     private ScanUser scanUser;
-    @NotBlank
     @OneToMany(targetEntity = ScanReport.class, fetch = FetchType.EAGER)
-    private List<ScanReport> scanReports;
+    private List<ScanReport> scanReports = new ArrayList<>();
     @NotBlank
     @CreatedDate
     @Column(nullable = false, updatable = false)

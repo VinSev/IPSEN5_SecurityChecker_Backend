@@ -1,8 +1,8 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.wordpress;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.certificate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
-import org.json.JSONArray;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +16,13 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class WordPressVulnerability extends AbstractApiScan {
-
-    private final String baseURL = "https://api.geekflare.com/mixedcontent";
+public class CertificateScan extends AbstractScan {
+    private final String baseURL = "https://tls-observatory.services.mozilla.com/api/v1";
     private int scanId;
 
     @Override
-    public void execute(ScanCategory scanCategory, String website) throws IOException, InterruptedException {
-        super.execute(scanCategory, website);
+    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        super.execute(scanReport, website);
 
         startScan();
         do {
@@ -83,19 +82,9 @@ public class WordPressVulnerability extends AbstractApiScan {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject objectResponse = new JSONObject(response.body());
+        setResult(new JSONObject(response.body()));
 
-        setResult(objectResponse.getJSONObject("data").put("grade", gradeInsecurities(objectResponse)));
         return super.getResult();
-
-
-    }
-
-    private int gradeInsecurities(JSONObject objectResponse) {
-        JSONArray insecurities = objectResponse.getJSONArray("insecure");
-        JSONArray secure = objectResponse.getJSONArray("secure");
-        int totalOutlets = insecurities.length() + secure.length();
-        return secure.length() / totalOutlets * 10;
     }
 
     private boolean isFinished() throws IOException, InterruptedException {

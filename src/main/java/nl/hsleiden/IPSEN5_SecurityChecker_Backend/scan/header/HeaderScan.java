@@ -1,7 +1,8 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.certificate;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,14 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 @Service
-public class CertificateAbstractApiScan extends AbstractApiScan {
-    private final String baseURL = "https://tls-observatory.services.mozilla.com/api/v1";
+public class HeaderScan extends AbstractScan {
+    private final String baseURL = "https://http-observatory.security.mozilla.org/api/v1";
     private int scanId;
 
     @Override
-    public void execute(ScanCategory scanCategory, String website) throws IOException, InterruptedException {
-        super.execute(scanCategory, website);
-
+    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        super.execute(scanReport, website);
         startScan();
         do {
             scanId = getScanId();
@@ -89,5 +88,4 @@ public class CertificateAbstractApiScan extends AbstractApiScan {
     private boolean isFinished() throws IOException, InterruptedException {
         return super.getResult().get("state").equals("FINISHED");
     }
-
 }

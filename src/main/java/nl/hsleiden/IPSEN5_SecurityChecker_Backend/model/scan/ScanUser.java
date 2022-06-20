@@ -9,9 +9,7 @@ public class ScanUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank
     private String name;
-    @NotBlank
     private String email;
     @NotBlank
     private String website;

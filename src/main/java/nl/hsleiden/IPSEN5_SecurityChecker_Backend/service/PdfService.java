@@ -1,9 +1,8 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.TableMaker;
-import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -17,11 +16,8 @@ import org.vandeseer.easytable.TableDrawer;
 import org.vandeseer.easytable.structure.Table;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -31,7 +27,7 @@ public class PdfService {
 
 
 
-    public void makePdf(ArrayList<SecurityAlert> securityAlerts) throws IOException, URISyntaxException {
+    public void makePdf(ArrayList<ScanAlert> scanAlerts) throws IOException, URISyntaxException {
 
         PDDocument doc = new PDDocument();
         PDPage mypage = new PDPage();
@@ -92,7 +88,7 @@ public class PdfService {
         TableMaker tabbie = new TableMaker();
 
 
-        Table mytabbie = tabbie.createTable(securityAlerts,"Bruno","www.google.com");
+        Table mytabbie = tabbie.createTable(scanAlerts,"Bruno","www.google.com");
 
 
 

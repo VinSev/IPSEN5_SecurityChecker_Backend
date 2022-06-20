@@ -1,13 +1,15 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "scan")
+@RequestMapping(value = "/scan")
 @CrossOrigin
 public class ScanController {
-
 
 }

@@ -1,6 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
 import org.vandeseer.easytable.structure.cell.TextCell;
@@ -22,7 +22,7 @@ public class TableMaker {
 
     }
 
-    public Table createTable(ArrayList<SecurityAlert> scans, String name, String website) {
+    public Table createTable(ArrayList<ScanAlert> scans, String name, String website) {
         final Table.TableBuilder tableBuilder = Table.builder()
                 .addColumnOfWidth(150)
                 .addColumnOfWidth(150)

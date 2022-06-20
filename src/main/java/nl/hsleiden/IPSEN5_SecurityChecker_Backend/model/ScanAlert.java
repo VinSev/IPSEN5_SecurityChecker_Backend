@@ -1,12 +1,12 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
-public class SecurityAlert {
+public class ScanAlert {
     private int grade;
     private String title;
     private boolean passed;
     private String description;
 
-    public SecurityAlert(int grade, String title, boolean passed, String description) {
+    public ScanAlert(int grade, String title, boolean passed, String description) {
         this.grade = grade;
         this.title = title;
         this.passed = passed;

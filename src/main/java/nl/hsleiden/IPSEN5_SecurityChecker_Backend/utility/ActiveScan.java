@@ -1,7 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class ActiveScan {
 
 
 
-    public static ArrayList<SecurityAlert> spiderSearch() {
+    public static ArrayList<ScanAlert> spiderSearch() {
 
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
@@ -85,7 +85,7 @@ public class ActiveScan {
             System.out.println(jsonar2);
 
 
-            ArrayList<SecurityAlert> scanAlerts = new ArrayList<>();
+            ArrayList<ScanAlert> scanAlerts = new ArrayList<>();
             for (int i = 0; i < jsonar2.length(); i++) {
                 JSONObject json3 = new JSONObject(jsonar2.get(i).toString());
                 HashMap<String, Integer> warnings = new HashMap<String, Integer>();
@@ -107,7 +107,7 @@ public class ActiveScan {
                     geslaagd = false;
                 }
 
-                SecurityAlert currentAlert = new SecurityAlert(warnings.get(scanScore),titel,geslaagd,uitleg);
+                ScanAlert currentAlert = new ScanAlert(warnings.get(scanScore),titel,geslaagd,uitleg);
                 scanAlerts.add(currentAlert);
             }
 
@@ -122,7 +122,7 @@ public class ActiveScan {
             System.out.println("Exception : " + e.getMessage());
             e.printStackTrace();
         }
-      ArrayList<SecurityAlert> failedScans = new ArrayList<>();
+      ArrayList<ScanAlert> failedScans = new ArrayList<>();
         return failedScans;
     }
 }

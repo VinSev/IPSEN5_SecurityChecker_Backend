@@ -1,25 +1,26 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-public abstract class AbstractApiScan {
+public abstract class AbstractScan {
 
-    private ScanCategory scanCategory;
+    private ScanReport scanReport;
     private String website;
 
-    public void execute(ScanCategory scanCategory, String website) throws IOException, InterruptedException {
-        this.scanCategory = scanCategory;
+    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        this.scanReport = scanReport;
         this.website = website;
     }
 
     public JSONObject getResult() throws IOException, InterruptedException {
-        return new JSONObject(scanCategory.getResult());
+        return scanReport.getResult();
     }
 
     public void setResult(JSONObject result) {
-        scanCategory.setResult(result.toString());
+        scanReport.setResult(result);
     }
 
     public String getWebsite() {

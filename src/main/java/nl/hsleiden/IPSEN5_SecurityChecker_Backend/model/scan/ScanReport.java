@@ -1,6 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan;
 
-import com.google.gson.JsonObject;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,13 +16,13 @@ public class ScanReport {
     @NotBlank
     private int grade;
     @Transient
-    private JsonObject result;
+    private JSONObject result;
 
     public ScanReport() {
 
     }
 
-    public ScanReport(long id, String title, int grade, JsonObject result) {
+    public ScanReport(long id, String title, int grade, JSONObject result) {
         this.id = id;
         this.title = title;
         this.grade = grade;
@@ -53,11 +53,11 @@ public class ScanReport {
         this.grade = grade;
     }
 
-    public JsonObject getResult() {
+    public JSONObject getResult() {
         return result;
     }
 
-    public void setResult(JsonObject result) {
+    public void setResult(JSONObject result) {
         this.result = result;
     }
 }

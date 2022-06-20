@@ -1,7 +1,8 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SeoScan extends AbstractApiScan {
+public class SeoScan extends AbstractScan {
     private final String baseURL = "https://chromeuxreport.googleapis.com/v1/records:queryRecord";
     private final List<String> keys = new ArrayList<>();
 
@@ -23,8 +24,8 @@ public class SeoScan extends AbstractApiScan {
     }
 
     @Override
-    public void execute(ScanCategory scanCategory, String website) throws IOException, InterruptedException {
-        super.execute(scanCategory, website);
+    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        super.execute(scanReport, website);
 
         startScan(keys.get(0));
     }
