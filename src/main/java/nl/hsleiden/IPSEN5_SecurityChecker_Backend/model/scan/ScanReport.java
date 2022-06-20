@@ -14,6 +14,8 @@ public class ScanReport {
     @NotBlank
     private String title;
     @NotBlank
+    private String endpoint;
+    @NotBlank
     private int grade;
     @Transient
     private JSONObject result;
@@ -22,9 +24,10 @@ public class ScanReport {
 
     }
 
-    public ScanReport(long id, String title, int grade, JSONObject result) {
+    public ScanReport(long id, String title, String endpoint, int grade, JSONObject result) {
         this.id = id;
         this.title = title;
+        this.endpoint = endpoint;
         this.grade = grade;
         this.result = result;
     }
@@ -43,6 +46,14 @@ public class ScanReport {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 
     public int getGrade() {

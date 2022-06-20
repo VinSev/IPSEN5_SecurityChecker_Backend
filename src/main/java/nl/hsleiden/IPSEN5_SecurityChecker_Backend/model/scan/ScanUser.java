@@ -13,16 +13,19 @@ public class ScanUser {
     private String email;
     @NotBlank
     private String website;
+    @NotBlank
+    private boolean ownership;
 
     public ScanUser() {
 
     }
 
-    public ScanUser(long id, String name, String email, String website) {
+    public ScanUser(long id, String name, String email, String website, boolean ownership) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.website = website;
+        this.ownership = ownership;
     }
 
     public long getId() {
@@ -55,5 +58,13 @@ public class ScanUser {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public boolean getOwnership() {
+        return ownership;
+    }
+
+    public void setOwnership(boolean ownership) {
+        this.ownership = ownership;
     }
 }
