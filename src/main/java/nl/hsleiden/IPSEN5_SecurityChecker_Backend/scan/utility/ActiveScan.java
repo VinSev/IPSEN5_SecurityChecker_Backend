@@ -1,4 +1,4 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.utility;
 
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;

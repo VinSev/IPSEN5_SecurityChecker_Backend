@@ -1,4 +1,4 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.utility;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

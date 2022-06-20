@@ -1,6 +1,5 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.utility;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
