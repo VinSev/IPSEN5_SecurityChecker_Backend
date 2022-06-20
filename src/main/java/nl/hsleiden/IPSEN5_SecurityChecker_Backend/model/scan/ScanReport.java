@@ -30,6 +30,12 @@ public class ScanReport {
         this.grade = grade;
         this.result = result;
     }
+    public ScanReport(String title, String endpoint, int grade, Map<String, Object> result) {
+        this.title = title;
+        this.endpoint = endpoint;
+        this.grade = grade;
+        this.result = result;
+    }
 
     public long getId() {
         return id;
