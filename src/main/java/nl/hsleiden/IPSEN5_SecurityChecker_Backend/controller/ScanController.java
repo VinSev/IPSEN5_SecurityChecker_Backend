@@ -6,13 +6,11 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header.HeaderScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo.SeoScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.wordpress.WordPressVulnerabilityScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.scan.ScanService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/scan")
@@ -46,6 +44,7 @@ public class ScanController {
         return scanReport;
     }
 
+    // TODO: Werkt niet
     @PostMapping("/vulnerability/{website}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
