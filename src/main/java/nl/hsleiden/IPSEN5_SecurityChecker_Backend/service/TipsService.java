@@ -16,7 +16,7 @@ public class TipsService {
         return this.tipsDao.getAll();
     }
 
-    public Tip get(Integer id) {
+    public Tip get(Long id) {
         return this.tipsDao.get(id);
     }
 

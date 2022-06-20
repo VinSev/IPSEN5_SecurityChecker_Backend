@@ -1,5 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.EmailService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.PdfService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.ActiveScan;
@@ -26,12 +27,12 @@ public class EmailController {
 
 
     @PostMapping()
-    public void mail(@RequestBody Scan scan) throws MessagingException, IOException, URISyntaxException {
+    public void mail(@RequestBody Report report) throws MessagingException, IOException, URISyntaxException {
 //        this.pdfService.makePdf(scan);
 //        this.emailService.sendEmailWithPDFAttachment(scan);
 
         this.pdfService.makePdf(ActiveScan.spiderSearch());
-        this.emailService.sendEmailWithPDFAttachment(scan);
+        this.emailService.sendEmailWithPDFAttachment(report);
 
     }
 

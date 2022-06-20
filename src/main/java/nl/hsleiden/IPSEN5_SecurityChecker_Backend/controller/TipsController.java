@@ -16,7 +16,6 @@ public class TipsController {
     @Autowired
     private TipsService tipsService;
 
-    @IsAdmin
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -24,11 +23,10 @@ public class TipsController {
         return this.tipsService.getAll();
     }
 
-    @IsAdmin
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Tip get(@PathVariable("id") Integer id) {
+    public Tip get(@PathVariable("id") Long id) {
         return this.tipsService.get(id);
     }
 

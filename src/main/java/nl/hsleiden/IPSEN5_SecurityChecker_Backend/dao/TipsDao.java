@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class TipsDao implements Dao<Tip, Integer> {
+public class TipsDao implements Dao<Tip, Long> {
     @Autowired
     private TipsRepository repository;
 
@@ -18,7 +18,7 @@ public class TipsDao implements Dao<Tip, Integer> {
     }
 
     @Override
-    public Tip get(Integer id) {
+    public Tip get(Long id) {
         return this.repository.getById(id);
     }
 
