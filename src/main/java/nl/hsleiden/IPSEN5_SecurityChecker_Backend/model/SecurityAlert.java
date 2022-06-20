@@ -1,43 +1,47 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
 
 public class SecurityAlert {
-    private int score;
-    private String titel;
-    private boolean geslaagd;
-    private String uitleg;
+    private int grade;
+    private String title;
+    private boolean passed;
+    private String description;
 
-    public SecurityAlert(int score, String titel, boolean geslaagd, String uitleg) {
-        this.score = score;
-        this.titel = titel;
-        this.geslaagd = geslaagd;
-        this.uitleg = uitleg;
+    public SecurityAlert(int grade, String title, boolean passed, String description) {
+        this.grade = grade;
+        this.title = title;
+        this.passed = passed;
+        this.description = description;
     }
 
-    public int getScore() {
-        return score;
+    public int getGrade() {
+        return grade;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
-    public String getTitel() {
-        return titel;
+    public String getTitle() {
+        return title;
     }
 
-    public String getUitleg(){
-        return this.uitleg;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public boolean isPassed() {
+        return passed;
     }
 
-    public boolean isGeslaagd() {
-        return geslaagd;
+    public void setPassed(boolean passed) {
+        this.passed = passed;
     }
 
-    public void setGeslaagd(boolean geslaagd) {
-        this.geslaagd = geslaagd;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

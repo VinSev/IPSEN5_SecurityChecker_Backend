@@ -1,6 +1,5 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
@@ -64,12 +63,12 @@ public class TableMaker {
             Color score = new Color((255),(79),(79));
 
             String gehaald = "Nee";
-            if (scan.getScore() >=5){
+            if (scan.getGrade() >=5){
                 gehaald = "Ja";
                 score = new Color((159),(221),(135));
             }
-            String uitleg = scan.getUitleg();
-            if (scan.getUitleg().split(".?-?,")[0].length() > 0){
+            String uitleg = scan.getDescription();
+            if (scan.getDescription().split(".?-?,")[0].length() > 0){
                 uitleg = uitleg.split(".?-?,")[0].replace("</p>", "");
             }
 
@@ -79,7 +78,7 @@ public class TableMaker {
             tableBuilder.addRow(
                     Row.builder()
                             .add(TextCell.builder()
-                                    .text(scan.getTitel())
+                                    .text(scan.getTitle())
                                     .borderWidth(1F)
                                     .borderColor(Color.PINK)
                                     .build())

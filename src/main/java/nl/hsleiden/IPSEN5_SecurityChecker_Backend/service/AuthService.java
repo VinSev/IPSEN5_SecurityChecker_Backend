@@ -1,8 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.HTTPResponse;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.UserRequest;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

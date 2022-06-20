@@ -112,7 +112,7 @@ public class ActiveScan {
             }
 
             scanAlerts.forEach(scan -> {
-                System.out.println(scan.getTitel());
+                System.out.println(scan.getTitle());
             });
 
 

@@ -1,10 +1,8 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
