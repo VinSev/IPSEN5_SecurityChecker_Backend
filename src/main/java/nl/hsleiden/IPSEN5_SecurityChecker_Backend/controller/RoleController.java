@@ -4,6 +4,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.annotation.IsAdmin;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Role;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,8 @@ public class RoleController {
 
     @IsAdmin
     @PostMapping()
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseBody
     public Role create(@RequestBody Role role) {
         return roleService.create(role);
     }

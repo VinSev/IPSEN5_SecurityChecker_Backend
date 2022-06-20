@@ -36,7 +36,8 @@ public class ReportService {
         scanReports.add(createScanReport("Header", "/scan/header"));
         scanReports.add(createScanReport("Certificate", "/scan/certificate"));
         scanReports.add(createScanReport("Vulnerability", "/scan/vulnerability"));
-        scanReports.add(createScanReport("XSS & Injection", "/scan/xss&injection"));
+        scanReports.add(createScanReport("XSS & Injection", "/scan/xss-and-injection"));
+        scanReports.add(createScanReport("Seo", "/scan/seo"));
         report.setScanReports(scanReports);
 
         return report;

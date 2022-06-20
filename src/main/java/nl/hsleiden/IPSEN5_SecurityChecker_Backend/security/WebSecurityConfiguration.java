@@ -43,6 +43,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login", "/users/register").permitAll()
                 .antMatchers("/mail").permitAll()
                 .antMatchers(HttpMethod.GET, "/tips/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/reports").permitAll()
+                .antMatchers(HttpMethod.POST, "/scan/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
