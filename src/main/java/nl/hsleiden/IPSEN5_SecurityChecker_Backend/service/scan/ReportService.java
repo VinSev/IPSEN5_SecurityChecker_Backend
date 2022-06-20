@@ -24,10 +24,8 @@ public class ReportService {
     }
 
     public Report create(String website) {
-        ScanUserService scanUserService = new ScanUserService();
         ScanUser scanUser = new ScanUser();
         scanUser.setWebsite(website);
-        scanUser = scanUserService.create(scanUser);
 
         Report report = new Report();
         report.setScanUser(scanUser);

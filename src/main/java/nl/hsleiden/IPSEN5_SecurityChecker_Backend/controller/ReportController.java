@@ -33,10 +33,10 @@ public class ReportController {
         return this.reportService.get(id);
     }
 
-    @PostMapping()
+    @PostMapping("/{website}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Report create(@RequestBody String website) {
+    public Report create(@PathVariable("website") String website) {
         return this.reportService.create(website);
     }
 }

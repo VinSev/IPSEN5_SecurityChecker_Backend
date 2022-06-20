@@ -1,9 +1,8 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan;
 
-import org.json.JSONObject;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Map;
 
 @Entity
 @Table(name = "scan_report")
@@ -18,13 +17,13 @@ public class ScanReport {
     @NotBlank
     private int grade;
     @Transient
-    private JSONObject result;
+    private Map<String, Object> result;
 
     public ScanReport() {
 
     }
 
-    public ScanReport(long id, String title, String endpoint, int grade, JSONObject result) {
+    public ScanReport(long id, String title, String endpoint, int grade, Map<String, Object> result) {
         this.id = id;
         this.title = title;
         this.endpoint = endpoint;
@@ -64,11 +63,11 @@ public class ScanReport {
         this.grade = grade;
     }
 
-    public JSONObject getResult() {
+    public Map<String, Object> getResult() {
         return result;
     }
 
-    public void setResult(JSONObject result) {
+    public void setResult(Map<String, Object> result) {
         this.result = result;
     }
 }

@@ -16,11 +16,11 @@ public abstract class AbstractScan {
     }
 
     public JSONObject getResult() throws IOException, InterruptedException {
-        return scanReport.getResult();
+        return new JSONObject(scanReport.getResult());
     }
 
     public void setResult(JSONObject result) {
-        scanReport.setResult(result);
+        scanReport.setResult(result.toMap());
     }
 
     public String getWebsite() {

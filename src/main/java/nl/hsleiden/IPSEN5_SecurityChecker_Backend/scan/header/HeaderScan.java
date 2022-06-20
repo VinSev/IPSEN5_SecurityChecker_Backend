@@ -14,6 +14,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 @Service
 public class HeaderScan extends AbstractScan {
     private final String baseURL = "https://http-observatory.security.mozilla.org/api/v1";
@@ -50,7 +51,7 @@ public class HeaderScan extends AbstractScan {
         http.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    public int getScanId() throws IOException, InterruptedException {
+    private int getScanId() throws IOException, InterruptedException {
         String endpoint = "/analyze";
         String url = baseURL + endpoint + "?host=" + getWebsite();
 
