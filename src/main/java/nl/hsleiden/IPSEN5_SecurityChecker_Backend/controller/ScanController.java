@@ -16,14 +16,13 @@ public class ScanController {
     @Autowired
     public final ScanDao scanDao;
 
-
     public ScanController(ScanDao scanDao) {
         this.scanDao = scanDao;
     }
 
     @PostMapping({"/add"})
     @ResponseBody
-    public Scan addScann(@RequestBody Scan scan) {
+    public Scan addScan(@RequestBody Scan scan) {
         return scanDao.create(scan);
     }
 
@@ -38,7 +37,7 @@ public class ScanController {
     }
 
     @PutMapping(value = "/new")
-    public Scan addScan(@RequestBody Scan newScan) {
+    public Scan addNewScan(@RequestBody Scan newScan) {
         return scanDao.create(newScan);
     }
 

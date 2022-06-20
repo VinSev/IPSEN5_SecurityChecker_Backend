@@ -58,7 +58,7 @@ public class ExecuteScanService {
 //                    Check if the scan name is equal to the key of the ApiScan
                     if (apiScan.getName().equals(key)) {
 //                        Make it into a Category
-                        ScanCategory scanCategory = new ScanCategory(scan, 0, apiScan);
+                        ScanCategory scanCategory = new ScanCategory(scan.getScanResult(), 0, apiScan);
 //                       Execute it  for a grade
                         scanToApi.get(key).execute(scanCategory, scan.getUrl());
                     }

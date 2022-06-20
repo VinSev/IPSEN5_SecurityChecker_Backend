@@ -8,10 +8,9 @@ import java.lang.String;
 public class ScanCategory {
     @Id
     private long id;
-
     @MapsId
-    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
-    private Scan scan;
+    @ManyToOne(targetEntity = ScanResult.class , fetch = FetchType.EAGER)
+    private ScanResult scan;
     private boolean loading;
     private int grade;
     @Transient
@@ -25,10 +24,15 @@ public class ScanCategory {
     public ScanCategory() {
     }
 
-    public ScanCategory(Scan scan, int grade, ApiScan apiScan) {
+    public ScanCategory(ScanResult scan, boolean loading, int grade, String result, ApiScan apiScan) {
         this.scan = scan;
+        this.loading = loading;
         this.grade = grade;
+        this.result = result;
         this.apiScan = apiScan;
+    }
+
+    public ScanCategory(ScanResult scanResult, int i, ApiScan apiScan) {
     }
 
     //    Getters Setters
@@ -42,12 +46,20 @@ public class ScanCategory {
         this.id = id;
     }
 
-    public Scan getScan() {
+    public ScanResult getScan() {
         return scan;
     }
 
-    public void setScan(Scan scan) {
+    public void setScan(ScanResult scan) {
         this.scan = scan;
+    }
+
+    public ApiScan getApiScan() {
+        return apiScan;
+    }
+
+    public void setApiScan(ApiScan apiScan) {
+        this.apiScan = apiScan;
     }
 
     public boolean isLoading() {

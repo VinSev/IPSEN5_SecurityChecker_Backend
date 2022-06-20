@@ -25,20 +25,18 @@ public class ResultService {
         return resultDao.create(scanResult);
     }
 
-    public ScanResult createNewResult(Scan currentScan) {
+    public Scan createNewResult(Scan currentScan) {
         ScanResult newScanResult = fillNewScanResult(currentScan);
-        newScanResult.setScan((int) currentScan.getScanId());
         currentScan.setScanResult(newScanResult);
-        this.scanDao.create(currentScan);
-        return this.resultDao.create(newScanResult);
+        return this.scanDao.create(currentScan);
     }
 
     private ScanResult fillNewScanResult(Scan currentScan) {
         ScanResult newScanResult = new ScanResult();
-        List<ScanCategory> completedScans = this.scanCategoryService.fillAllScanCategories(currentScan);
-        newScanResult.setScan((int) currentScan.getScanId());
+        List<ScanCategory> completedScans =
+                this.scanCategoryService.fillAllScanCategories(currentScan);
         newScanResult.setScanResults(completedScans);
-//       scan.setUpdatedDate(LocalDateTime.now().toString());
+//        currentScan.(LocalDateTime.now().toString());
         return newScanResult;
 
     }

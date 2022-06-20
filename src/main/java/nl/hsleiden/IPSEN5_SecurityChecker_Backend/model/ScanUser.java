@@ -16,23 +16,18 @@ public class ScanUser {
     @NotBlank
     private String name;
     private String telephone;
-    @NotBlank
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<ScanResult> scans;
 
-    public ScanUser(int id, String email, String name, String telephone, Set<ScanResult> scans) {
+    public ScanUser(int id, String email, String name, String telephone) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.telephone = telephone;
-        this.scans = scans;
     }
 
-    public ScanUser(String email, String name, String telephone, Set<ScanResult> scans) {
+    public ScanUser(String email, String name, String telephone) {
         this.email = email;
         this.name = name;
         this.telephone = telephone;
-        this.scans = scans;
     }
 
     public ScanUser() {
@@ -63,12 +58,5 @@ public class ScanUser {
         this.name = name;
     }
 
-    public Set<ScanResult> getScans() {
-        return scans;
-    }
-
-    public void setScans(Set<ScanResult> scans) {
-        this.scans = scans;
-    }
 }
 

@@ -10,7 +10,6 @@ public class ScanResult {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private int scan_scan_id;
     private int headers;
     private int XSSAndInjection;
     private int certificates;
@@ -27,12 +26,8 @@ public class ScanResult {
 
 //   Constructors     ////////////////////////////////////////////////////////////////////////
 
-    public int getScan() {
-        return scan_scan_id;
-    }
 
-    public ScanResult(int scan_scan_id, int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO) {
-        this.scan_scan_id = scan_scan_id;
+    public ScanResult(int headers, int XSSAndInjection, int certificates, int wordPressVulnerability, int version, int login, int dataSecurity, int SEO, List<ScanCategory> scanResults) {
         this.headers = headers;
         this.XSSAndInjection = XSSAndInjection;
         this.certificates = certificates;
@@ -41,81 +36,13 @@ public class ScanResult {
         this.login = login;
         this.dataSecurity = dataSecurity;
         this.SEO = SEO;
+        this.scanResults = scanResults;
     }
 
     public ScanResult() {
     }
 
     //    Getters Setters
-
-
-    public void setScan(int scan_scan_id) {
-        this.scan_scan_id = scan_scan_id;
-    }
-
-    public int getHeaders() {
-        return headers;
-    }
-
-    public void setHeaders(int headers) {
-        this.headers = headers;
-    }
-
-    public int getXSSAndInjection() {
-        return XSSAndInjection;
-    }
-
-    public void setXSSAndInjection(int XSSAndInjection) {
-        this.XSSAndInjection = XSSAndInjection;
-    }
-
-    public int getCertificates() {
-        return certificates;
-    }
-
-    public void setCertificates(int certificates) {
-        this.certificates = certificates;
-    }
-
-    public int getWordPressVulnerability() {
-        return wordPressVulnerability;
-    }
-
-    public void setWordPressVulnerability(int wordPressVulnerability) {
-        this.wordPressVulnerability = wordPressVulnerability;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public int getLogin() {
-        return login;
-    }
-
-    public void setLogin(int login) {
-        this.login = login;
-    }
-
-    public int getDataSecurity() {
-        return dataSecurity;
-    }
-
-    public void setDataSecurity(int dataSecurity) {
-        this.dataSecurity = dataSecurity;
-    }
-
-    public int getSEO() {
-        return SEO;
-    }
-
-    public void setSEO(int SEO) {
-        this.SEO = SEO;
-    }
 
     public long getId() {
         return id;
@@ -125,9 +52,6 @@ public class ScanResult {
         this.id = id;
     }
 
-    public List<ScanCategory> getScanResults() {
-        return scanResults;
-    }
 
     public void setScanResults(List<ScanCategory> scanResults) {
         this.scanResults = scanResults;
