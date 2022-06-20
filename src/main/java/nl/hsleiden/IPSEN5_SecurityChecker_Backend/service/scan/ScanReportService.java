@@ -49,7 +49,14 @@ public class ScanReportService {
             System.out.println(result);
             JsonObject resultJson = new Gson().toJsonTree(result).getAsJsonObject();
             for (String gradeOption : optionsForResult) {
-                performScan(result, scanReport);
+                AbstractScan scan = (AbstractScan) result;
+                try {
+                    String newGrade = scan.getResult().get(gradeOption).toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 String grade = resultJson.get(gradeOption).toString();
                 if (grade != null){
                     scanReport.setGrade(Integer.parseInt(grade));
@@ -58,17 +65,6 @@ public class ScanReportService {
             }
         }
         return scanReport;
-    }
-
-    public void performScan(Object result,ScanReport scanReport ) {
-        AbstractScan scan = (AbstractScan) result;
-        try {
-            scan.execute(scanReport,"www.google.com");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
 
