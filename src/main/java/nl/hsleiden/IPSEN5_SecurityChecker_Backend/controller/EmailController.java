@@ -1,5 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.EmailService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.PdfService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/mail")
@@ -27,13 +30,15 @@ public class EmailController {
 
 
     @PostMapping()
-    public void mail(@RequestBody Report report) throws MessagingException, IOException, URISyntaxException {
+    public List<ScanAlert> mail(@RequestBody Report report) throws MessagingException, IOException, URISyntaxException {
 //        this.pdfService.makePdf(scan);
 //        this.emailService.sendEmailWithPDFAttachment(scan);
 
-        this.pdfService.makePdf(ActiveScan.spiderSearch());
-        this.emailService.sendEmailWithPDFAttachment(report);
+//        this.pdfService.makePdf(ActiveScan.spiderSearch());
+//        this.emailService.sendEmailWithPDFAttachment(report);
 
+        ArrayList<ScanAlert> scanAlerts = ActiveScan.spiderSearch();
+        return scanAlerts;
     }
 
 }
