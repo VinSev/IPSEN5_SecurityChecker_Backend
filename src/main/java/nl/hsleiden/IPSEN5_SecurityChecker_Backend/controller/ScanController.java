@@ -7,6 +7,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo.SeoScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.wordpress.WordPressVulnerabilityScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.scan.ScanReportService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.scan.ScanService;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.ActiveScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -49,13 +50,12 @@ public class ScanController {
         return scanReport;
     }
 
-    // TODO: Change the xss & injection scan to an Abstract Scan
     @PostMapping("/xss-and-injection/{website}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
     public ScanReport xssAndInjectionScan(@PathVariable("website") String website,
                                           @RequestBody ScanReport scanReport) throws IOException, InterruptedException {
-        scanReport.setResult(scanService.scan(website, scanReport, null));
+        scanReport.setResult(scanService.scan(website, scanReport, new ActiveScan()));
         return scanReport;
     }
 
