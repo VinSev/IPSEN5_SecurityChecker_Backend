@@ -26,6 +26,13 @@ public class ScanReport {
 
     }
 
+    public ScanReport(String title, String endpoint, int grade, List<ScanAlert> result) {
+        this.title = title;
+        this.endpoint = endpoint;
+        this.grade = grade;
+        this.result = result;
+    }
+
     public ScanReport(long id, String title, String endpoint, int grade, List<ScanAlert> result) {
         this.id = id;
         this.title = title;

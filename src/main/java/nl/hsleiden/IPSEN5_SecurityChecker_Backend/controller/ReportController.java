@@ -36,7 +36,7 @@ public class ReportController {
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Report create(Report report) {
+    public Report create(@RequestBody Report report) {
         return this.reportService.create(report);
     }
 }

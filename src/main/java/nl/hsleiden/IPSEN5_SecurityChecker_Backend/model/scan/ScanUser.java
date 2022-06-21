@@ -20,6 +20,13 @@ public class ScanUser {
 
     }
 
+    public ScanUser(String name, String email, String website, boolean ownership) {
+        this.name = name;
+        this.email = email;
+        this.website = website;
+        this.ownership = ownership;
+    }
+
     public ScanUser(long id, String name, String email, String website, boolean ownership) {
         this.id = id;
         this.name = name;
@@ -67,4 +74,6 @@ public class ScanUser {
     public void setOwnership(boolean ownership) {
         this.ownership = ownership;
     }
+
+
 }

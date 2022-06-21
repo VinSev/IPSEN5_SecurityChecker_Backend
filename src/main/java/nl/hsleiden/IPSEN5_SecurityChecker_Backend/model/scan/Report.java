@@ -30,7 +30,12 @@ public class Report {
     public Report() {
     }
 
-    public Report(long id, ScanUser scanUser, List<ScanReport> scanReports, Date dateCreated) {
+    public Report(List<ScanReport> scanReports, ScanUser scanUser) {
+        this.scanUser = scanUser;
+        this.scanReports = scanReports;
+    }
+
+    public Report(long id, List<ScanReport> scanReports, ScanUser scanUser, Date dateCreated) {
         this.id = id;
         this.scanUser = scanUser;
         this.scanReports = scanReports;
