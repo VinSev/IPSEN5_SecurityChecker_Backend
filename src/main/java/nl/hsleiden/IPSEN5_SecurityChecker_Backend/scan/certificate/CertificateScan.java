@@ -16,6 +16,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 @Service
 public class CertificateScan extends AbstractScan  {
@@ -102,8 +103,9 @@ public class CertificateScan extends AbstractScan  {
         return super.getResult();
     }
 
-    private boolean isFinished() {
-        return getTemporaryResult().get("completion_perc").equals(100);
+    private boolean isFinished() throws IOException, InterruptedException {
+        getResult();
+        return super.getTemporaryResult().get("completion_perc").equals(100);
     }
 
 }
