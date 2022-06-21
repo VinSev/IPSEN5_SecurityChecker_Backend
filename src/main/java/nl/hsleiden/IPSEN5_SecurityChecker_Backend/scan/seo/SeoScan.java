@@ -55,6 +55,20 @@ public class SeoScan extends AbstractScan {
     public List<ScanAlert> getResult() throws IOException, InterruptedException {
         // TODO: Zet tempResult om naar een result
 
+
+        for(String name : super.getTemporaryResult().keySet()) {
+            JSONObject result = (JSONObject) super.getTemporaryResult().get(name);
+            System.out.println(result);
+//            ScanAlert scanAlert = new ScanAlert(
+//                    result.getString("name"),
+//                    result.getBoolean("pass"),
+//                    result.getString("score_description")
+//            );
+//
+//            super.getResult().add(scanAlert);
+        }
+
+
         return super.getResult();
     }
 }
