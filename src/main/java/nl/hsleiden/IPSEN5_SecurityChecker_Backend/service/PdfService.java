@@ -2,6 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.TableMaker;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -24,10 +25,7 @@ import java.util.ArrayList;
 @Service
 public class PdfService {
 
-
-
-
-    public void makePdf(ArrayList<ScanAlert> scanAlerts) throws IOException, URISyntaxException {
+    public void makePdf(Report report) throws IOException, URISyntaxException {
 
         PDDocument doc = new PDDocument();
         PDPage mypage = new PDPage();
@@ -35,9 +33,6 @@ public class PdfService {
         PDFont pdfFont= PDType1Font.HELVETICA_BOLD;
         int fontSize = 14;
 
-//        PDImageXObject pdImage;
-//        InputStream is = PdfService.class.getResourceAsStream("piggie2.png");
-//        byte [] ba = IOUtils.toByteArray(is);
         PDImageXObject pdImage = PDImageXObject.createFromFile("src/main/resources/piggie2.png", doc);
 
 
@@ -88,22 +83,22 @@ public class PdfService {
         TableMaker tabbie = new TableMaker();
 
 
-        Table mytabbie = tabbie.createTable(scanAlerts,"Bruno","www.google.com");
-
-
-
-
-
-        TableDrawer tableDrawer = TableDrawer.builder()
-                .contentStream(contentStream)
-                .startX(50f)
-                .startY(mypage.getMediaBox().getUpperRightY() - 220f)
-                .table(mytabbie)
-                .endY(50F)
-                .build();
-
-
-        tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
+//        Table mytabbie = tabbie.createTable(scanAlerts,"Bruno","www.google.com");
+//
+//
+//
+//
+//
+//        TableDrawer tableDrawer = TableDrawer.builder()
+//                .contentStream(contentStream)
+//                .startX(50f)
+//                .startY(mypage.getMediaBox().getUpperRightY() - 220f)
+//                .table(mytabbie)
+//                .endY(50F)
+//                .build();
+//
+//
+//        tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
 
         contentStream.close();
 

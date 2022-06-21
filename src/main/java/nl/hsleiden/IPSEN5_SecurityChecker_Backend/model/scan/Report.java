@@ -20,9 +20,12 @@ public class Report {
     @OneToMany(targetEntity = ScanReport.class, fetch = FetchType.EAGER)
     private List<ScanReport> scanReports = new ArrayList<>();
     @NotBlank
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
     private Date dateCreated;
+
+    @PrePersist
+    protected void prePersist() {
+        if (this.dateCreated == null) dateCreated = new Date();
+    }
 
     public Report() {
     }
