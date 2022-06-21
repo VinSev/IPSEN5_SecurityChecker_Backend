@@ -20,16 +20,8 @@ public class EmailController {
     @Autowired
     private PdfService pdfService;
 
-    @Autowired
-    private ActiveScan activeScan;
-
-
-
-
     @PostMapping()
     public void mail(@RequestBody Report report) throws MessagingException, IOException, URISyntaxException {
-//        this.pdfService.makePdf(scan);
-//        this.emailService.sendEmailWithPDFAttachment(scan);
         this.pdfService.makePdf(report);
         this.emailService.sendEmailWithPDFAttachment(report);
     }

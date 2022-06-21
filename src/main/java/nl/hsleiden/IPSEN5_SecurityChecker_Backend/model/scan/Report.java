@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +20,11 @@ public class Report {
     private ScanUser scanUser;
     @OneToMany(targetEntity = ScanReport.class, fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private List<ScanReport> scanReports = new ArrayList<>();
-    @NotBlank
-    private Date dateCreated;
+    private String dateCreated;
 
     @PrePersist
     protected void prePersist() {
-        if (this.dateCreated == null) dateCreated = new Date();
+        if (this.dateCreated == null) dateCreated = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Report() {
@@ -35,7 +35,7 @@ public class Report {
         this.scanReports = scanReports;
     }
 
-    public Report(long id, List<ScanReport> scanReports, ScanUser scanUser, Date dateCreated) {
+    public Report(long id, List<ScanReport> scanReports, ScanUser scanUser, String dateCreated) {
         this.id = id;
         this.scanUser = scanUser;
         this.scanReports = scanReports;
@@ -66,11 +66,11 @@ public class Report {
         this.scanReports = scanReports;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 }

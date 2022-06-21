@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
@@ -34,8 +35,8 @@ public class EmailService {
                 "De uitgebreide uitslag voor deze scan staat in de bijlage als pdf. \n\n" +
                 "Bedankt voor het scannen bij Bet Big Marketing. \n\n" +
                 "Met vriendelijke groet, \n\n" +
-                "Het Get Big Marketing Team", report.getScanUser().getName(), report.getDateCreated()));
-        messageHelper.addAttachment(String.format("Get Big Marketing Security Scan Resultaten - %s", report.getDateCreated()), new ClassPathResource("test.pdf"));
+                "Het Get Big Marketing Team", report.getScanUser().getName(), new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
+        messageHelper.addAttachment(String.format("Get Big Marketing Security Scan Resultaten - %s.pdf", new SimpleDateFormat("dd/MM/yyyy").format(new Date())), new ClassPathResource("/pdf/test.pdf"));
 
         javaMailSender.send(message);
     }
