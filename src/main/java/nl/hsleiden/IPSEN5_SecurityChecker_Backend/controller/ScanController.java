@@ -28,7 +28,6 @@ public class ScanController {
     public ScanReport headerScan(@PathVariable("website") String website,
                                  @RequestBody ScanReport scanReport) throws IOException, InterruptedException {
         scanReport.setResult(scanService.scan(website, scanReport, new HeaderScan()));
-        this.scanReportService.giveGradingToScanReport(scanReport);
         return scanReport;
     }
 

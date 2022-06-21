@@ -65,6 +65,22 @@ public class HeaderScan extends AbstractScan {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
 
+        Map<String, Integer> grades = new HashMap<>();
+        grades.put("A+", 10);
+        grades.put("A", 9);
+        grades.put("A-", 9);
+        grades.put("B+", 8);
+        grades.put("B", 8);
+        grades.put("B-", 7);
+        grades.put("C+", 7);
+        grades.put("C", 6);
+        grades.put("C-", 5);
+        grades.put("D+", 4);
+        grades.put("D", 3);
+        grades.put("D-", 2);
+        grades.put("F", 1);
+        int grade = grades.get(super.getResult().getString("grade"));
+        this.setGrade(grade);
 
         return super.getResult().getInt("scan_id");
     }
@@ -83,7 +99,6 @@ public class HeaderScan extends AbstractScan {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
-        setGrade(super.getResult().getInt("grade"));
 
         return super.getResult();
     }
