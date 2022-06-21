@@ -29,6 +29,9 @@ public class CertificateScan extends AbstractScan  {
             scanId = getScanId();
             TimeUnit.SECONDS.sleep(1);
         } while (!isFinished());
+
+        int grade = ((int) ((JSONObject) super.getResult().getJSONArray("analysis").get(4)).getJSONObject("result").getInt("grade")) / 10;// Er word een cijfer  tussne de 1 en 100 gegeven. Delen door 10 helpt om een cijfer tussen de 1 en de 10 te krijgen
+        super.setGrade(grade);
     }
 
     private void startScan() throws IOException, InterruptedException {
@@ -90,8 +93,6 @@ public class CertificateScan extends AbstractScan  {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
-        int grade = ((int) ((JSONObject) super.getResult().getJSONArray("analysis").get(4)).getJSONObject("result").getInt("grade")) / 10;// Er word een cijfer  tussne de 1 en 100 gegeven. Delen door 10 helpt om een cijfer tussen de 1 en de 10 te krijgen
-        super.setGrade(grade);
         return super.getResult();
     }
 
