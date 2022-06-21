@@ -19,7 +19,7 @@ import java.util.Map;
 public class SeoScan extends AbstractScan {
     private final String baseURL = "https://chromeuxreport.googleapis.com/v1/records:queryRecord";
     private final List<String> keys = new ArrayList<>();
-    private  ArrayList<String> listWithCategories = new ArrayList<>();
+    private ArrayList<String> listWithCategories = new ArrayList<>();
 
 
     public SeoScan() {
@@ -58,76 +58,46 @@ public class SeoScan extends AbstractScan {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         JSONObject result = new JSONObject(response.body());
-        setGrade(getMedianOfSEO(result));
+
         super.setTemporaryResult(result);
     }
 
-    public int getMedianOfSEO(JSONObject result) {
-        HashMap<String, Integer> medians = new HashMap<>();
-        for (String category : this.listWithCategories) {
-            Integer medianGrade = 0;
-            if(category.equals("cumulative_layout_shift")){
-                String medianStringGrade = (String) result.getJSONObject("record")
-                        .getJSONObject("metrics").getJSONObject(category)
-                        .getJSONObject("percentiles")
-                        .get("p75");
-               Float flmedianGrade = Float.parseFloat(medianStringGrade) * 10; // Om van 0.10 naar 10 te gaan
-               medianGrade =  flmedianGrade.intValue();
-            }else {
-                medianGrade = (Integer) result.getJSONObject("record")
-                        .getJSONObject("metrics").getJSONObject(category)
-                        .getJSONObject("percentiles")
-                        .get("p75");
-                medianGrade = giveGradeToMedian(medianGrade, category);
-            }
-                medians.put(category, medianGrade);
-        }
-        int grade = 0;
-        for (Integer categoryGrade : medians.values()) {
-            grade += categoryGrade;
-        }
-        return grade / this.listWithCategories.size();
+    private int calculateGradeByCategory(JSONObject metric) {
+        double good = metric.getJSONArray("histogram").getJSONObject(0).getDouble("end");
+        double poor = metric.getJSONArray("histogram").getJSONObject(2).getDouble("start");
+        double average = metric.getJSONObject("percentiles").getDouble("p75");
+        return calculateGrade(average, good, poor);
     }
 
-    private Integer giveGradeToMedian(Integer medianGrade, String category) {
-        switch (category) {
-            case "experimental_interaction_to_next_paint":
-            case "experimental_time_to_first_byte":
-            case "first_contentful_paint":
-                return gradeForCategory(medianGrade, 2500, 4000);
-            case "cumulative_layout_shift":
-                return gradeForCategory(medianGrade, 10, 25);
-            case "first_input_delay":
-                return gradeForCategory(medianGrade, 100, 300);
-            default:
-                return gradeForCategory(medianGrade, (int) 2.5, 4);
-        }
-    }
-
-    private int gradeForCategory(Integer medianGrade, int fast, int slow) {
-        int median = medianGrade.intValue();
-        if (median < fast) {
-            median =  median % fast / 100; // *10 om naar  een cijfer tot de 10 te gaan
-        } else if (median > fast && median < slow) {
-            median =  5;
+    private int calculateGrade(double average, double good, double poor) {
+        if (average <= good) {
+            return 10;
+        } else if (average > poor) {
+            return 1;
         } else {
-            median = median % slow / 5; // *5 om naar  een cijfer tot 5 te gaan
+            return 4;
         }
-        return median;
     }
 
     @Override
     public List<ScanAlert> getResult() throws IOException, InterruptedException {
+        int totalPoints = 0;
 
-        JSONObject metrics = super.getTemporaryResult().getJSONObject("record").getJSONObject("metric");
-        for(String name : metrics.keySet()) {
+        JSONObject metrics = super.getTemporaryResult().getJSONObject("record").getJSONObject("metrics");
+        for (String name : metrics.keySet()) {
             JSONObject metric = metrics.getJSONObject(name);
+
+            int point = calculateGradeByCategory(metric);
+            totalPoints += point;
+
             ScanAlert scanAlert = new ScanAlert(
                     name,
-                    false,
-                    null
+                    point > 5,
+                    metric.getJSONObject("percentiles").getDouble("p75") + " ms"
             );
-        };
+            super.getResult().add(scanAlert);
+        }
+        super.setGrade(totalPoints / metrics.length());
 
         return super.getResult();
     }
