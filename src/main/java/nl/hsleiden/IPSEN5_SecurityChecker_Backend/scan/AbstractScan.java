@@ -23,6 +23,10 @@ public abstract class AbstractScan {
         scanReport.setResult(result.toMap());
     }
 
+    public void setGrade(int grade) {
+        this.scanReport.setGrade(grade);
+    }
+
     public String getWebsite() {
         return website;
     }

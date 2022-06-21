@@ -5,6 +5,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.certificate.CertificateSc
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header.HeaderScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo.SeoScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.wordpress.WordPressVulnerabilityScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.scan.ScanReportService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.scan.ScanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,16 @@ import java.io.IOException;
 public class ScanController {
     @Autowired
     private ScanService scanService;
+    @Autowired
+    private ScanReportService scanReportService;
 
     @PostMapping("/header/{website}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
     public ScanReport headerScan(@PathVariable("website") String website,
-                                          @RequestBody ScanReport scanReport) throws IOException, InterruptedException {
+                                 @RequestBody ScanReport scanReport) throws IOException, InterruptedException {
         scanReport.setResult(scanService.scan(website, scanReport, new HeaderScan()));
+        this.scanReportService.giveGradingToScanReport(scanReport);
         return scanReport;
     }
 
