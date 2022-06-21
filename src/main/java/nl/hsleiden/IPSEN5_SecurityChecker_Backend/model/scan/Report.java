@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "report")
@@ -24,7 +25,7 @@ public class Report {
 
     @PrePersist
     protected void prePersist() {
-        if (this.dateCreated == null) dateCreated = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        if (Objects.equals(this.dateCreated, "")) dateCreated = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Report() {
