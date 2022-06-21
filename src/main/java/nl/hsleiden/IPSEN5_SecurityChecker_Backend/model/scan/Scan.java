@@ -1,6 +1,7 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "scan")
@@ -12,8 +13,9 @@ public class Scan {
     private long scanId;
     @Column(name = "url")
     private String url;
-    @OneToOne(targetEntity = ScanResult.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private ScanResult scanResult;
+    @Column(name = "categories")
+    @OneToMany(targetEntity = ScanCategory.class , fetch = FetchType.EAGER)
+    private List<ScanCategory> categories;
     @Column(name = "update_date")
     private String updateDate;
     @ManyToOne(targetEntity = ScanUser.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -22,11 +24,11 @@ public class Scan {
 //   Constructors     ////////////////////////////////////////////////////////////////////////
 
 
-    public Scan(ScanUser user, String url, ScanResult scanResult, String updateDate) {
-        this.user = user;
+    public Scan(String url, List<ScanCategory> categories, String updateDate, ScanUser user) {
         this.url = url;
-        this.scanResult = scanResult;
+        this.categories = categories;
         this.updateDate = updateDate;
+        this.user = user;
     }
 
     public Scan() {
@@ -34,14 +36,6 @@ public class Scan {
 
 
     //    Getters Setters
-
-    public ScanResult getScanResult() {
-        return scanResult;
-    }
-
-    public void setScanResult(ScanResult scanResult) {
-        this.scanResult = scanResult;
-    }
 
     public String getUrl() {
         return url;
@@ -55,11 +49,23 @@ public class Scan {
         this.user = user;
     }
 
-    public long getScanId() {
-        return scanId;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public void setScanId(long scanId) {
-        this.scanId = scanId;
+    public List<ScanCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<ScanCategory> categories) {
+        this.categories = categories;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 }

@@ -2,7 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao;
 
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.repository.ScanRepository;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Scan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

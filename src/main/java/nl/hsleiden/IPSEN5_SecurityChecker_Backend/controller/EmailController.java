@@ -1,6 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Scan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.EmailService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.PdfService;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.utility.ActiveScan;

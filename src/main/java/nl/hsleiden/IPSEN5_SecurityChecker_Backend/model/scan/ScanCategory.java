@@ -1,4 +1,4 @@
-package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model;
+package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan;
 
 import javax.persistence.*;
 import java.lang.String;
@@ -9,8 +9,8 @@ public class ScanCategory {
     @Id
     private long id;
     @MapsId
-    @ManyToOne(targetEntity = ScanResult.class , fetch = FetchType.EAGER)
-    private ScanResult scan;
+    @ManyToOne(targetEntity = Scan.class , fetch = FetchType.EAGER)
+    private Scan scan;
     private boolean loading;
     private int grade;
     @Transient
@@ -24,7 +24,7 @@ public class ScanCategory {
     public ScanCategory() {
     }
 
-    public ScanCategory(ScanResult scan, boolean loading, int grade, String result, ApiScan apiScan) {
+    public ScanCategory(Scan scan, boolean loading, int grade, String result, ApiScan apiScan) {
         this.scan = scan;
         this.loading = loading;
         this.grade = grade;
@@ -32,7 +32,7 @@ public class ScanCategory {
         this.apiScan = apiScan;
     }
 
-    public ScanCategory(ScanResult scanResult, int i, ApiScan apiScan) {
+    public ScanCategory(Scan scan, int i, ApiScan apiScan) {
     }
 
     //    Getters Setters
@@ -46,11 +46,11 @@ public class ScanCategory {
         this.id = id;
     }
 
-    public ScanResult getScan() {
+    public Scan getScan() {
         return scan;
     }
 
-    public void setScan(ScanResult scan) {
+    public void setScan(Scan scan) {
         this.scan = scan;
     }
 

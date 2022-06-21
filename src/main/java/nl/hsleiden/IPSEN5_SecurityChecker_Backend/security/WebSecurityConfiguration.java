@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login",
                         "/users/register", "/test/test",
                         "/mail", "/tips", "tips/{id}",
-                        "/result/scanforresults"
+                        "/scan/startscan"
                 ).permitAll()
 
                 .anyRequest().authenticated()

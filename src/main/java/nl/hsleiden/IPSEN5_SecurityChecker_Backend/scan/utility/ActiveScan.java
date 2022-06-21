@@ -2,6 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.utility;
 
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.SecurityAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Service
-public class ActiveScan {
+public class ActiveScan extends AbstractApiScan {
 
     private static final int ZAP_PORT = 8081;
     private static final String ZAP_API_KEY = "5t8h7sd77ivq3q835gmsndo5t0";

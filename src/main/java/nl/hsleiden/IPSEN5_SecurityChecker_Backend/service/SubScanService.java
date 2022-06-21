@@ -1,9 +1,9 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.ApiScanDao;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.Scan;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ApiScan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Scan;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ApiScan;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

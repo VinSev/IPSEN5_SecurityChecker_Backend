@@ -1,7 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.certificate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanCategory;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractApiScan;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -64,6 +64,7 @@ public class CertificateAbstractApiScan extends AbstractApiScan {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(new JSONObject(response.body()));
         setResult(new JSONObject(response.body()));
 
         return new JSONObject(response.body()).getInt("scan_id");

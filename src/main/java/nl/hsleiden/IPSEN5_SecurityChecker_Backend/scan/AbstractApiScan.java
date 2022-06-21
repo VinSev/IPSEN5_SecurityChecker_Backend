@@ -1,6 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanCategory;
 import org.json.JSONObject;
 
 import java.io.IOException;

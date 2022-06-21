@@ -1,6 +1,6 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.dao.repository;
 
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanCategory;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ScanCategoryRepository extends JpaRepository<ScanCategory, String> {
