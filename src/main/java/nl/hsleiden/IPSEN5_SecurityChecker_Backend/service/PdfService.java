@@ -49,7 +49,7 @@ public class PdfService {
         contentStream.addRect(0,770,700,50);
         contentStream.fill();
 
-        contentStream.drawImage(pdImage, 70, 250);
+//        contentStream.drawImage(pdImage, 70, 250);
 
         contentStream.setFont(pdfFont, fontSize);
         contentStream.beginText();
@@ -83,22 +83,22 @@ public class PdfService {
         TableMaker tabbie = new TableMaker();
 
 
-//        Table mytabbie = tabbie.createTable(scanAlerts,"Bruno","www.google.com");
-//
-//
-//
-//
-//
-//        TableDrawer tableDrawer = TableDrawer.builder()
-//                .contentStream(contentStream)
-//                .startX(50f)
-//                .startY(mypage.getMediaBox().getUpperRightY() - 220f)
-//                .table(mytabbie)
-//                .endY(50F)
-//                .build();
-//
-//
-//        tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
+        Table mytabbie = tabbie.createTable(report);
+
+
+
+
+
+        TableDrawer tableDrawer = TableDrawer.builder()
+                .contentStream(contentStream)
+                .startX(50f)
+                .startY(mypage.getMediaBox().getUpperRightY() - 220f)
+                .table(mytabbie)
+                .endY(50F)
+                .build();
+
+
+        tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
 
         contentStream.close();
 
