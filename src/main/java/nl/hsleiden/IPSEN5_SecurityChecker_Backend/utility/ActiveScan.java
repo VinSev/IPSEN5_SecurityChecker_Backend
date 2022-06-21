@@ -26,8 +26,7 @@ public class ActiveScan extends AbstractScan {
     @Override
     public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
         super.execute(scanReport, website);
-        spiderSearch(website);
-
+        super.setResult(spiderSearch(website));
     }
 
     @Override
