@@ -23,7 +23,16 @@ public class ActiveScan extends AbstractScan {
     private static final String ZAP_ADDRESS = "localhost";
     private ArrayList<ScanAlert> scans = new ArrayList<>();
 
+    @Override
+    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        super.execute(scanReport, website);
 
+    }
+
+    @Override
+    public List<ScanAlert> getResult() throws IOException, InterruptedException {
+        return super.getResult();
+    }
 
     public static ArrayList<ScanAlert> spiderSearch(String target) {
 
@@ -130,21 +139,5 @@ public class ActiveScan extends AbstractScan {
         }
       ArrayList<ScanAlert> failedScans = new ArrayList<>();
         return failedScans;
-    }
-
-    @Override
-    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
-        super.execute(scanReport, website);
-//        scans = spiderSearch();
-
-    }
-
-    @Override
-    public JSONObject getResult() throws IOException, InterruptedException {
-        return super.getResult();
-    }
-
-    public ArrayList<ScanAlert> getScans(){
-        return this.scans;
     }
 }

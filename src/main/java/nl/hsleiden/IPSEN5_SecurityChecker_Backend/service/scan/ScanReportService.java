@@ -5,9 +5,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ScanReportService {
@@ -33,25 +31,6 @@ public class ScanReportService {
 
     public void delete(ScanReport scanReport) {
         this.scanReportDao.delete(scanReport);
-    }
-
-    public ScanReport giveGradingToScanReport(ScanReport scanReport) {
-        ArrayList<String> optionsForResult = new ArrayList<>();
-        optionsForResult.add("grade");
-        optionsForResult.add("result");
-        optionsForResult.add("score");
-
-        Map<String, Object> result = scanReport.getResult();
-        for (String gradeOption : optionsForResult) {
-            Object gradeObject = result.get(gradeOption);
-            if (gradeObject != null) {
-                scanReport.setGrade(Integer.parseInt(gradeObject.toString()));
-                break;
-            } else {
-                scanReport.setGrade(-1);
-            }
-        }
-        return scanReport;
     }
 }
 

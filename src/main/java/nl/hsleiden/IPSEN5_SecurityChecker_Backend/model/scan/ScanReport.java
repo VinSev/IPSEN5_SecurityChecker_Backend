@@ -1,7 +1,10 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -17,20 +20,14 @@ public class ScanReport {
     @NotBlank
     private int grade;
     @Transient
-    private Map<String, Object> result;
+    private List<ScanAlert> result;
 
     public ScanReport() {
 
     }
 
-    public ScanReport(long id, String title, String endpoint, int grade, Map<String, Object> result) {
+    public ScanReport(long id, String title, String endpoint, int grade, List<ScanAlert> result) {
         this.id = id;
-        this.title = title;
-        this.endpoint = endpoint;
-        this.grade = grade;
-        this.result = result;
-    }
-    public ScanReport(String title, String endpoint, int grade, Map<String, Object> result) {
         this.title = title;
         this.endpoint = endpoint;
         this.grade = grade;
@@ -69,11 +66,11 @@ public class ScanReport {
         this.grade = grade;
     }
 
-    public Map<String, Object> getResult() {
+    public List<ScanAlert> getResult() {
         return result;
     }
 
-    public void setResult(Map<String, Object> result) {
+    public void setResult(List<ScanAlert> result) {
         this.result = result;
     }
 }

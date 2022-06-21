@@ -1,13 +1,16 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan;
 
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 public abstract class AbstractScan {
 
     private ScanReport scanReport;
+    private JSONObject temporaryResult;
     private String website;
 
     public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
@@ -15,12 +18,20 @@ public abstract class AbstractScan {
         this.website = website;
     }
 
-    public JSONObject getResult() throws IOException, InterruptedException {
-        return new JSONObject(scanReport.getResult());
+    public List<ScanAlert> getResult() throws IOException, InterruptedException {
+        return scanReport.getResult();
     }
 
-    public void setResult(JSONObject result) {
-        scanReport.setResult(result.toMap());
+    public void setResult(List<ScanAlert> result) {
+        scanReport.setResult(result);
+    }
+
+    public JSONObject getTemporaryResult() {
+        return temporaryResult;
+    }
+
+    public void setTemporaryResult(JSONObject temporaryResult) {
+        this.temporaryResult = temporaryResult;
     }
 
     public void setGrade(int grade) {

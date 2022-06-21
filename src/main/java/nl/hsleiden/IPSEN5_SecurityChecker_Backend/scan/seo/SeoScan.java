@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONObject;
@@ -47,11 +48,13 @@ public class SeoScan extends AbstractScan {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setResult(new JSONObject(response.body()));
+        setTemporaryResult(new JSONObject(response.body()));
     }
 
     @Override
-    public JSONObject getResult() throws IOException, InterruptedException {
+    public List<ScanAlert> getResult() throws IOException, InterruptedException {
+        // TODO: Zet tempResult om naar een result
+
         return super.getResult();
     }
 }

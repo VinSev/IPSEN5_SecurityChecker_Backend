@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.header;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONObject;
@@ -12,6 +13,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +45,7 @@ public class HeaderScan extends AbstractScan {
         grades.put("D", 3);
         grades.put("D-", 2);
         grades.put("F", 1);
-        int grade = grades.get(super.getResult().getString("grade"));
+        int grade = grades.get(super.getTemporaryResult().getString("grade"));
         super.setGrade(grade);
     }
 
@@ -80,13 +82,13 @@ public class HeaderScan extends AbstractScan {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setResult(new JSONObject(response.body()));
+        setTemporaryResult(new JSONObject(response.body()));
 
-        return super.getResult().getInt("scan_id");
+        return super.getTemporaryResult().getInt("scan_id");
     }
 
     @Override
-    public JSONObject getResult() throws IOException, InterruptedException {
+    public List<ScanAlert> getResult() throws IOException, InterruptedException {
         String endpoint = "/getScanResults";
         String url = baseURL + endpoint + "?scan=" + scanId;
 
@@ -98,12 +100,14 @@ public class HeaderScan extends AbstractScan {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setResult(new JSONObject(response.body()));
+        setTemporaryResult(new JSONObject(response.body()));
+
+        // TODO: Zet tempResult om naar een result
 
         return super.getResult();
     }
 
     private boolean isFinished() throws IOException, InterruptedException {
-        return super.getResult().get("state").equals("FINISHED");
+        return super.getTemporaryResult().get("state").equals("FINISHED");
     }
 }

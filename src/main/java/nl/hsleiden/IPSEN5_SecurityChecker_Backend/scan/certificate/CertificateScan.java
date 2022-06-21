@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.certificate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONArray;
@@ -13,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 @Service
@@ -30,7 +32,7 @@ public class CertificateScan extends AbstractScan  {
             TimeUnit.SECONDS.sleep(1);
         } while (!isFinished());
 
-        int grade = ((int) ((JSONObject) super.getResult().getJSONArray("analysis").get(4)).getJSONObject("result").getInt("grade")) / 10;// Er word een cijfer  tussne de 1 en 100 gegeven. Delen door 10 helpt om een cijfer tussen de 1 en de 10 te krijgen
+        int grade = ((JSONObject) super.getTemporaryResult().getJSONArray("analysis").get(4)).getJSONObject("result").getInt("grade") / 10;// Er word een cijfer  tussne de 1 en 100 gegeven. Delen door 10 helpt om een cijfer tussen de 1 en de 10 te krijgen
         super.setGrade(grade);
     }
 
@@ -74,13 +76,13 @@ public class CertificateScan extends AbstractScan  {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setResult(new JSONObject(response.body()));
+        setTemporaryResult(new JSONObject(response.body()));
 
-        return new JSONObject(response.body()).getInt("scan_id");
+        return super.getTemporaryResult().getInt("scan_id");
     }
 
     @Override
-    public JSONObject getResult() throws IOException, InterruptedException {
+    public List<ScanAlert> getResult() throws IOException, InterruptedException {
         String endpoint = "/results";
         String url = baseURL + endpoint + "?id=" + scanId;
 
@@ -92,12 +94,15 @@ public class CertificateScan extends AbstractScan  {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setResult(new JSONObject(response.body()));
+        setTemporaryResult(new JSONObject(response.body()));
+
+        // TODO: Zet tempResult om naar een result
+
         return super.getResult();
     }
 
     private boolean isFinished() throws IOException, InterruptedException {
-        return getResult().get("completion_perc").equals(100);
+        return getTemporaryResult().get("completion_perc").equals(100);
     }
 
 }
