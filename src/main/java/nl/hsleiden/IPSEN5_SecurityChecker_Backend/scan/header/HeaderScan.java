@@ -104,10 +104,14 @@ public class HeaderScan extends AbstractScan {
 
         super.getTemporaryResult().keySet().forEach(name -> {
             JSONObject result = (JSONObject) super.getTemporaryResult().get(name);
-            ScanAlert scanAlert = new ScanAlert();
-            result.get("pass");
-            result.get("name");
-            result.get("score_description");
+
+            ScanAlert scanAlert = new ScanAlert(
+                    result.getString("name"),
+                    result.getBoolean("pass"),
+                    result.getString("score_description")
+            );
+
+            super.getResult().add(scanAlert);
         });
 
 
