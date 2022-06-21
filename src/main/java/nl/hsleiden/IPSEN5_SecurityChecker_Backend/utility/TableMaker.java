@@ -59,7 +59,7 @@ public class TableMaker {
             Color score = new Color((255),(79),(79));
 
             String gehaald = "Nee";
-            if (scan.getGrade() >=5){
+            if (scan.isPassed()){
                 gehaald = "Ja";
                 score = new Color((159),(221),(135));
             }

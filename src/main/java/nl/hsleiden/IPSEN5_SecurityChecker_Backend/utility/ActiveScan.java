@@ -116,7 +116,7 @@ public class ActiveScan extends AbstractScan {
                     geslaagd = false;
                 }
 
-                ScanAlert currentAlert = new ScanAlert(warnings.get(scanScore),titel,geslaagd,uitleg);
+                ScanAlert currentAlert = new ScanAlert(titel,geslaagd,uitleg);
                 scanAlerts.add(currentAlert);
             }
 

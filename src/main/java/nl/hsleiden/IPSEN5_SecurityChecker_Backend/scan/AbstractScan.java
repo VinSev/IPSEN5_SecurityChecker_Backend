@@ -41,4 +41,8 @@ public abstract class AbstractScan {
     public String getWebsite() {
         return website;
     }
+
+    public ScanReport getScanReport() {
+        return scanReport;
+    }
 }

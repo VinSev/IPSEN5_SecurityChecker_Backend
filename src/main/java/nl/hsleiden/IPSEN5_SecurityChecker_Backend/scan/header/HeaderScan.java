@@ -102,7 +102,7 @@ public class HeaderScan extends AbstractScan {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         super.setTemporaryResult(new JSONObject(response.body()));
 
-        super.getTemporaryResult().keySet().forEach(name -> {
+        for(String name : super.getTemporaryResult().keySet()) {
             JSONObject result = (JSONObject) super.getTemporaryResult().get(name);
 
             ScanAlert scanAlert = new ScanAlert(
@@ -112,13 +112,12 @@ public class HeaderScan extends AbstractScan {
             );
 
             super.getResult().add(scanAlert);
-        });
-
+        }
 
         return super.getResult();
     }
 
-    private boolean isFinished() throws IOException, InterruptedException {
+    private boolean isFinished() {
         return super.getTemporaryResult().get("state").equals("FINISHED");
     }
 }

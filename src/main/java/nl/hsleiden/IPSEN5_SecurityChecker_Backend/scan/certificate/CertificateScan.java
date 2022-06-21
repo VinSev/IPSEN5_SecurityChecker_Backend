@@ -94,14 +94,15 @@ public class CertificateScan extends AbstractScan  {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setTemporaryResult(new JSONObject(response.body()));
+        super.setTemporaryResult(new JSONObject(response.body()));
 
         // TODO: Zet tempResult om naar een result
+        System.out.println(super.getTemporaryResult());
 
         return super.getResult();
     }
 
-    private boolean isFinished() throws IOException, InterruptedException {
+    private boolean isFinished() {
         return getTemporaryResult().get("completion_perc").equals(100);
     }
 
