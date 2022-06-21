@@ -3,6 +3,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.certificate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +72,7 @@ public class CertificateScan extends AbstractScan  {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
+
         return new JSONObject(response.body()).getInt("scan_id");
     }
 
@@ -88,6 +90,8 @@ public class CertificateScan extends AbstractScan  {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
+        int grade = ((int) ((JSONObject) super.getResult().getJSONArray("analysis").get(4)).getJSONObject("result").getInt("grade")) / 10;// Er word een cijfer  tussne de 1 en 100 gegeven. Delen door 10 helpt om een cijfer tussen de 1 en de 10 te krijgen
+        super.setGrade(grade);
         return super.getResult();
     }
 
