@@ -23,29 +23,8 @@ public class ReportService {
         return this.reportDao.get(id);
     }
 
-    public Report create(String website) {
-        ScanUser scanUser = new ScanUser();
-        scanUser.setWebsite(website);
-
-        Report report = new Report();
-        report.setScanUser(scanUser);
-
-        List<ScanReport> scanReports = new ArrayList<>();
-        scanReports.add(createScanReport("Header", "/scan/header"));
-        scanReports.add(createScanReport("Certificate", "/scan/certificate"));
-        scanReports.add(createScanReport("Vulnerability", "/scan/vulnerability"));
-        scanReports.add(createScanReport("XSS & Injection", "/scan/xss-and-injection"));
-        scanReports.add(createScanReport("Seo", "/scan/seo"));
-        report.setScanReports(scanReports);
-
-        return report;
-    }
-
-    private ScanReport createScanReport(String title, String endpoint) {
-        ScanReport scanReport = new ScanReport();
-        scanReport.setTitle(title);
-        scanReport.setEndpoint(endpoint);
-        return scanReport;
+    public Report create(Report report) {
+        return this.reportDao.create(report);
     }
 
     public void update(Report report) {

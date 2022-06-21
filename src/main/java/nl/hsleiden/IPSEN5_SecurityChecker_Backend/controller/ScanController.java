@@ -19,13 +19,6 @@ public class ScanController {
     @Autowired
     private ScanService scanService;
 
-    @PostMapping("/test/{website}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @ResponseBody
-    public boolean test(@PathVariable("website") String website) {
-        return true;
-    }
-
     @PostMapping("/header/{website}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
