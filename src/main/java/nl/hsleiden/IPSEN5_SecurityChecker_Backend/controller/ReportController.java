@@ -2,7 +2,6 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.controller;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.annotation.IsAdmin;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
-import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanUser;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.service.scan.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,10 +32,10 @@ public class ReportController {
         return this.reportService.get(id);
     }
 
-    @PostMapping("/{website}")
+    @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Report create(@PathVariable("website") String website) {
-        return this.reportService.create(website);
+    public Report create(Report report) {
+        return this.reportService.create(report);
     }
 }
