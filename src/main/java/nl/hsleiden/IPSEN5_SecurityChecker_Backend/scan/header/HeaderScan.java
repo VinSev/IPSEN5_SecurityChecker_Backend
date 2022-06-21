@@ -80,7 +80,7 @@ public class HeaderScan extends AbstractScan {
         grades.put("D-", 2);
         grades.put("F", 1);
         int grade = grades.get(super.getResult().getString("grade"));
-        this.setGrade(grade);
+        super.setGrade(grade);
 
         return super.getResult().getInt("scan_id");
     }
