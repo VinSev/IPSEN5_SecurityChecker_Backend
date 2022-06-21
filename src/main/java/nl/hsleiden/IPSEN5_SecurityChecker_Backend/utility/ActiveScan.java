@@ -2,21 +2,26 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.zaproxy.clientapi.core.*;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
 @Service
-public class ActiveScan {
+public class ActiveScan extends AbstractScan {
 
     private static final int ZAP_PORT = 8081;
     private static final String ZAP_API_KEY = "5t8h7sd77ivq3q835gmsndo5t0";
     private static final String ZAP_ADDRESS = "localhost";
     private static final String TARGET = "https://webshop-vacations.herokuapp.com/";
+    private ArrayList<ScanAlert> scans = new ArrayList<>();
 
 
 
@@ -124,5 +129,21 @@ public class ActiveScan {
         }
       ArrayList<ScanAlert> failedScans = new ArrayList<>();
         return failedScans;
+    }
+
+    @Override
+    public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        super.execute(scanReport, website);
+        scans = spiderSearch();
+
+    }
+
+    @Override
+    public JSONObject getResult() throws IOException, InterruptedException {
+        return super.getResult();
+    }
+
+    public ArrayList<ScanAlert> getScans(){
+        return this.scans;
     }
 }
