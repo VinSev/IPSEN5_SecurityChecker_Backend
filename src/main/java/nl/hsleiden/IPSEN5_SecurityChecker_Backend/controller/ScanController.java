@@ -40,7 +40,6 @@ public class ScanController {
         return scanReport;
     }
 
-    // TODO: Werkt niet
     @PostMapping("/vulnerability/{website}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody
