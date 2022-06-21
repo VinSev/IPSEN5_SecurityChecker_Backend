@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.seo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONObject;
@@ -27,13 +28,14 @@ public class SeoScan extends AbstractScan {
 
     @Override
     public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
+        super.execute(scanReport, website);
+
         this.listWithCategories.add("experimental_interaction_to_next_paint");
         this.listWithCategories.add("experimental_time_to_first_byte");
         this.listWithCategories.add("first_contentful_paint");
         this.listWithCategories.add("first_input_delay");
         this.listWithCategories.add("largest_contentful_paint");
         this.listWithCategories.add("cumulative_layout_shift");
-        super.execute(scanReport, website);
 
         startScan(keys.get(0));
     }
@@ -57,7 +59,7 @@ public class SeoScan extends AbstractScan {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         JSONObject result = new JSONObject(response.body());
         setGrade(getMedianOfSEO(result));
-        setResult(result);
+        super.setTemporaryResult(result);
     }
 
     public int getMedianOfSEO(JSONObject result) {
@@ -115,7 +117,18 @@ public class SeoScan extends AbstractScan {
     }
 
     @Override
-    public JSONObject getResult() throws IOException, InterruptedException {
+    public List<ScanAlert> getResult() throws IOException, InterruptedException {
+
+        JSONObject metrics = super.getTemporaryResult().getJSONObject("record").getJSONObject("metric");
+        for(String name : metrics.keySet()) {
+            JSONObject metric = metrics.getJSONObject(name);
+            ScanAlert scanAlert = new ScanAlert(
+                    name,
+                    false,
+                    null
+            );
+        };
+
         return super.getResult();
     }
 }
