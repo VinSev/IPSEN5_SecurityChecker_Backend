@@ -32,8 +32,8 @@ public class CertificateAbstractApiScan extends AbstractApiScan {
     }
 
     private void startScan() throws IOException, InterruptedException {
-        String endpoint = "/analyze";
-        String url = baseURL + endpoint + "?host=" + getWebsite();
+        String endpoint = "/scan";
+        String url = baseURL + endpoint + "?target=" + getWebsite();
 
         Map<String, String> body = new HashMap<>();
         body.put("rescan", "true");
@@ -53,27 +53,32 @@ public class CertificateAbstractApiScan extends AbstractApiScan {
     }
 
     public int getScanId() throws IOException, InterruptedException {
-        String endpoint = "/analyze";
-        String url = baseURL + endpoint + "?host=" + getWebsite();
+        String endpoint = "/scan";
+        String url = baseURL + endpoint + "?target=" + getWebsite();
+
+        Map<String, String> body = new HashMap<>();
+        body.put("rescan", "true");
+        body.put("hidden", "true");
+
+        String requestBody = new ObjectMapper()
+                .writeValueAsString(body);
 
         HttpClient http = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder(
                         URI.create(url)
                 )
-                .GET()
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(new JSONObject(response.body()));
         setResult(new JSONObject(response.body()));
-
         return new JSONObject(response.body()).getInt("scan_id");
     }
 
     @Override
     public JSONObject getResult() throws IOException, InterruptedException {
-        String endpoint = "/getScanResults";
-        String url = baseURL + endpoint + "?scan=" + scanId;
+        String endpoint = "/results";
+        String url = baseURL + endpoint + "?id=" + scanId;
 
         HttpClient http = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder(
@@ -84,12 +89,11 @@ public class CertificateAbstractApiScan extends AbstractApiScan {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
-
         return super.getResult();
     }
 
     private boolean isFinished() throws IOException, InterruptedException {
-        return super.getResult().get("state").equals("FINISHED");
+        return getResult().get("completion_perc").equals(100);
     }
 
 }
