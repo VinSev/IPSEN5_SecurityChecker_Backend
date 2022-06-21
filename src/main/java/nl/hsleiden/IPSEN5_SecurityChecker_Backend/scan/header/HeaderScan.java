@@ -100,9 +100,16 @@ public class HeaderScan extends AbstractScan {
                 .build();
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
-        setTemporaryResult(new JSONObject(response.body()));
+        super.setTemporaryResult(new JSONObject(response.body()));
 
-        // TODO: Zet tempResult om naar een result
+        super.getTemporaryResult().keySet().forEach(name -> {
+            JSONObject result = (JSONObject) super.getTemporaryResult().get(name);
+            ScanAlert scanAlert = new ScanAlert();
+            result.get("pass");
+            result.get("name");
+            result.get("score_description");
+        });
+
 
         return super.getResult();
     }
