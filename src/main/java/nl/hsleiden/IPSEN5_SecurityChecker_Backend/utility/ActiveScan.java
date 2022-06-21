@@ -34,12 +34,13 @@ public class ActiveScan extends AbstractScan {
         return super.getResult();
     }
 
-    public static ArrayList<ScanAlert> spiderSearch(String target) {
+    public static ArrayList<ScanAlert> spiderSearch(String tarGet) {
 
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
         try {
 
+            String target = "https://" + tarGet;
 
             System.out.println("Ajax Spider target : " + target);
             ApiResponse resp = api.ajaxSpider.scan(target, null, null, null);
