@@ -58,7 +58,7 @@ public class PdfService {
         contentStream.addRect(0,770,700,50);
         contentStream.fill();
 
-        contentStream.drawImage(pdImage, 70, 250);
+        contentStream.drawImage(pdImage, 360, 700);
 
         contentStream.setFont(pdfFont, fontSize);
         contentStream.beginText();

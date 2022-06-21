@@ -34,7 +34,7 @@ public class EmailController {
 //        this.emailService.sendEmailWithPDFAttachment(scan);
 
         this.pdfService.makePdf(ActiveScan.spiderSearch());
-        this.emailService.sendEmailWithPDFAttachment(scan);
+//        this.emailService.sendEmailWithPDFAttachment(scan);
 
     }
 
