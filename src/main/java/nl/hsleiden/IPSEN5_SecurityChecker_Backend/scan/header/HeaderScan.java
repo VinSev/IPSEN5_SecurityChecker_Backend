@@ -65,7 +65,8 @@ public class HeaderScan extends AbstractScan {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
 
-        return new JSONObject(response.body()).getInt("scan_id");
+
+        return super.getResult().getInt("scan_id");
     }
 
     @Override
@@ -82,6 +83,7 @@ public class HeaderScan extends AbstractScan {
 
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         setResult(new JSONObject(response.body()));
+        setGrade(super.getResult().getInt("grade"));
 
         return super.getResult();
     }

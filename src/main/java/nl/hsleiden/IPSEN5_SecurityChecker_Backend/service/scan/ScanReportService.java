@@ -35,7 +35,6 @@ public class ScanReportService {
         this.scanReportDao.delete(scanReport);
     }
 
-
     public ScanReport giveGradingToScanReport(ScanReport scanReport) {
         ArrayList<String> optionsForResult = new ArrayList<>();
         optionsForResult.add("grade");
@@ -44,9 +43,9 @@ public class ScanReportService {
 
         Map<String, Object> result = scanReport.getResult();
         for (String gradeOption : optionsForResult) {
-            String grade = result.get(gradeOption).toString();
-            if (grade != null) {
-                scanReport.setGrade(Integer.parseInt(grade));
+            Object gradeObject = result.get(gradeOption);
+            if (gradeObject != null) {
+                scanReport.setGrade(Integer.parseInt(gradeObject.toString()));
                 break;
             } else {
                 scanReport.setGrade(-1);
