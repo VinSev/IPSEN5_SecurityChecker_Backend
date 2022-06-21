@@ -15,9 +15,9 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotBlank
-    @OneToOne(targetEntity = ScanUser.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = ScanUser.class, fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private ScanUser scanUser;
-    @OneToMany(targetEntity = ScanReport.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = ScanReport.class, fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private List<ScanReport> scanReports = new ArrayList<>();
     @NotBlank
     private Date dateCreated;
