@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.zaproxy.clientapi.core.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -18,22 +19,21 @@ import java.util.concurrent.TimeUnit;
 public class ActiveScan extends AbstractScan {
 
     private static final int ZAP_PORT = 8081;
-    private static final String ZAP_API_KEY = "5t8h7sd77ivq3q835gmsndo5t0";
+    private static final String ZAP_API_KEY = "kie7nrse6gi4uvgoof8mm68289";
     private static final String ZAP_ADDRESS = "localhost";
-    private static final String TARGET = "https://webshop-vacations.herokuapp.com/";
     private ArrayList<ScanAlert> scans = new ArrayList<>();
 
 
 
-    public static ArrayList<ScanAlert> spiderSearch() {
+    public static ArrayList<ScanAlert> spiderSearch(String target) {
 
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
         try {
 
 
-            System.out.println("Ajax Spider target : " + TARGET);
-            ApiResponse resp = api.ajaxSpider.scan(TARGET, null, null, null);
+            System.out.println("Ajax Spider target : " + target);
+            ApiResponse resp = api.ajaxSpider.scan(target, null, null, null);
             String status;
 
             long startTime = System.currentTimeMillis();
@@ -50,8 +50,8 @@ public class ActiveScan extends AbstractScan {
             System.out.println("Ajax Spider completed");
 
 
-            System.out.println("Active Scanning target : " + TARGET);
-            ApiResponse resp2 = api.ascan.scan(TARGET, "True", "False", null, null, null);
+            System.out.println("Active Scanning target : " + target);
+            ApiResponse resp2 = api.ascan.scan(target, "True", "False", null, null, null);
             String scanid;
             int progress;
 
@@ -73,22 +73,15 @@ public class ActiveScan extends AbstractScan {
 
             System.out.println("Active Scan complete");
 
-            System.out.println("Alerts:");
 
             byte[] reporto = api.core.jsonreport();
-
-
             JSONObject jsonnn = new JSONObject(new String(reporto));
-
-
-
             JSONArray jsonarray = jsonnn.getJSONArray("site");
-
-
             JSONObject json2 = new JSONObject(jsonarray.get(0).toString());
             JSONArray jsonar2 = json2.getJSONArray("alerts");
-            System.out.println(jsonar2);
 
+
+            ArrayList<Integer> scores = new ArrayList<>();
 
             ArrayList<ScanAlert> scanAlerts = new ArrayList<>();
             for (int i = 0; i < jsonar2.length(); i++) {
@@ -108,6 +101,8 @@ public class ActiveScan extends AbstractScan {
                 String uitleg = json3.get("desc").toString();
 
 
+                scores.add(warnings.get(scanScore));
+
                 if (warnings.get(scanScore) < 5){
                     geslaagd = false;
                 }
@@ -116,9 +111,15 @@ public class ActiveScan extends AbstractScan {
                 scanAlerts.add(currentAlert);
             }
 
-            scanAlerts.forEach(scan -> {
-                System.out.println(scan.getTitle());
-            });
+
+
+            OptionalDouble startGrade = scores.stream().mapToDouble(a -> a).average();
+            Double grade = startGrade.getAsDouble();
+
+            int avgGrade = grade.intValue();
+
+
+
 
 
            return scanAlerts;
@@ -134,7 +135,7 @@ public class ActiveScan extends AbstractScan {
     @Override
     public void execute(ScanReport scanReport, String website) throws IOException, InterruptedException {
         super.execute(scanReport, website);
-        scans = spiderSearch();
+//        scans = spiderSearch();
 
     }
 

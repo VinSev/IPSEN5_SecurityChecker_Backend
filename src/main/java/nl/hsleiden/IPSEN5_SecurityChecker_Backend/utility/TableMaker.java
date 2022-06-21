@@ -15,12 +15,8 @@ public class TableMaker {
     private static final String OVERFLOW_ON_SAME_PAGE_PDF = "overflowOnSamePage.pdf";
 
 
-    public void createTwoPageTableWithRepeatedHeader() throws IOException {
 
 
-
-
-    }
 
     public Table createTable(ArrayList<ScanAlert> scans, String name, String website) {
         final Table.TableBuilder tableBuilder = Table.builder()

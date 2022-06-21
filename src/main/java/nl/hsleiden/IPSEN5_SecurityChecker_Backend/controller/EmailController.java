@@ -31,8 +31,8 @@ public class EmailController {
 //        this.pdfService.makePdf(scan);
 //        this.emailService.sendEmailWithPDFAttachment(scan);
 
-        this.pdfService.makePdf(ActiveScan.spiderSearch());
-        this.emailService.sendEmailWithPDFAttachment(report);
+        this.pdfService.makePdf(ActiveScan.spiderSearch("https://webshop-vacations.herokuapp.com/"));
+//        this.emailService.sendEmailWithPDFAttachment(report);
 
     }
 
