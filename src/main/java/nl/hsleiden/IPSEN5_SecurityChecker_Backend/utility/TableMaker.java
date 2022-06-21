@@ -1,6 +1,7 @@
 package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
 import org.vandeseer.easytable.structure.cell.TextCell;
@@ -18,7 +19,7 @@ public class TableMaker {
 
 
 
-    public Table createTable(ArrayList<ScanAlert> scans, String name, String website) {
+    public Table createTable(Report reports) {
         final Table.TableBuilder tableBuilder = Table.builder()
                 .addColumnOfWidth(150)
                 .addColumnOfWidth(150)
@@ -54,21 +55,18 @@ public class TableMaker {
                         .add(h3)
                         .build());
 
-        scans.forEach(scan ->{
+        reports.getScanReports().forEach(scan ->{
 
             Color score = new Color((255),(79),(79));
 
             String gehaald = "Nee";
-            if (scan.isPassed()){
+            if (scan.getGrade() >= 5){
                 gehaald = "Ja";
                 score = new Color((159),(221),(135));
             }
-            String uitleg = scan.getDescription();
-            if (scan.getDescription().split(".?-?,")[0].length() > 0){
-                uitleg = uitleg.split(".?-?,")[0].replace("</p>", "");
-            }
+            int cijfer  = scan.getGrade();
 
-            System.out.println(uitleg);
+
             Color color = new Color((159),(221),(135));
 
             tableBuilder.addRow(
@@ -85,7 +83,7 @@ public class TableMaker {
                                     .textColor(score)
                                     .build())
                             .add(TextCell.builder()
-                                    .text(uitleg.split("<p>")[1])
+                                    .text(String.valueOf(cijfer))
                                     .borderWidth(1F)
                                     .borderColor(Color.PINK)
                                     .build())
