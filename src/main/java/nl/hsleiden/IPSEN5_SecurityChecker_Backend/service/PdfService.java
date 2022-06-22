@@ -92,7 +92,7 @@ public class PdfService {
 
         contentStream.close();
 
-        String pdf = String.format("src/main/resources/pdf/%s-%s.pdf", report.getScanUser(), report.getScanUser().getWebsite());
+        String pdf = String.format("src/main/resources/pdf/%s-%s.pdf", report.getScanUser().getId(), report.getScanUser().getWebsite());
 
         doc.save(pdf);
     }
