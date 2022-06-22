@@ -106,32 +106,27 @@ public class CertificateScan extends AbstractScan  {
 
            super.getResult().clear();
 
-           for(int i = 0; i < modern.length() - 1; i++) {
-               ScanAlert scanAlert = new ScanAlert(
-                       "Modern Protocol",
-                       !modern.getString(i).startsWith("remove"),
-                       modern.getString(i)
-               );
-               super.getResult().add(scanAlert);
-           }
+           ScanAlert scanAlert1 = new ScanAlert(
+                   "Modern Protocol",
+                   !modern.getString(0).startsWith("remove"),
+                   modern.getString(0)
+           );
+           super.getResult().add(scanAlert1);
 
-           for(int i = 0; i < old.length() - 1; i++) {
-               ScanAlert scanAlert = new ScanAlert(
-                       "Old Protocol",
-                       !old.getString(i).startsWith("remove"),
-                       old.getString(i)
-               );
-               super.getResult().add(scanAlert);
-           }
+           ScanAlert scanAlert2 = new ScanAlert(
+                   "Old Protocol",
+                   !old.getString(0).startsWith("remove"),
+                   old.getString(0)
+           );
+           super.getResult().add(scanAlert2);
 
-           for(int i = 0; i < intermediate.length() - 1; i++) {
-               ScanAlert scanAlert = new ScanAlert(
-                       "Intermediate Protocol",
-                       !intermediate.getString(i).startsWith("remove"),
-                       intermediate.getString(i)
-               );
-               super.getResult().add(scanAlert);
-           }
+           ScanAlert scanAlert3 = new ScanAlert(
+                   "Intermediate Protocol",
+                   !intermediate.getString(0).startsWith("remove"),
+                   intermediate.getString(0)
+           );
+           super.getResult().add(scanAlert3);
+
        } catch (JSONException ignore) {}
 
         return super.getResult();
