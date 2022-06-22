@@ -3,6 +3,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.service;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility.TableMaker;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
@@ -83,26 +84,36 @@ public class PdfService {
         TableMaker tabbie = new TableMaker();
 
 
+
+
+
         Table mytabbie = tabbie.createTable(report);
-
-
-
-
-
         TableDrawer tableDrawer = TableDrawer.builder()
                 .contentStream(contentStream)
                 .startX(50f)
-                .startY(mypage.getMediaBox().getUpperRightY() - 220f)
+                .startY(mypage.getMediaBox().getUpperRightY() - 180f)
                 .table(mytabbie)
-                .endY(50F)
+                .endY(100F)
                 .build();
-
-
         tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
+
+
+
+
+
+
+
+
+
+
 
         contentStream.close();
 
 
         doc.save("src/main/resources/pdf/test.pdf");
+    }
+
+    public void makeTables(ScanReport scanRep){
+
     }
 }
