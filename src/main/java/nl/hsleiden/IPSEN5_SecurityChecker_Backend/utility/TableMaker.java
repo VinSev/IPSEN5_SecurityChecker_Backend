@@ -20,7 +20,7 @@ public class TableMaker {
 
 
 
-    public Table createTable(Report reports) {
+    public Table createTable(ScanReport scanReport) {
         final Table.TableBuilder tableBuilder = Table.builder()
                 .addColumnOfWidth(150)
                 .addColumnOfWidth(150)
@@ -56,12 +56,11 @@ public class TableMaker {
                         .add(h3)
                         .build());
 
-        reports.getScanReports().forEach(rep ->{
-            rep.getResult().forEach(scan ->{
+        scanReport.getResult().forEach(alert ->{
                 Color score = new Color((255),(79),(79));
 
                 String gehaald = "Nee";
-                if (scan.isPassed()){
+                if (alert.isPassed()){
                     gehaald = "Ja";
                     score = new Color((159),(221),(135));
                 }
@@ -73,7 +72,7 @@ public class TableMaker {
                 tableBuilder.addRow(
                         Row.builder()
                                 .add(TextCell.builder()
-                                        .text(scan.getTitle())
+                                        .text(alert.getTitle())
                                         .borderWidth(1F)
                                         .borderColor(Color.PINK)
                                         .build())
@@ -84,13 +83,12 @@ public class TableMaker {
                                         .textColor(score)
                                         .build())
                                 .add(TextCell.builder()
-                                        .text(scan.getDescription())
+                                        .text(alert.getDescription())
                                         .borderWidth(1F)
                                         .borderColor(Color.PINK)
                                         .build())
                                 .build());
 
-            });
 
         });
 
