@@ -102,7 +102,6 @@ public class HeaderScan extends AbstractScan {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         super.setTemporaryResult(new JSONObject(response.body()));
 
-        // TODO: Zet tempResult om naar een result
         for(String name : super.getTemporaryResult().keySet()) {
             JSONObject result = (JSONObject) super.getTemporaryResult().get(name);
 

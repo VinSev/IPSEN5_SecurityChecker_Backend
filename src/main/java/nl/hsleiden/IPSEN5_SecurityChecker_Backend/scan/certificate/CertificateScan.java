@@ -99,7 +99,6 @@ public class CertificateScan extends AbstractScan  {
         super.setTemporaryResult(new JSONObject(response.body()));
 
        try {
-           // TODO: Zet tempResult om naar een result
            JSONObject result = super.getTemporaryResult().getJSONArray("analysis").getJSONObject(3).getJSONObject("result").getJSONObject("failures");
            JSONArray modern = result.getJSONArray("modern");
            JSONArray old = result.getJSONArray("old");
