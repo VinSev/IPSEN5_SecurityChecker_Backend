@@ -70,14 +70,6 @@ public class TableMaker {
 
                 Color color = new Color((159),(221),(135));
 
-                TextCell textCell = TextCell.builder()
-                        .text(scan.getDescription())
-                        .borderWidth(1F)
-                        .borderColor(Color.PINK)
-                        .build();
-
-                System.out.println(textCell.getTextHeight());
-
                 tableBuilder.addRow(
                         Row.builder()
                                 .add(TextCell.builder()
@@ -91,7 +83,11 @@ public class TableMaker {
                                         .borderColor(Color.PINK)
                                         .textColor(score)
                                         .build())
-                                .add(textCell)
+                                .add(TextCell.builder()
+                                        .text(scan.getDescription())
+                                        .borderWidth(1F)
+                                        .borderColor(Color.PINK)
+                                        .build())
                                 .build());
 
             });
