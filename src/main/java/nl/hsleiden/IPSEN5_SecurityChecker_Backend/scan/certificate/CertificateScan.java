@@ -137,7 +137,7 @@ public class CertificateScan extends AbstractScan  {
 
     private boolean isFinished() throws IOException, InterruptedException {
         getResult();
-        return super.getTemporaryResult() != null || super.getTemporaryResult().get("completion_perc").equals(100);
+        return super.getTemporaryResult() != null && super.getTemporaryResult().get("completion_perc").equals(100);
     }
 
 }
