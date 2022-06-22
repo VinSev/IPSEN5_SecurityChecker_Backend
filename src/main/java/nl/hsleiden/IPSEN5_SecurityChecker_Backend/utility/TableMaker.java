@@ -2,6 +2,7 @@ package nl.hsleiden.IPSEN5_SecurityChecker_Backend.utility;
 
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.Report;
+import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import org.vandeseer.easytable.structure.Row;
 import org.vandeseer.easytable.structure.Table;
 import org.vandeseer.easytable.structure.cell.TextCell;
@@ -55,39 +56,42 @@ public class TableMaker {
                         .add(h3)
                         .build());
 
-        reports.getScanReports().forEach(scan ->{
+        reports.getScanReports().forEach(rep ->{
+            rep.getResult().forEach(scan ->{
+                Color score = new Color((255),(79),(79));
 
-            Color score = new Color((255),(79),(79));
-
-            String gehaald = "Nee";
-            if (scan.getGrade() >= 5){
-                gehaald = "Ja";
-                score = new Color((159),(221),(135));
-            }
-            int cijfer  = scan.getGrade();
+                String gehaald = "Nee";
+                if (scan.isPassed()){
+                    gehaald = "Ja";
+                    score = new Color((159),(221),(135));
+                }
+//            int cijfer  = scan.getGrade();
 
 
-            Color color = new Color((159),(221),(135));
+                Color color = new Color((159),(221),(135));
 
-            tableBuilder.addRow(
-                    Row.builder()
-                            .add(TextCell.builder()
-                                    .text(scan.getTitle())
-                                    .borderWidth(1F)
-                                    .borderColor(Color.PINK)
-                                    .build())
-                            .add(TextCell.builder()
-                                    .text(gehaald)
-                                    .borderWidth(1F)
-                                    .borderColor(Color.PINK)
-                                    .textColor(score)
-                                    .build())
-                            .add(TextCell.builder()
-                                    .text(String.valueOf(cijfer))
-                                    .borderWidth(1F)
-                                    .borderColor(Color.PINK)
-                                    .build())
-                            .build());
+                tableBuilder.addRow(
+                        Row.builder()
+                                .add(TextCell.builder()
+                                        .text(scan.getTitle())
+                                        .borderWidth(1F)
+                                        .borderColor(Color.PINK)
+                                        .build())
+                                .add(TextCell.builder()
+                                        .text(gehaald)
+                                        .borderWidth(1F)
+                                        .borderColor(Color.PINK)
+                                        .textColor(score)
+                                        .build())
+                                .add(TextCell.builder()
+                                        .text(scan.getDescription())
+                                        .borderWidth(1F)
+                                        .borderColor(Color.PINK)
+                                        .build())
+                                .build());
+
+            });
+
         });
 
 
