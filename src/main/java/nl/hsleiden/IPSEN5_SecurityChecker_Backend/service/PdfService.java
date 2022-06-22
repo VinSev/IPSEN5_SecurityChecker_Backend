@@ -88,7 +88,7 @@ public class PdfService {
                     .table(mytabbie)
                     .endY(80F)
                     .build();
-            tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
+            tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 10f);
         }
 
         contentStream.close();
