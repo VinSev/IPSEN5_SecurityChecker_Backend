@@ -13,7 +13,6 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.vandeseer.easytable.TableDrawer;
 import org.vandeseer.easytable.structure.Table;
@@ -30,8 +29,8 @@ public class PdfService {
     public void makePdf(Report report) throws IOException, URISyntaxException {
 
         PDDocument doc = new PDDocument();
-        PDPage front_page = new PDPage();
-        doc.addPage(front_page);
+        PDPage mypage = new PDPage();
+        doc.addPage(mypage);
         PDFont pdfFont = PDType1Font.HELVETICA_BOLD;
         int fontSize = 14;
 
@@ -45,7 +44,7 @@ public class PdfService {
         docInfo.setSubject("Get Big Marketing");
 
 
-        PDPageContentStream contentStream = new PDPageContentStream(doc, front_page, PDPageContentStream.AppendMode.APPEND, true, true);
+        PDPageContentStream contentStream = new PDPageContentStream(doc, mypage, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream.setNonStrokingColor(Color.PINK);
         contentStream.addRect(0, 770, 700, 50);
         contentStream.fill();
@@ -77,22 +76,19 @@ public class PdfService {
         contentStream.showText("in dit document staan de uitgebreide resultaten van deze scan");
         contentStream.endText();
 
-        for(ScanReport scanReport : report.getScanReports()) {
-            PDPage page = new PDPage();
-            doc.addPage(page);
+        TableMaker tabbie = new TableMaker();
 
-            TableMaker tabbie = new TableMaker();
 
-            Table mytabbie = tabbie.createTable(scanReport);
-            TableDrawer tableDrawer = TableDrawer.builder()
-                    .page(page)
-                    .startX(50f)
-                    .startY(front_page.getMediaBox().getUpperRightY() - 180f)
-                    .table(mytabbie)
-                    .endY(120f)
-                    .build();
-            tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 20f);
-        }
+        Table mytabbie = tabbie.createTable(report);
+        TableDrawer tableDrawer = TableDrawer.builder()
+                .contentStream(contentStream)
+                .startX(50f)
+                .startY(mypage.getMediaBox().getUpperRightY() - 180f)
+                .table(mytabbie)
+                .endY(100F)
+                .build();
+        tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
+
 
         contentStream.close();
 

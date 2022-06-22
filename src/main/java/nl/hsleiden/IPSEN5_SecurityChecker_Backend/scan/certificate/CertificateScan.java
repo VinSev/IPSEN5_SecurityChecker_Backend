@@ -104,6 +104,8 @@ public class CertificateScan extends AbstractScan  {
            JSONArray old = result.getJSONArray("old");
            JSONArray intermediate = result.getJSONArray("intermediate");
 
+           super.getResult().clear();
+
            for(int i = 0; i < modern.length() - 1; i++) {
                ScanAlert scanAlert = new ScanAlert(
                        "Modern Protocol",
