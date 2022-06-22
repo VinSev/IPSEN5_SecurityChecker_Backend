@@ -37,8 +37,7 @@ public class EmailService {
                 "Met vriendelijke groet, \n\n" +
                 "Het Get Big Marketing Team", report.getScanUser().getName(), new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
 
-        String pdf = String.format("/pdf/%s.pdf", report.getScanUser().getId());
-        messageHelper.addAttachment(String.format("Get Big Marketing Security Scan Resultaten - %s.pdf", new SimpleDateFormat("dd/MM/yyyy").format(new Date())), new ClassPathResource(pdf));
+        messageHelper.addAttachment(String.format("Get Big Marketing Security Scan Resultaten - %s.pdf", new SimpleDateFormat("dd/MM/yyyy").format(new Date())), new ClassPathResource("/pdf/%s.pdf"));
 
         javaMailSender.send(message);
     }

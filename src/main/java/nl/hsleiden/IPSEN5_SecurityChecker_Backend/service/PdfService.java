@@ -92,9 +92,7 @@ public class PdfService {
 
         contentStream.close();
 
-        String pdf = String.format("src/main/resources/pdf/%s.pdf", report.getScanUser().getId());
-
-        doc.save(pdf);
+        doc.save("src/main/resources/pdf/test.pdf");
     }
 
     public void makeTables(ScanReport scanRep) {
