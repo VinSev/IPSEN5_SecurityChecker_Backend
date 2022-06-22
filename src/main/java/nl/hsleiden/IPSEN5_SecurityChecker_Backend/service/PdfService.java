@@ -86,7 +86,7 @@ public class PdfService {
                     .startX(50f)
                     .startY(front_page.getMediaBox().getUpperRightY() - 180f)
                     .table(mytabbie)
-                    .endY(100F)
+                    .endY(80F)
                     .build();
             tableDrawer.draw(() -> doc, () -> new PDPage(PDRectangle.A4), 50f);
         }
