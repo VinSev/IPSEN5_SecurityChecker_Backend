@@ -13,6 +13,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.vandeseer.easytable.TableDrawer;
 import org.vandeseer.easytable.structure.Table;
@@ -77,12 +78,14 @@ public class PdfService {
         contentStream.endText();
 
         for(ScanReport scanReport : report.getScanReports()) {
-            TableMaker tabbie = new TableMaker();
+            PDPage page = new PDPage();
+            doc.addPage(page);
 
+            TableMaker tabbie = new TableMaker();
 
             Table mytabbie = tabbie.createTable(scanReport);
             TableDrawer tableDrawer = TableDrawer.builder()
-                    .contentStream(contentStream)
+                    .page(page)
                     .startX(50f)
                     .startY(front_page.getMediaBox().getUpperRightY() - 180f)
                     .table(mytabbie)
