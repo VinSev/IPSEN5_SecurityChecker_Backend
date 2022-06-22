@@ -98,7 +98,37 @@ public class CertificateScan extends AbstractScan  {
         super.setTemporaryResult(new JSONObject(response.body()));
 
         // TODO: Zet tempResult om naar een result
-        System.out.println(super.getTemporaryResult());
+        JSONObject result = super.getTemporaryResult().getJSONArray("analysis").getJSONObject(3).getJSONObject("result").getJSONObject("failures");
+        JSONArray modern = result.getJSONArray("modern");
+        JSONArray old = result.getJSONArray("old");
+        JSONArray intermediate = result.getJSONArray("intermediate");
+
+        for(int i = 0; i < modern.length() - 1; i++) {
+            ScanAlert scanAlert = new ScanAlert(
+                    "Modern Protocol",
+                    !modern.getString(i).startsWith("remove"),
+                    modern.getString(i)
+            );
+            super.getResult().add(scanAlert);
+        }
+
+        for(int i = 0; i < old.length() - 1; i++) {
+            ScanAlert scanAlert = new ScanAlert(
+                    "Old Protocol",
+                    !old.getString(i).startsWith("remove"),
+                    old.getString(i)
+            );
+            super.getResult().add(scanAlert);
+        }
+
+        for(int i = 0; i < intermediate.length() - 1; i++) {
+            ScanAlert scanAlert = new ScanAlert(
+                    "Intermediate Protocol",
+                    !intermediate.getString(i).startsWith("remove"),
+                    intermediate.getString(i)
+            );
+            super.getResult().add(scanAlert);
+        }
 
         return super.getResult();
     }
