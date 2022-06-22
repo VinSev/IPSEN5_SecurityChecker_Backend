@@ -13,7 +13,6 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.vandeseer.easytable.TableDrawer;
 import org.vandeseer.easytable.structure.Table;
@@ -94,7 +93,7 @@ public class PdfService {
         contentStream.close();
 
 
-        doc.save(new ClassPathResource("/pdf/test.pdf").getPath());
+        doc.save("src/main/resources/pdf/test.pdf");
     }
 
     public void makeTables(ScanReport scanRep) {

@@ -112,7 +112,7 @@ public class CertificateScan extends AbstractScan  {
                        !modern.getString(i).startsWith("remove"),
                        modern.getString(i)
                );
-               if(scanAlert.getDescription().split(" ").length < 10) {
+               if(scanAlert.getDescription().split(" ").length < 8) {
                    super.getResult().add(scanAlert);
                }
            }
@@ -123,7 +123,7 @@ public class CertificateScan extends AbstractScan  {
                        !old.getString(i).startsWith("remove"),
                        old.getString(i)
                );
-               if(scanAlert.getDescription().split(" ").length < 10) {
+               if(scanAlert.getDescription().split(" ").length < 8) {
                    super.getResult().add(scanAlert);
                }
            }
@@ -134,7 +134,7 @@ public class CertificateScan extends AbstractScan  {
                        !intermediate.getString(i).startsWith("remove"),
                        intermediate.getString(i)
                );
-               if(scanAlert.getDescription().split(" ").length < 10) {
+               if(scanAlert.getDescription().split(" ").length < 8) {
                    super.getResult().add(scanAlert);
                }
            }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping(value = "/mail")
@@ -21,8 +22,9 @@ public class EmailController {
     private PdfService pdfService;
 
     @PostMapping()
-    public void mail(@RequestBody Report report) throws MessagingException, IOException, URISyntaxException {
+    public void mail(@RequestBody Report report) throws MessagingException, IOException, URISyntaxException, InterruptedException {
         this.pdfService.makePdf(report);
+        TimeUnit.SECONDS.sleep(10);
         this.emailService.sendEmailWithPDFAttachment(report);
     }
 
