@@ -5,6 +5,7 @@ import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.ScanAlert;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.model.scan.ScanReport;
 import nl.hsleiden.IPSEN5_SecurityChecker_Backend.scan.AbstractScan;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -97,45 +98,47 @@ public class CertificateScan extends AbstractScan  {
         HttpResponse<String> response = http.send(request, HttpResponse.BodyHandlers.ofString());
         super.setTemporaryResult(new JSONObject(response.body()));
 
-        // TODO: Zet tempResult om naar een result
-        JSONObject result = super.getTemporaryResult().getJSONArray("analysis").getJSONObject(3).getJSONObject("result").getJSONObject("failures");
-        JSONArray modern = result.getJSONArray("modern");
-        JSONArray old = result.getJSONArray("old");
-        JSONArray intermediate = result.getJSONArray("intermediate");
+       try {
+           // TODO: Zet tempResult om naar een result
+           JSONObject result = super.getTemporaryResult().getJSONArray("analysis").getJSONObject(3).getJSONObject("result").getJSONObject("failures");
+           JSONArray modern = result.getJSONArray("modern");
+           JSONArray old = result.getJSONArray("old");
+           JSONArray intermediate = result.getJSONArray("intermediate");
 
-        for(int i = 0; i < modern.length() - 1; i++) {
-            ScanAlert scanAlert = new ScanAlert(
-                    "Modern Protocol",
-                    !modern.getString(i).startsWith("remove"),
-                    modern.getString(i)
-            );
-            super.getResult().add(scanAlert);
-        }
+           for(int i = 0; i < modern.length() - 1; i++) {
+               ScanAlert scanAlert = new ScanAlert(
+                       "Modern Protocol",
+                       !modern.getString(i).startsWith("remove"),
+                       modern.getString(i)
+               );
+               super.getResult().add(scanAlert);
+           }
 
-        for(int i = 0; i < old.length() - 1; i++) {
-            ScanAlert scanAlert = new ScanAlert(
-                    "Old Protocol",
-                    !old.getString(i).startsWith("remove"),
-                    old.getString(i)
-            );
-            super.getResult().add(scanAlert);
-        }
+           for(int i = 0; i < old.length() - 1; i++) {
+               ScanAlert scanAlert = new ScanAlert(
+                       "Old Protocol",
+                       !old.getString(i).startsWith("remove"),
+                       old.getString(i)
+               );
+               super.getResult().add(scanAlert);
+           }
 
-        for(int i = 0; i < intermediate.length() - 1; i++) {
-            ScanAlert scanAlert = new ScanAlert(
-                    "Intermediate Protocol",
-                    !intermediate.getString(i).startsWith("remove"),
-                    intermediate.getString(i)
-            );
-            super.getResult().add(scanAlert);
-        }
+           for(int i = 0; i < intermediate.length() - 1; i++) {
+               ScanAlert scanAlert = new ScanAlert(
+                       "Intermediate Protocol",
+                       !intermediate.getString(i).startsWith("remove"),
+                       intermediate.getString(i)
+               );
+               super.getResult().add(scanAlert);
+           }
+       } catch (JSONException ignore) {}
 
         return super.getResult();
     }
 
     private boolean isFinished() throws IOException, InterruptedException {
         getResult();
-        return super.getTemporaryResult().get("completion_perc").equals(100);
+        return super.getTemporaryResult() != null || super.getTemporaryResult().get("completion_perc").equals(100);
     }
 
 }

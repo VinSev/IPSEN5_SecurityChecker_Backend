@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class SeoScan extends AbstractScan {
     private final String baseURL = "https://chromeuxreport.googleapis.com/v1/records:queryRecord";
@@ -38,6 +39,9 @@ public class SeoScan extends AbstractScan {
         this.listWithCategories.add("cumulative_layout_shift");
 
         startScan(keys.get(0));
+        do {
+            TimeUnit.SECONDS.sleep(1);
+        } while (!isFinished());
     }
 
     private void startScan(String key) throws IOException, InterruptedException {
@@ -100,6 +104,10 @@ public class SeoScan extends AbstractScan {
         super.setGrade(totalPoints / metrics.length());
 
         return super.getResult();
+    }
+
+    private boolean isFinished() {
+        return super.getTemporaryResult() != null;
     }
 }
 
